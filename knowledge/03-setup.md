@@ -69,4 +69,4 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - Minh họa: `examples/07-xac-dinh-xu-huong.png`
 
 **Chưa chốt:**
-- Nếu đỉnh cao dần nhưng đáy thấp dần (hoặc ngược lại) thì gọi là gì? (người dùng sẽ xác nhận sau)
+- Nếu đỉnh cao dần nhưng đáy thấp dần (hoặc ngược lại) thì gọi là gì? (người dùng sẽ xác nhận sau, xem `examples/09-dinh-day-nguoc-chieu.png`)
