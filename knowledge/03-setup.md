@@ -41,3 +41,14 @@ Minh họa: `examples/04-cach-xac-dinh-dinh-day.png` (ô 3: đã chọn cách (a
 Các trường hợp A–F tương tự đỉnh, chỉ đảo chiều (xem `examples/03-cac-truong-hop-day.png`). Giá đóng cửa ĐÚNG BẰNG high của nến trước thì KHÔNG tính, phải đóng cửa cao hơn hẳn.
 
 Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
+
+## 3. Cấu trúc thị trường
+
+**Đáy giữa hai đỉnh (đã xác nhận):** điểm thấp nhất giữa hai đỉnh được coi là đáy.
+Minh họa: `examples/06-day-giua-hai-dinh.png`
+
+**Chưa chốt:**
+- "Giữa hai đỉnh" tính từ nến tạo đỉnh cũ đến nến tạo đỉnh mới? (giả định trong hình)
+- "Điểm thấp nhất" là râu thấp nhất (low)?
+- Ngược lại: điểm cao nhất giữa hai đáy được coi là đỉnh?
+- Đáy này có cần thỏa quy tắc xác nhận đáy (thân đóng cửa trên high của nến liền trước) không?
