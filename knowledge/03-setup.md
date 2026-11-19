@@ -12,3 +12,4 @@
 - Có phân loại đỉnh chính và đỉnh phụ không, hay phần này thuộc bài cấu trúc thị trường?
 
 Ví dụ: `examples/01-dinh-day-xauusd-h4.jpg`
+Các trường hợp minh họa (chờ duyệt D, E, F): `examples/02-cac-truong-hop-dinh.png`
