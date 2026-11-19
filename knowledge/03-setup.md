@@ -44,11 +44,12 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 
 ## 3. Cấu trúc thị trường
 
-**Đáy giữa hai đỉnh (đã xác nhận):** điểm thấp nhất giữa hai đỉnh được coi là đáy.
-Minh họa: `examples/06-day-giua-hai-dinh.png`
+**Đáy giữa hai đỉnh (đã xác nhận):**
+- Điểm thấp nhất giữa hai đỉnh được coi là đáy.
+- "Giữa hai đỉnh" = từ nến tạo đỉnh cũ đến nến tạo đỉnh mới (đỉnh mới đã phá vỡ đỉnh cũ).
+- "Điểm thấp nhất" = râu thấp nhất (low), không phải giá đóng cửa.
+- **Không cần** thỏa quy tắc xác nhận đáy (mục 2). Cứ là điểm thấp nhất giữa hai đỉnh là đủ.
+- Minh họa: `examples/06-day-giua-hai-dinh.png`
 
-**Chưa chốt:**
-- "Giữa hai đỉnh" tính từ nến tạo đỉnh cũ đến nến tạo đỉnh mới? (giả định trong hình)
-- "Điểm thấp nhất" là râu thấp nhất (low)?
-- Ngược lại: điểm cao nhất giữa hai đáy được coi là đỉnh?
-- Đáy này có cần thỏa quy tắc xác nhận đáy (thân đóng cửa trên high của nến liền trước) không?
+**Đỉnh giữa hai đáy (ngược lại, đã xác nhận):**
+- Điểm cao nhất (râu cao nhất, high) giữa hai đáy được coi là đỉnh, tính từ nến tạo đáy cũ đến nến tạo đáy mới (đáy mới đã phá vỡ đáy cũ). Không cần thỏa quy tắc xác nhận đỉnh.
