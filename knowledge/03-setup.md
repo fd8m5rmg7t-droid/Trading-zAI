@@ -24,8 +24,16 @@
 
 Minh họa: `examples/04-cach-xac-dinh-dinh-day.png` (ô 3: đã chọn cách (a)).
 
+**Khi nào xác định ĐỈNH MỚI (đã xác nhận):**
+- Chỉ xác định đỉnh mới **khi đỉnh cũ bị phá vỡ**.
+- **Phá vỡ** = có một cây nến có **THÂN đóng cửa vượt qua đỉnh cũ**. Chỉ có râu vượt qua thì chưa phải phá vỡ.
+- Hệ quả: các đỉnh nhỏ hình thành *dưới* đỉnh cũ khi đỉnh cũ chưa bị phá thì **không phải đỉnh mới**.
+- Minh họa: `examples/05-dinh-moi-khi-pha-vo.png`
+
 **Chưa chốt về cách quét:**
-- Sau khi xác nhận một đỉnh, lần quét tiếp theo bắt đầu từ cây nến nào?
+- Sau khi đỉnh cũ bị phá vỡ, quét tìm đỉnh mới bắt đầu từ cây nến phá vỡ? (giả định trong hình)
+- Đóng cửa ĐÚNG BẰNG đỉnh cũ thì chưa tính phá vỡ? (giống trường hợp F)
+- Đáy áp dụng ngược lại: chỉ xác định đáy mới khi có nến có thân đóng cửa dưới đáy cũ?
 
 ## 2. Đáy (swing low)
 
