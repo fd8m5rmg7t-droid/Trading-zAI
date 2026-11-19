@@ -77,9 +77,7 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
     - Nến có thân đóng cửa **trên đỉnh gần nhất** → thoát sideway, **xu hướng tăng tiếp diễn**.
     - Nến có thân đóng cửa **dưới đáy tạo ra đỉnh đó** → **dấu hiệu đảo chiều** (như trường hợp C); xác nhận giảm khi có đỉnh thấp hơn VÀ đáy thấp hơn.
     - Xu hướng giảm: làm ngược lại.
+  - **Giữa lúc có dấu hiệu đảo chiều và lúc xác nhận đảo chiều:** thị trường ở trạng thái **CHƯA RÕ XU HƯỚNG** (đã xác nhận).
   - Minh họa: `examples/10-di-ngang-vs-dao-chieu.png`
 - **Thứ tự không quan trọng:** gặp đỉnh trước hay đáy trước đều được, miễn đủ 2 đỉnh + 2 đáy thỏa điều kiện (đã xác nhận, xem `examples/08-thu-tu-dinh-day.png`).
 - Minh họa: `examples/07-xac-dinh-xu-huong.png`
-
-**Chưa chốt:**
-- Trong lúc đã có dấu hiệu đảo chiều nhưng chưa xác nhận, thị trường được coi là trạng thái gì?
