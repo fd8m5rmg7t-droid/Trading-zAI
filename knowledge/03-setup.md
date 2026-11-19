@@ -54,6 +54,16 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 **Đỉnh giữa hai đáy (ngược lại, đã xác nhận):**
 - Điểm cao nhất (râu cao nhất, high) giữa hai đáy được coi là đỉnh, tính từ nến tạo đáy cũ đến nến tạo đáy mới (đáy mới đã phá vỡ đáy cũ). Không cần thỏa quy tắc xác nhận đỉnh.
 
-**Hai cách xác định đáy/đỉnh dùng trong hai hoàn cảnh (đã xác nhận):**
-- **Xu hướng tăng:** đỉnh được theo dõi bằng quy tắc xác nhận + phá vỡ (mục 1). Đáy được suy ra là điểm thấp nhất giữa hai đỉnh (mục 3).
-- **Xu hướng giảm:** đáy được theo dõi bằng quy tắc xác nhận + phá vỡ (mục 2). Đỉnh được suy ra là điểm cao nhất giữa hai đáy (mục 3).
+**Khi nào dùng quy tắc nào (đã xác nhận):**
+- **Mục 1 và 2** (nến có thân đóng cửa qua low/high của nến liền trước) dùng để xác nhận **bất kỳ** đỉnh/đáy nào đã hình thành. Mục đích: **xác định xu hướng** khi chưa biết xu hướng.
+- **Khi đã biết xu hướng thì dùng mục 3:**
+  - Xu hướng tăng: đỉnh theo dõi bằng quy tắc phá vỡ. Đáy = điểm thấp nhất giữa hai đỉnh.
+  - Xu hướng giảm: đáy theo dõi bằng quy tắc phá vỡ. Đỉnh = điểm cao nhất giữa hai đáy.
+
+**Định nghĩa xu hướng (đã xác nhận):**
+- **Xu hướng tăng:** đỉnh sau cao hơn đỉnh trước VÀ đáy sau cao hơn đáy trước.
+- **Xu hướng giảm:** đỉnh sau thấp hơn đỉnh trước VÀ đáy sau thấp hơn đáy trước.
+
+**Chưa chốt:**
+- Cần tối thiểu bao nhiêu đỉnh/đáy (theo mục 1–2) để kết luận xu hướng ban đầu?
+- Nếu đỉnh cao dần nhưng đáy thấp dần (hoặc ngược lại) thì gọi là gì?
