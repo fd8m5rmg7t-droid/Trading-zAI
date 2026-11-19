@@ -65,9 +65,13 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Xu hướng giảm:** đỉnh sau thấp hơn đỉnh trước VÀ đáy sau thấp hơn đáy trước.
 - **Xác định xu hướng ban đầu:** chỉ cần **2 đỉnh và 2 đáy** (theo mục 1–2) là đủ kết luận.
 - **Thời điểm kết luận xu hướng:** lúc cây nến xác nhận đỉnh/đáy thứ 4 đóng cửa (đã xác nhận).
-- **Đi ngang (chưa có xu hướng):** đỉnh và đáy đi ngược chiều nhau, tức là đỉnh cao dần nhưng đáy thấp dần (mở rộng) HOẶC đỉnh thấp dần nhưng đáy cao dần (thu hẹp). Đã xác nhận, xem `examples/09-dinh-day-nguoc-chieu.png`.
+- **Đỉnh và đáy đi ngược chiều: hai trường hợp KHÁC NHAU (đã xác nhận, người dùng sửa lại cách hiểu ban đầu):**
+  - **Đỉnh cao dần, đáy thấp dần = DẤU HIỆU ĐẢO CHIỀU**, không phải đi ngang. Ví dụ: Đỉnh 2 phá Đỉnh 1 (đang tăng), rồi Đáy 2 phá Đáy 1, đó là dấu hiệu đảo chiều, chưa xác nhận. **Xác nhận tăng → giảm** khi hình thành Đỉnh 3 < Đỉnh 2 VÀ Đáy 3 < Đáy 2. Chiều ngược lại (giảm → tăng): Đáy 2 phá Đáy 1, rồi Đỉnh 2 phá Đỉnh 1 là dấu hiệu; xác nhận khi Đáy 3 > Đáy 2 VÀ Đỉnh 3 > Đỉnh 2.
+  - **Đỉnh thấp dần, đáy cao dần = ĐI NGANG (sideway), chưa có xu hướng.** Vì Đỉnh 1 và Đáy 1 chưa cái nào bị phá vỡ, nên việc xác định Đỉnh 2 và Đáy 2 bên trong vùng đó **không có ý nghĩa**.
+  - Minh họa: `examples/10-di-ngang-vs-dao-chieu.png`
 - **Thứ tự không quan trọng:** gặp đỉnh trước hay đáy trước đều được, miễn đủ 2 đỉnh + 2 đáy thỏa điều kiện (đã xác nhận, xem `examples/08-thu-tu-dinh-day.png`).
 - Minh họa: `examples/07-xac-dinh-xu-huong.png`
 
 **Chưa chốt:**
-- Khi đi ngang thì xử lý thế nào? (vd: tiếp tục dùng mục 1–2, so 2 đỉnh + 2 đáy GẦN NHẤT cho đến khi cùng chiều?)
+- Thoát sideway khi nào? (vd: khi có nến có thân đóng cửa qua Đỉnh 1 hoặc Đáy 1?) Sau đó xác định xu hướng thế nào?
+- Trong lúc đã có dấu hiệu đảo chiều nhưng chưa xác nhận, thị trường được coi là trạng thái gì?
