@@ -2,14 +2,18 @@
 
 ## 1. Đỉnh (swing high)
 
-**Đã chốt:**
-- Đỉnh hình thành (được xác nhận) khi có **một cây nến có thân đóng cửa dưới đáy (low) của cây nến TRƯỚC ĐÓ**.
-- Chỉ tính giá **đóng cửa của thân nến**; râu nến chạm xuống dưới low của nến trước thì chưa đủ.
+**Quy tắc:** Đỉnh hình thành (được xác nhận) khi có **một cây nến có THÂN đóng cửa dưới ĐÁY (low) của cây nến LIỀN TRƯỚC**.
 
-**Chưa chốt (chờ người dùng xác nhận):**
-- Mức giá của đỉnh: có phải là high cao nhất của nhịp tăng trước cây nến xác nhận không?
-- Đáy (swing low) có áp dụng ngược lại không, tức là nến có thân đóng cửa trên high của cây nến trước đó?
-- Có phân loại đỉnh chính và đỉnh phụ không, hay phần này thuộc bài cấu trúc thị trường?
+**Đã xác nhận (xem `examples/02-cac-truong-hop-dinh.png`):**
+- **A. Là đỉnh:** thân nến đóng cửa dưới low của nến trước. Mức giá của đỉnh là high cao nhất của nhịp tăng.
+- **B. Chưa phải đỉnh:** chỉ có râu chọc xuống dưới low của nến trước, còn thân đóng cửa phía trên.
+- **C. Chưa phải đỉnh:** thân đóng cửa dưới thân nến trước nhưng vẫn trên low của nến đó (còn trong vùng râu dưới).
+- **D. Là đỉnh:** chỉ so với nến LIỀN TRƯỚC, không so với nến tạo đỉnh. Nếu sau đỉnh có nến nhỏ đi ngang, nến đóng cửa dưới low của nến nhỏ đó là đủ để xác nhận.
+- **E. Là đỉnh:** nhịp điều chỉnh nhỏ trong xu hướng tăng cũng tạo đỉnh, nếu thỏa quy tắc.
 
-Ví dụ: `examples/01-dinh-day-xauusd-h4.jpg`
-Các trường hợp minh họa (chờ duyệt D, E, F): `examples/02-cac-truong-hop-dinh.png`
+**Chưa chốt:**
+- F. Giá đóng cửa ĐÚNG BẰNG low của nến trước thì có tính là đỉnh không?
+- Đáy (swing low) có áp dụng ngược lại không: thân nến đóng cửa trên high của nến liền trước?
+- Phân loại đỉnh lớn và đỉnh nhỏ (có thể sẽ học ở bài cấu trúc thị trường).
+
+Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
