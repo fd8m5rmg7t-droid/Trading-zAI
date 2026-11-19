@@ -17,6 +17,15 @@
 **Chưa chốt:**
 - Phân loại đỉnh lớn và đỉnh nhỏ (có thể sẽ học ở bài cấu trúc thị trường).
 
+**Cách xác định mức giá đỉnh trên biểu đồ (đã xác nhận):**
+1. Chọn một cây nến bất kỳ làm điểm bắt đầu.
+2. Đi tiếp sang phải cho đến khi gặp cây nến xác nhận đỉnh (thân đóng cửa thấp hơn hẳn low của nến liền trước).
+3. **Đỉnh = râu cao nhất (high lớn nhất)** trong khoảng từ cây nến bắt đầu đến cây nến xác nhận.
+
+**Chưa chốt về cách quét:**
+- Khoảng này có tính cả high của chính cây nến xác nhận không?
+- Sau khi xác nhận một đỉnh, lần quét tiếp theo bắt đầu từ cây nến nào?
+
 ## 2. Đáy (swing low)
 
 **Quy tắc (ngược lại với đỉnh, đã xác nhận):** Đáy hình thành khi có **một cây nến có THÂN đóng cửa trên ĐỈNH (high) của cây nến LIỀN TRƯỚC**. Mức giá của đáy là low thấp nhất của nhịp giảm.
