@@ -63,7 +63,8 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 **Định nghĩa xu hướng (đã xác nhận):**
 - **Xu hướng tăng:** đỉnh sau cao hơn đỉnh trước VÀ đáy sau cao hơn đáy trước.
 - **Xu hướng giảm:** đỉnh sau thấp hơn đỉnh trước VÀ đáy sau thấp hơn đáy trước.
+- **Xác định xu hướng ban đầu:** chỉ cần **2 đỉnh và 2 đáy** (theo mục 1–2) là đủ kết luận.
+- Minh họa: `examples/07-xac-dinh-xu-huong.png`
 
 **Chưa chốt:**
-- Cần tối thiểu bao nhiêu đỉnh/đáy (theo mục 1–2) để kết luận xu hướng ban đầu?
-- Nếu đỉnh cao dần nhưng đáy thấp dần (hoặc ngược lại) thì gọi là gì?
+- Nếu đỉnh cao dần nhưng đáy thấp dần (hoặc ngược lại) thì gọi là gì? (người dùng sẽ xác nhận sau)
