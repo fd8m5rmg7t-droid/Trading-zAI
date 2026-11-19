@@ -12,8 +12,13 @@
 - **E. Là đỉnh:** nhịp điều chỉnh nhỏ trong xu hướng tăng cũng tạo đỉnh, nếu thỏa quy tắc.
 
 **Chưa chốt:**
-- F. Giá đóng cửa ĐÚNG BẰNG low của nến trước thì có tính là đỉnh không?
-- Đáy (swing low) có áp dụng ngược lại không: thân nến đóng cửa trên high của nến liền trước?
+- F. Giá đóng cửa ĐÚNG BẰNG low của nến trước (với đáy: bằng high) thì có tính không?
 - Phân loại đỉnh lớn và đỉnh nhỏ (có thể sẽ học ở bài cấu trúc thị trường).
+
+## 2. Đáy (swing low)
+
+**Quy tắc (ngược lại với đỉnh, đã xác nhận):** Đáy hình thành khi có **một cây nến có THÂN đóng cửa trên ĐỈNH (high) của cây nến LIỀN TRƯỚC**. Mức giá của đáy là low thấp nhất của nhịp giảm.
+
+Các trường hợp A–F tương tự đỉnh, chỉ đảo chiều: xem `examples/03-cac-truong-hop-day.png` (chờ người dùng duyệt hình).
 
 Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
