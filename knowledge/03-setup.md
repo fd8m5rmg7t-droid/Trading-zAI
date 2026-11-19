@@ -67,7 +67,12 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Thời điểm kết luận xu hướng:** lúc cây nến xác nhận đỉnh/đáy thứ 4 đóng cửa (đã xác nhận).
 - **Đỉnh và đáy đi ngược chiều: hai trường hợp KHÁC NHAU (đã xác nhận, người dùng sửa lại cách hiểu ban đầu):**
   - **Đỉnh cao dần, đáy thấp dần = DẤU HIỆU ĐẢO CHIỀU**, không phải đi ngang. Ví dụ: Đỉnh 2 phá Đỉnh 1 (đang tăng), rồi Đáy 2 phá Đáy 1, đó là dấu hiệu đảo chiều, chưa xác nhận. **Xác nhận tăng → giảm** khi hình thành Đỉnh 3 < Đỉnh 2 VÀ Đáy 3 < Đáy 2. Chiều ngược lại (giảm → tăng): Đáy 2 phá Đáy 1, rồi Đỉnh 2 phá Đỉnh 1 là dấu hiệu; xác nhận khi Đáy 3 > Đáy 2 VÀ Đỉnh 3 > Đỉnh 2.
-  - **Đỉnh thấp dần, đáy cao dần = ĐI NGANG (sideway), chưa có xu hướng.** Vì Đỉnh 1 và Đáy 1 chưa cái nào bị phá vỡ, nên việc xác định Đỉnh 2 và Đáy 2 bên trong vùng đó **không có ý nghĩa**.
+  - Chiều giảm → tăng đã được xác nhận là đúng.
+- **ĐI NGANG (sideway), đã xác nhận:**
+  - Khi đang **xu hướng tăng**: xét **đỉnh gần nhất** và **đáy tạo ra đỉnh đó** (đáy thấp nhất giữa đỉnh trước và đỉnh gần nhất). Nếu giá **không phá được** đỉnh đó **cũng không phá được** đáy đó thì thị trường đang **đi ngang**.
+  - Khi đang **xu hướng giảm**: ngược lại, xét **đáy gần nhất** và **đỉnh tạo ra đáy đó**.
+  - Các đỉnh/đáy hình thành bên trong vùng này **không có ý nghĩa**.
+  - Lưu ý: một đáy hình thành SAU đỉnh thì không phải "đáy tạo ra đỉnh" đó (lỗi trong cách vẽ ban đầu).
   - Minh họa: `examples/10-di-ngang-vs-dao-chieu.png`
 - **Thứ tự không quan trọng:** gặp đỉnh trước hay đáy trước đều được, miễn đủ 2 đỉnh + 2 đáy thỏa điều kiện (đã xác nhận, xem `examples/08-thu-tu-dinh-day.png`).
 - Minh họa: `examples/07-xac-dinh-xu-huong.png`
