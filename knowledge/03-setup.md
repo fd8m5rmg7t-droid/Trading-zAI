@@ -65,8 +65,9 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Xu hướng giảm:** đỉnh sau thấp hơn đỉnh trước VÀ đáy sau thấp hơn đáy trước.
 - **Xác định xu hướng ban đầu:** chỉ cần **2 đỉnh và 2 đáy** (theo mục 1–2) là đủ kết luận.
 - **Thời điểm kết luận xu hướng:** lúc cây nến xác nhận đỉnh/đáy thứ 4 đóng cửa (đã xác nhận).
+- **Đi ngang (chưa có xu hướng):** đỉnh và đáy đi ngược chiều nhau, tức là đỉnh cao dần nhưng đáy thấp dần (mở rộng) HOẶC đỉnh thấp dần nhưng đáy cao dần (thu hẹp). Đã xác nhận, xem `examples/09-dinh-day-nguoc-chieu.png`.
 - **Thứ tự không quan trọng:** gặp đỉnh trước hay đáy trước đều được, miễn đủ 2 đỉnh + 2 đáy thỏa điều kiện (đã xác nhận, xem `examples/08-thu-tu-dinh-day.png`).
 - Minh họa: `examples/07-xac-dinh-xu-huong.png`
 
 **Chưa chốt:**
-- Nếu đỉnh cao dần nhưng đáy thấp dần (hoặc ngược lại) thì gọi là gì? (người dùng sẽ xác nhận sau, xem `examples/09-dinh-day-nguoc-chieu.png`)
+- Khi đi ngang thì xử lý thế nào? (vd: tiếp tục dùng mục 1–2, so 2 đỉnh + 2 đáy GẦN NHẤT cho đến khi cùng chiều?)
