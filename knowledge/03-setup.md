@@ -73,10 +73,13 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
   - Khi đang **xu hướng giảm**: ngược lại, xét **đáy gần nhất** và **đỉnh tạo ra đáy đó**.
   - Các đỉnh/đáy hình thành bên trong vùng này **không có ý nghĩa**.
   - Lưu ý: một đáy hình thành SAU đỉnh thì không phải "đáy tạo ra đỉnh" đó (lỗi trong cách vẽ ban đầu).
+  - **Thoát sideway (đã xác nhận)**, ví dụ khi đang xu hướng tăng:
+    - Nến có thân đóng cửa **trên đỉnh gần nhất** → thoát sideway, **xu hướng tăng tiếp diễn**.
+    - Nến có thân đóng cửa **dưới đáy tạo ra đỉnh đó** → **dấu hiệu đảo chiều** (như trường hợp C); xác nhận giảm khi có đỉnh thấp hơn VÀ đáy thấp hơn.
+    - Xu hướng giảm: làm ngược lại.
   - Minh họa: `examples/10-di-ngang-vs-dao-chieu.png`
 - **Thứ tự không quan trọng:** gặp đỉnh trước hay đáy trước đều được, miễn đủ 2 đỉnh + 2 đáy thỏa điều kiện (đã xác nhận, xem `examples/08-thu-tu-dinh-day.png`).
 - Minh họa: `examples/07-xac-dinh-xu-huong.png`
 
 **Chưa chốt:**
-- Thoát sideway khi nào? (vd: khi có nến có thân đóng cửa qua Đỉnh 1 hoặc Đáy 1?) Sau đó xác định xu hướng thế nào?
 - Trong lúc đã có dấu hiệu đảo chiều nhưng chưa xác nhận, thị trường được coi là trạng thái gì?
