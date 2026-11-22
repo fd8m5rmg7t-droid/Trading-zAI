@@ -147,3 +147,14 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 
 - "Nằm dưới vùng discount" / "nằm trên vùng premium" trong lời giảng nghĩa là **nằm trong** vùng discount / premium (đã xác nhận).
 - **Lý do đánh dấu (trường hợp 3):** lúc nào đó giá sẽ **quay lại khai thác vùng đó** và **hoàn thành order flow chưa hoàn thành**. Vùng đánh dấu được giữ cho đến khi giá quay lại hoàn thành nó.
+
+## 6. Thanh khoản (liquidity)
+
+**Định nghĩa (đã xác nhận, tách riêng với POI):** chỗ **tập trung lệnh chờ / stop loss**, ví dụ: trên đỉnh, dưới đáy, hai đỉnh bằng nhau. Giá hay **quét** qua những chỗ này.
+- Liên quan bài trước: đáy nông của order flow thiếu là một dạng thanh khoản.
+- Chưa học: các loại thanh khoản, cách quét thanh khoản, cách khai thác.
+
+## 7. POI (point of interest)
+
+**Định nghĩa (đã xác nhận, tách riêng với thanh khoản):** **vùng giá có khả năng phản ứng để vào lệnh**.
+- Chưa học: các loại POI, cách vẽ, POI nào hợp lệ.
