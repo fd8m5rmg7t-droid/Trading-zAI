@@ -179,7 +179,7 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
   - Nếu **1/2 râu của nến quét** nằm **bên kia** giá thanh khoản (dưới giá thanh khoản khi BUY / trên khi SELL) → vào lệnh tại **1/2 râu**.
   - Nếu 1/2 râu nằm **bên này** giá thanh khoản (trên giá thanh khoản khi BUY / dưới khi SELL) → vào lệnh tại **chính giá thanh khoản**.
 
-- **Đặt lệnh chờ (limit) sau khi nến quét đóng cửa** (đã xác nhận).
+- **Đặt lệnh chờ (limit) sau khi nến quét đóng cửa** (đã xác nhận). Giá **không hồi về** chạm điểm vào → **bỏ lệnh** (đã xác nhận).
 - **Dừng lỗ:** khi có nến (khung vào lệnh) **đóng thân qua điểm thấp nhất của nến quét** (BUY) / điểm cao nhất (SELL) (đã xác nhận).
 
 ## 7. POI (point of interest)
