@@ -200,16 +200,25 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **"Đóng qua POI"** = thân nến đóng cửa vượt ra **phía bên kia** của POI (dưới low POI khi BUY, trên high POI khi SELL). Đóng cửa **bên trong** POI → chưa phải đóng qua. **Râu xuyên qua** nhưng thân đóng cửa quay lại → chưa phải đóng qua, POI vẫn dùng được (đã xác nhận).
 - **"Giá về khai thác"** = chỉ cần **râu nến chạm vào vùng POI** là tính một lần (đã xác nhận).
 
-**Vào lệnh tại POI (người dùng đã giảng, chờ duyệt hình `examples/26-vao-lenh-poi.png`):**
+**Vào lệnh tại POI (đã xác nhận, xem `examples/26-vao-lenh-poi.png`):**
 - **POI chỉ là vùng QUAN SÁT.** Giá về POI chưa phải là vào lệnh; phải đợi xem giá **phản ứng** ở POI thế nào.
 - **Lệnh BUY:** đợi giá **hình thành cây nến tạo đáy ở vùng POI** xong (cách hiểu của Claude: đáy được xác nhận theo quy tắc mục 2) rồi mới tính đến việc vào lệnh. Lệnh SELL: ngược lại, đợi tạo đỉnh.
 - **Điểm vào lệnh:** ở vùng râu nến của **cây nến có điểm thấp nhất** (BUY) / cao nhất (SELL). **Điểm vào = 1/2 râu nến** của cây nến đó.
 
 **Chưa chốt:**
-- "1/2 râu" = điểm giữa của râu phía điểm thấp nhất (từ mép thân đến low) khi BUY, râu trên khi SELL?
-- Lệnh đặt chờ (limit) tại 1/2 râu sau khi nến xác nhận đóng cửa; nếu giá không hồi về chạm mức đó thì bỏ lệnh?
-- Đáy (điểm thấp nhất) có bắt buộc nằm trong vùng POI không?
-- Stop loss, chốt lời: chưa học.
+- **"1/2 râu"** = điểm giữa của **râu phía điểm thấp nhất** (từ mép thân xuống đến low) khi BUY; râu trên khi SELL (đã xác nhận).
+- Sau khi nến xác nhận đáy/đỉnh đóng cửa → **đặt lệnh chờ (limit)** tại mức 1/2 râu. Giá **không hồi về** chạm mức đó → **bỏ lệnh** (đã xác nhận).
+- **Điểm thấp nhất (đáy) KHÔNG bắt buộc nằm trong vùng POI**; râu xuyên xuống dưới POI vẫn được (đã xác nhận).
+
+**Stop loss (người dùng đã giảng, chờ duyệt hình `examples/27-stoploss-poi.png`):**
+- **Dừng lỗ khi có cây nến ĐÓNG THÂN qua điểm thấp nhất** (lệnh BUY) / **điểm cao nhất** (lệnh SELL).
+- Cách hiểu của Claude: chỉ râu quét qua mà thân đóng cửa quay lại thì vẫn giữ lệnh; thoát lệnh tại giá đóng cửa của cây nến đóng qua.
+- **Rủi ro cần lưu ý (Claude nêu):** dừng lỗ theo giá đóng cửa không phải lệnh SL cứng đặt sẵn trên sàn → mức lỗ thực tế có thể lớn hơn khoảng từ điểm vào đến điểm thấp nhất, nhất là khi có nến tin tức giật mạnh.
+
+**Chưa chốt:**
+- Có đặt thêm SL cứng (bảo hiểm) trên sàn không? Nếu có thì đặt ở đâu?
+- Giá đóng cửa xét trên khung thời gian nào (khung vào lệnh)?
+- Chốt lời: chưa học.
 
 ### 7.1 FVG (Fair Value Gap)
 - **Định nghĩa (đã xác nhận, giống định nghĩa SMC phổ biến):** bộ 3 nến liên tiếp. FVG tăng: low nến 3 > high nến 1, vùng FVG = từ high nến 1 đến low nến 3. FVG giảm: high nến 3 < low nến 1, vùng = từ high nến 3 đến low nến 1. Râu nến 1 và 3 chồng nhau thì không có FVG.
