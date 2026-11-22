@@ -117,16 +117,22 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 
 ## 5. PnD tool (Premium & Discount)
 
-**Định nghĩa (người dùng đã giảng):**
+**Định nghĩa (đã xác nhận):**
 - Công cụ xác định **vùng premium** và **vùng discount**.
-- Đo từ **đáy đến đỉnh của con sóng gần nhất**.
-- **Đường trung bình** (giữa đáy và đỉnh, 50%) chia vùng giá thành 2 vùng:
+- Đo từ **đáy đến đỉnh của con sóng gần nhất** = **sóng đẩy phase 2**: từ đáy tạo ra đỉnh gần nhất đến đỉnh gần nhất (xu hướng giảm: từ đỉnh tạo ra đáy gần nhất đến đáy gần nhất).
+- Đáy/đỉnh đo theo **râu nến** (low/high).
+- **Đường trung bình** (50%) chia vùng giá thành 2 vùng:
   - **Premium:** từ đường trung bình lên đến đỉnh.
   - **Discount:** từ đường trung bình xuống đến đáy.
-- Minh họa cách hiểu: `examples/15-pnd-tool.png`
+- **Đo lại** mỗi khi giá phá vỡ tạo đỉnh mới (hoặc đáy mới).
+- **Cách dùng:** xu hướng tăng thì chờ giá hồi về **discount** để mua; xu hướng giảm thì chờ giá hồi lên **premium** để bán.
+- Minh họa: `examples/15-pnd-tool.png`
+
+**Điều kiện phase 3 hợp lệ – ORDER FLOW THIẾU (đã xác nhận):**
+- Phase 3 chỉ **hợp lệ** khi giá hồi về **ít nhất chạm đường trung bình**, hoặc đi vào vùng **discount** (xu hướng tăng) / **premium** (xu hướng giảm).
+- Nếu giá **không hồi đủ** mà **tiếp tục phá đỉnh (hoặc đáy)** luôn thì order flow đó được coi là **ORDER FLOW THIẾU**.
+- Minh họa: `examples/16-order-flow-thieu.png`
 
 **Chưa chốt:**
-- "Con sóng gần nhất" có phải là sóng đẩy (phase 2): từ đáy tạo ra đỉnh gần nhất đến đỉnh gần nhất (xu hướng giảm thì ngược lại)?
-- Đo bằng râu nến (high/low)?
-- Khi nào đo lại (khi có đỉnh/đáy mới phá vỡ đỉnh/đáy cũ)?
-- Cách dùng: xu hướng tăng thì chờ giá hồi về discount để mua, xu hướng giảm thì chờ giá hồi lên premium để bán?
+- "Chạm" đường trung bình: chỉ cần râu nến chạm là đủ?
+- Gặp order flow thiếu thì xử lý thế nào: không giao dịch? Lần đo PnD tiếp theo tính từ đáy nào (đáy cũ của phase 2 hay đáy nông vừa tạo)?
