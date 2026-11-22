@@ -193,13 +193,23 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Cả nến POI phải nằm TRỌN** trong discount (BUY) / premium (SELL). POI cắt ngang đường 50% thì không xét.
 - **POI càng cách xa đường cân bằng 50% thì càng giá trị.**
 
-**POI hết hiệu lực (người dùng đã giảng, chờ duyệt hình `examples/25-poi-het-hieu-luc.png`):**
+**POI hết hiệu lực (đã xác nhận, xem `examples/25-poi-het-hieu-luc.png`):**
 - POI **chỉ dùng được MỘT lần**: khi giá đã về khai thác vùng đó rồi, nếu giá về khai thác **lần nữa** thì POI **không còn giá trị**.
 - Hoặc: **ngay lần đầu** giá về vùng POI mà **cây nến đó có thân đóng qua POI** → POI hết hiệu lực.
 
+- **"Đóng qua POI"** = thân nến đóng cửa vượt ra **phía bên kia** của POI (dưới low POI khi BUY, trên high POI khi SELL). Đóng cửa **bên trong** POI → chưa phải đóng qua. **Râu xuyên qua** nhưng thân đóng cửa quay lại → chưa phải đóng qua, POI vẫn dùng được (đã xác nhận).
+- **"Giá về khai thác"** = chỉ cần **râu nến chạm vào vùng POI** là tính một lần (đã xác nhận).
+
+**Vào lệnh tại POI (người dùng đã giảng, chờ duyệt hình `examples/26-vao-lenh-poi.png`):**
+- **POI chỉ là vùng QUAN SÁT.** Giá về POI chưa phải là vào lệnh; phải đợi xem giá **phản ứng** ở POI thế nào.
+- **Lệnh BUY:** đợi giá **hình thành cây nến tạo đáy ở vùng POI** xong (cách hiểu của Claude: đáy được xác nhận theo quy tắc mục 2) rồi mới tính đến việc vào lệnh. Lệnh SELL: ngược lại, đợi tạo đỉnh.
+- **Điểm vào lệnh:** ở vùng râu nến của **cây nến có điểm thấp nhất** (BUY) / cao nhất (SELL). **Điểm vào = 1/2 râu nến** của cây nến đó.
+
 **Chưa chốt:**
-- "Đóng qua POI" = thân nến đóng cửa vượt ra ngoài phía bên kia của POI (dưới low POI khi BUY, trên high POI khi SELL)? Đóng cửa BÊN TRONG POI có tính là đóng qua không? Râu xuyên qua nhưng thân đóng cửa quay lại thì sao? (Claude đoán: cả hai chưa phải "đóng qua", POI vẫn dùng được.)
-- Thế nào là "giá về khai thác": chỉ cần râu chạm vào vùng POI là tính một lần?
+- "1/2 râu" = điểm giữa của râu phía điểm thấp nhất (từ mép thân đến low) khi BUY, râu trên khi SELL?
+- Lệnh đặt chờ (limit) tại 1/2 râu sau khi nến xác nhận đóng cửa; nếu giá không hồi về chạm mức đó thì bỏ lệnh?
+- Đáy (điểm thấp nhất) có bắt buộc nằm trong vùng POI không?
+- Stop loss, chốt lời: chưa học.
 
 ### 7.1 FVG (Fair Value Gap)
 - **Định nghĩa (đã xác nhận, giống định nghĩa SMC phổ biến):** bộ 3 nến liên tiếp. FVG tăng: low nến 3 > high nến 1, vùng FVG = từ high nến 1 đến low nến 3. FVG giảm: high nến 3 < low nến 1, vùng = từ high nến 3 đến low nến 1. Râu nến 1 và 3 chồng nhau thì không có FVG.
