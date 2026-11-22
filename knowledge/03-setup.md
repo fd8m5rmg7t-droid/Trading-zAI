@@ -152,16 +152,17 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 
 **Định nghĩa (đã xác nhận, tách riêng với POI):** chỗ **tập trung lệnh chờ / stop loss**, ví dụ: trên đỉnh, dưới đáy, hai đỉnh bằng nhau. Giá hay **quét** qua những chỗ này.
 
-**3 loại vùng thanh khoản (người dùng đã giảng, chờ duyệt hình `examples/19-thanh-khoan-3-loai.png`):**
-1. **Đỉnh hoặc đáy** xác định theo **quy tắc phá vỡ** đỉnh/đáy trước đó (mục 1–3).
-2. **Đáy nông** (hoặc đỉnh nông) của **order flow thiếu** (mục 5).
-3. **Mô hình 2 đỉnh hoặc 2 đáy**, mỗi đỉnh/đáy được xác nhận theo quy tắc xác nhận tạo đỉnh/đáy (mục 1–2).
+**3 loại thanh khoản (đã xác nhận, xem `examples/19-thanh-khoan-3-loai.png`). Mỗi thanh khoản là MỘT MỨC GIÁ:**
+1. **Đỉnh/đáy theo quy tắc phá vỡ – phụ thuộc xu hướng:**
+   - **Xu hướng tăng:** các **ĐÁY tạo ra đỉnh mới** (đỉnh mới đã phá vỡ đỉnh trước) là thanh khoản. Các đỉnh KHÔNG tính là thanh khoản loại 1.
+   - **Xu hướng giảm:** các **ĐỈNH tạo ra đáy mới** (đáy mới đã phá vỡ đáy trước) là thanh khoản.
+   - Mức giá = chính đáy (râu thấp nhất) / đỉnh (râu cao nhất) đó.
+2. **Đáy nông (đỉnh nông) của order flow thiếu.** Mức giá = giá đáy nông.
+3. **Mô hình 2 đỉnh / 2 đáy:** chỉ xét **2 đỉnh (hoặc 2 đáy) LIÊN TIẾP**, mỗi cái xác nhận theo quy tắc mục 1–2. Hai đỉnh/đáy **chênh nhau vẫn tính**. Mức giá = **đỉnh CAO NHẤT** của 2 đỉnh / **đáy THẤP NHẤT** của 2 đáy.
 
 **Chưa chốt:**
-- Loại 1: chỉ đỉnh gần nhất + đáy tạo ra nó, hay mọi đỉnh/đáy chưa bị phá?
-- Loại 3: hai đỉnh phải gần bằng nhau đến mức nào? Đỉnh 2 cao hơn đỉnh 1 một chút có tính không?
-- Thanh khoản là một mức giá (đúng râu) hay một vùng?
 - Cách quét thanh khoản: chưa học.
+- Sau khi thanh khoản bị quét thì nó còn hiệu lực không?
 
 ## 7. POI (point of interest)
 
