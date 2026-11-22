@@ -94,9 +94,10 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 **Phase 2: SÓNG ĐẨY** (người dùng đã giảng)
 - Con sóng đẩy giá **vượt qua vùng đi ngang** (phase 1) trước đó.
 - Minh họa cách hiểu: `examples/12-order-flow-phase2.png`
+- **"Vượt qua"** = có nến có **thân đóng cửa ra ngoài vùng** tích lũy, giống quy tắc phá vỡ (đã chốt tạm thời).
+- **Phase 2 bắt đầu** từ **đáy THẤP NHẤT trong vùng tích lũy** (xu hướng tăng). Không phải đáy cuối cùng trong vùng (đã chốt tạm thời).
 - Chưa chốt:
-  - "Vượt qua" = có nến có thân đóng cửa ra ngoài vùng (theo quy tắc phá vỡ)?
-  - Phase 2 bắt đầu và kết thúc ở đâu (từ đáy cuối cùng trong vùng tích lũy đến đỉnh mới?)
-  - Sóng đẩy phá ngược chiều xu hướng (xu hướng tăng mà phá xuống dưới đáy) có gọi là phase 2 không?
+  - Phase 2 kết thúc ở đâu (ở đỉnh mới?).
+  - Sóng đẩy phá ngược chiều xu hướng (xu hướng tăng mà phá xuống dưới đáy) có gọi là phase 2 không? Nếu có, điểm bắt đầu có phải là đỉnh CAO NHẤT trong vùng tích lũy?
 
 **Phase 3, 4:** chưa học.
