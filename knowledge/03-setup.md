@@ -186,7 +186,7 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - Nhiều nến liên tiếp cùng đóng cửa trong vùng → **POI vẫn chỉ là nến 1**, không mở rộng.
 
 **Chưa chốt:**
-- "Râu dài hơn thân": so râu nào (râu trên, râu dưới, một trong hai, hay tổng hai râu)?
+- "Râu dài hơn thân": so râu nào (râu trên, râu dưới, một trong hai, hay tổng hai râu)? Màu nến có quan trọng? Xem 7 hình dạng trong `examples/23-poi-hinh-dang-nen.png`.
 - POI nào được chọn để giao dịch; khi nào POI hết hiệu lực.
 
 ### 7.1 FVG (Fair Value Gap)
