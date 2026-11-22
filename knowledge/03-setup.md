@@ -86,9 +86,17 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 
 **Định nghĩa:** order flow là cấu trúc của **một con sóng**, gồm **4 phase**.
 
-**Phase 1: TÍCH LŨY (range phase)** (chờ người dùng duyệt hình)
+**Phase 1: TÍCH LŨY (range phase)** (người dùng xem hình và chuyển sang phase 2, không sửa)
 - Giá dao động **bên trong đỉnh và đáy của con sóng trước**.
 - Cách hiểu của Claude: "con sóng trước" là nhịp từ **đáy tạo ra đỉnh** lên **đỉnh gần nhất** (xu hướng tăng), hoặc ngược lại với xu hướng giảm. Phase 1 trùng với trạng thái **đi ngang** ở mục 3.
 - Minh họa: `examples/11-order-flow-phase1.png`
 
-**Phase 2, 3, 4:** chưa học.
+**Phase 2: SÓNG ĐẨY** (người dùng đã giảng)
+- Con sóng đẩy giá **vượt qua vùng đi ngang** (phase 1) trước đó.
+- Minh họa cách hiểu: `examples/12-order-flow-phase2.png`
+- Chưa chốt:
+  - "Vượt qua" = có nến có thân đóng cửa ra ngoài vùng (theo quy tắc phá vỡ)?
+  - Phase 2 bắt đầu và kết thúc ở đâu (từ đáy cuối cùng trong vùng tích lũy đến đỉnh mới?)
+  - Sóng đẩy phá ngược chiều xu hướng (xu hướng tăng mà phá xuống dưới đáy) có gọi là phase 2 không?
+
+**Phase 3, 4:** chưa học.
