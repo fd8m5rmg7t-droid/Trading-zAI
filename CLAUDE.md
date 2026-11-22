@@ -23,7 +23,7 @@ Repo này lưu phương pháp giao dịch do người dùng trực tiếp dạy 
 
 ## Tiến độ học (cập nhật 2026-11-22)
 - **Đã xong:** Bài 1 Đỉnh/Đáy; Bài 2 Cấu trúc thị trường (xu hướng tăng/giảm, đi ngang, dấu hiệu và xác nhận đảo chiều, chưa rõ xu hướng); Bài 3 Order flow (4 phase: tích lũy, sóng đẩy, hồi, tiếp diễn); Bài 4 PnD tool (premium/discount, phase 3 hợp lệ, order flow thiếu và 3 trường hợp khai thác). Bài 5 Thanh khoản: định nghĩa (tách riêng với POI), 3 loại thanh khoản, quy tắc quét. Bài 6 POI: FVG (định nghĩa), POI = nến có râu dài hơn thân + nến sau không đóng cửa thoát; chọn POI trong discount/premium có FVG hỗ trợ; POI hết hiệu lực; vào lệnh tại 1/2 râu sau khi tạo đáy/đỉnh; dừng lỗ khi nến đóng thân qua điểm thấp/cao nhất. Chi tiết trong `knowledge/03-setup.md`.
-- **Bài tiếp theo:** cách khai thác/vào lệnh sau khi quét thanh khoản (đáy nông, order flow thiếu); quản lý lệnh (chốt lời); BOS / CHoCH.
+- **Bài tiếp theo:** quản lý lệnh (chốt lời); BOS / CHoCH. (Đã xong: vào lệnh khi quét thanh khoản, mục 6 trong `03-setup.md`.)
 - **Câu hỏi đang chờ:** "râu dài hơn thân" khi QUÉT thanh khoản chỉ so phần râu quét?; phase 3 hồi về thanh khoản, POI hay cả hai; SL cứng (người dùng nghiên cứu sau).
 - **Đã đề xuất, chưa làm:** viết code tự động đánh dấu đỉnh/đáy và xu hướng trên dữ liệu giá thật để người dùng kiểm tra.
 - **Còn mở:** phân loại đỉnh/đáy lớn và nhỏ.
