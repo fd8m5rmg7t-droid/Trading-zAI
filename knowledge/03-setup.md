@@ -92,12 +92,12 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - Minh họa: `examples/11-order-flow-phase1.png`
 
 **Phase 2: SÓNG ĐẨY** (người dùng đã giảng)
-- Con sóng đẩy giá **vượt qua vùng đi ngang** (phase 1) trước đó.
+- Con sóng đẩy giá **vượt qua vùng đi ngang** (phase 1) trước đó, **CÙNG CHIỀU xu hướng** (đã xác nhận): xu hướng tăng thì phase 2 đẩy giá phá lên để tăng tiếp; xu hướng giảm thì phase 2 đẩy giá phá xuống để giảm tiếp.
+- Sóng phá **ngược chiều** xu hướng **không phải phase 2**, đó là dấu hiệu đảo chiều (mục 3).
 - Minh họa cách hiểu: `examples/12-order-flow-phase2.png`
 - **"Vượt qua"** = có nến có **thân đóng cửa ra ngoài vùng** tích lũy, giống quy tắc phá vỡ (đã chốt tạm thời).
-- **Phase 2 bắt đầu** từ **đáy THẤP NHẤT trong vùng tích lũy** (xu hướng tăng). Không phải đáy cuối cùng trong vùng (đã chốt tạm thời).
+- **Phase 2 bắt đầu** từ **đáy THẤP NHẤT trong vùng tích lũy** (xu hướng tăng), hoặc **đỉnh CAO NHẤT trong vùng tích lũy** (xu hướng giảm). Không phải đáy/đỉnh cuối cùng trong vùng (đã chốt tạm thời).
 - Chưa chốt:
   - Phase 2 kết thúc ở đâu (ở đỉnh mới?).
-  - Sóng đẩy phá ngược chiều xu hướng (xu hướng tăng mà phá xuống dưới đáy) có gọi là phase 2 không? Nếu có, điểm bắt đầu có phải là đỉnh CAO NHẤT trong vùng tích lũy?
 
 **Phase 3, 4:** chưa học.
