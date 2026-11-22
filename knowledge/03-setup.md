@@ -160,13 +160,15 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 2. **Đáy nông (đỉnh nông) của order flow thiếu.** Mức giá = giá đáy nông.
 3. **Mô hình 2 đỉnh / 2 đáy:** chỉ xét **2 đỉnh (hoặc 2 đáy) LIÊN TIẾP**, mỗi cái xác nhận theo quy tắc mục 1–2. Hai đỉnh/đáy **chênh nhau vẫn tính**. Mức giá = **đỉnh CAO NHẤT** của 2 đỉnh / **đáy THẤP NHẤT** của 2 đáy.
 
-**Quét thanh khoản (người dùng đã giảng, chờ duyệt hình `examples/20-quet-thanh-khoan.png`):**
+**Quét thanh khoản (đã xác nhận, xem `examples/20-quet-thanh-khoan.png`):**
 - **Quét thanh khoản ở đáy:** **râu nến chạy qua (xuống dưới) giá thanh khoản**, nhưng **giá đóng cửa của chính cây nến đó nằm TRÊN giá thanh khoản**.
 - **Quét thanh khoản ở đỉnh:** ngược lại – râu chạy lên trên giá thanh khoản, giá đóng cửa của chính nến đó nằm DƯỚI.
-- Cách hiểu của Claude: nếu thân nến đóng cửa vượt qua giá thanh khoản thì đó là **phá vỡ**, không phải quét.
+- **Chỉ tính RÂU quét của MỘT nến.** Nến đóng cửa vượt qua (phá vỡ) rồi nến SAU mới đóng lại phía bên kia → **KHÔNG phải quét**.
+- **Râu quét phải DÀI hơn thân nến.** Râu ngắn hơn thân → **KHÔNG coi là quét**.
+- Thân nến đóng cửa vượt qua giá thanh khoản là **phá vỡ**, không phải quét.
 
 **Chưa chốt:**
-- Nến đóng cửa vượt qua (phá vỡ), nến SAU mới đóng lại phía bên kia: có tính là quét không? (Claude hiểu: không.)
+- "Râu dài hơn thân": chỉ so phần râu quét (râu dưới khi quét đáy, râu trên khi quét đỉnh) với thân? (Claude đang hiểu như vậy.)
 - Giá đóng cửa ĐÚNG BẰNG giá thanh khoản thì sao?
 - Sau khi thanh khoản bị quét thì nó còn hiệu lực không?
 
