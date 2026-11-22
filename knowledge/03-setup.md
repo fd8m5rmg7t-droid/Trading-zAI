@@ -166,11 +166,11 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Chỉ tính RÂU quét của MỘT nến.** Nến đóng cửa vượt qua (phá vỡ) rồi nến SAU mới đóng lại phía bên kia → **KHÔNG phải quét**.
 - **Râu quét phải DÀI hơn thân nến.** Râu ngắn hơn thân → **KHÔNG coi là quét**.
 - Thân nến đóng cửa vượt qua giá thanh khoản là **phá vỡ**, không phải quét.
+- Giá đóng cửa **ĐÚNG BẰNG** giá thanh khoản → **KHÔNG tính là quét** (đã xác nhận).
+- **Sau khi bị quét**, thanh khoản đó **không còn hiệu quả để khai thác lần 2** (đã xác nhận).
 
 **Chưa chốt:**
 - "Râu dài hơn thân": chỉ so phần râu quét (râu dưới khi quét đáy, râu trên khi quét đỉnh) với thân? (Claude đang hiểu như vậy.)
-- Giá đóng cửa ĐÚNG BẰNG giá thanh khoản thì sao?
-- Sau khi thanh khoản bị quét thì nó còn hiệu lực không?
 
 ## 7. POI (point of interest)
 
