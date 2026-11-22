@@ -138,5 +138,13 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Đáy tạm chưa hồi đủ (đáy nông)** được coi là **một dạng thanh khoản**. **KHÔNG giao dịch ở đáy nông này**, chỉ giao dịch theo **cách quét thanh khoản** (người dùng sẽ dạy sau).
 - Minh họa: `examples/17-order-flow-thieu-khai-thac.png`
 
+- **PnD của order flow thiếu** đo từ **đáy bắt đầu phase 2** đến **đỉnh mới sau khi phá**, bỏ qua đáy nông (đã xác nhận).
+
+**Các trường hợp khai thác order flow thiếu (ví dụ xu hướng tăng; người dùng đã giảng, chờ duyệt hình `examples/18-order-flow-thieu-3-truong-hop.png`):**
+1. **Đáy nông trùng đường trung bình** của PnD, hoặc **nằm trong vùng discount** → chỉ khai thác khi giá **quét thanh khoản đáy nông** (cách quét: học sau).
+2. **Đáy nông nằm trong vùng premium** → **không khai thác** ở đáy nông; phải **đợi giá hồi về một vùng trong discount** mới khai thác.
+3. Giá hồi về nhưng **không phá đáy nông**, sau đó đẩy lên **phá đỉnh mới**, hoàn thành **một order flow mới hoàn chỉnh** → **đánh dấu** order flow thiếu này lại.
+
 **Chưa chốt:**
-- PnD của order flow thiếu đo thế nào? Giả định của Claude: từ đáy bắt đầu phase 2 đến đỉnh mới (đỉnh sau khi phá), bỏ qua đáy nông.
+- Người dùng nói "nằm dưới vùng discount" / "nằm trên vùng premium": Claude hiểu là "nằm trong vùng discount" / "nằm trong vùng premium".
+- Trường hợp 3: đánh dấu để làm gì (giá có thể quay lại khai thác sau)? Giữ đến khi nào?
