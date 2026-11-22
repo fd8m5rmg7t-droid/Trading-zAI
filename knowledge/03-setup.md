@@ -133,6 +133,10 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - Nếu giá **không hồi đủ** mà **tiếp tục phá đỉnh (hoặc đáy)** luôn thì order flow đó được coi là **ORDER FLOW THIẾU**.
 - Minh họa: `examples/16-order-flow-thieu.png`
 
+- **"Chạm"** đường trung bình: chỉ cần **râu nến** chạm là đủ (đã xác nhận).
+- **Sau order flow thiếu (đã xác nhận):** giá thường **hồi về vùng discount (hoặc premium) của order flow thiếu** để khai thác thêm một lần nữa, trước khi đẩy giá tiếp diễn xu hướng.
+- **Đáy tạm chưa hồi đủ (đáy nông)** được coi là **một dạng thanh khoản**. **KHÔNG giao dịch ở đáy nông này**, chỉ giao dịch theo **cách quét thanh khoản** (người dùng sẽ dạy sau).
+- Minh họa: `examples/17-order-flow-thieu-khai-thac.png`
+
 **Chưa chốt:**
-- "Chạm" đường trung bình: chỉ cần râu nến chạm là đủ?
-- Gặp order flow thiếu thì xử lý thế nào: không giao dịch? Lần đo PnD tiếp theo tính từ đáy nào (đáy cũ của phase 2 hay đáy nông vừa tạo)?
+- PnD của order flow thiếu đo thế nào? Giả định của Claude: từ đáy bắt đầu phase 2 đến đỉnh mới (đỉnh sau khi phá), bỏ qua đáy nông.
