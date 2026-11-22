@@ -104,6 +104,9 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - Sau khi giá đã được đẩy lên một đoạn (phase 2), giá **hồi về một điểm nào đó**. Đó là phase 3.
 - Cách hiểu của Claude (chờ duyệt): phase 2 kết thúc tại đỉnh mới (xu hướng tăng) / đáy mới (xu hướng giảm), phase 3 bắt đầu từ đó.
 - Minh họa: `examples/13-order-flow-phase3.png`
-- Chưa chốt: giá hồi về điểm nào; giới hạn tối đa của nhịp hồi; khi nào phase 3 kết thúc.
+- **Hồi về đâu:** về **vùng có thanh khoản**. Sẽ thảo luận chi tiết sau (bài thanh khoản).
+- **Hồi sâu quá đáy tạo ra đỉnh mới** (xu hướng tăng) / **quá đỉnh tạo ra đáy mới** (xu hướng giảm): lúc này **xu hướng có thể đã thay đổi**.
+- **Phase 3 kết thúc** khi giá tạo **đáy tạm thời** (xu hướng tăng) hoặc **đỉnh tạm thời** (xu hướng giảm).
+- Chưa chốt: đáy/đỉnh tạm thời được xác nhận bằng quy tắc mục 1–2 (nến có thân đóng cửa qua high/low của nến liền trước)?
 
 **Phase 4:** chưa học.
