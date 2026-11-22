@@ -179,14 +179,13 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 **POI theo cách của người dùng (đã xác nhận, xem `examples/22-poi-tranh-chap.png`):**
 - POI là **vùng giá tranh chấp giữa bên mua và bên bán**, thể hiện qua hình thức nến.
 - Điều kiện:
-  1. **Nến 1 (nến liền trước) phải có RÂU dài hơn THÂN.** Thân dài hơn râu → không phải POI.
+  1. **Nến 1 (nến liền trước) phải có ÍT NHẤT MỘT RÂU (trên hoặc dưới) dài HƠN THÂN.** Râu dài nhất chỉ bằng thân, hoặc chỉ tổng hai râu mới dài hơn thân → không phải POI. **Màu nến không quan trọng. Râu dài nằm ở phía nào không quan trọng.** (Xem `examples/23-poi-hinh-dang-nen.png`: ô 1–4 là POI, ô 5–7 không.)
   2. **Nến liền sau** có giá đóng cửa **KHÔNG thoát** khỏi vùng high–low của nến 1. Chỉ xét giá đóng cửa; râu nến sau vượt ra ngoài vẫn được.
   3. Giá đóng cửa **ĐÚNG BẰNG** high/low của nến 1 → chưa thoát → **vẫn là POI**.
 - **Vùng POI = toàn bộ nến 1, tính cả râu** (từ high đến low).
 - Nhiều nến liên tiếp cùng đóng cửa trong vùng → **POI vẫn chỉ là nến 1**, không mở rộng.
 
 **Chưa chốt:**
-- "Râu dài hơn thân": so râu nào (râu trên, râu dưới, một trong hai, hay tổng hai râu)? Màu nến có quan trọng? Xem 7 hình dạng trong `examples/23-poi-hinh-dang-nen.png`.
 - POI nào được chọn để giao dịch; khi nào POI hết hiệu lực.
 
 ### 7.1 FVG (Fair Value Gap)
