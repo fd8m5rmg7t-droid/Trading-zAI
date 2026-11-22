@@ -1,7 +1,7 @@
 # Quản lý lệnh
 
 ## Nguyên tắc chung
-- **Chỉ giao dịch thuận xu hướng:** BUY khi xu hướng tăng, SELL khi xu hướng giảm (đã xác nhận).
+- **Chỉ giao dịch thuận xu hướng:** BUY khi xu hướng tăng, SELL khi xu hướng giảm (đã xác nhận). Ngoại lệ: khai thác phase 3 (xem bên dưới).
 - Phase 2 và phase 4 của order flow đều kỳ vọng phá đỉnh/đáy trước đó, nhưng **CHỈ KHAI THÁC PHASE 4**, **không khai thác phase 2** (người dùng sửa lại; Claude hiểu câu "không khai thác phase mà chỉ khai thác phase 4" là "không khai thác phase 2").
 - Lệnh khai thác phase 4 vào ở **cuối phase 3** (đáy tạm thời khi BUY / đỉnh tạm thời khi SELL), theo cách vào lệnh tại POI hoặc quét thanh khoản (`03-setup.md` mục 6–7).
 
@@ -19,6 +19,16 @@
 
 - "Tạo đỉnh thấp hơn" xác nhận bằng **quy tắc mục 1** (đã xác nhận).
 - **Dừng lỗ tại điểm vào (sau khi dời, ở cả trường hợp này và sau khi chốt 1/2): giá CHẠM điểm vào là thoát lệnh** (không chờ đóng cửa) (đã xác nhận).
+
+## Khai thác PHASE 3 – lệnh ngược xu hướng (người dùng đã giảng, chờ duyệt hình `examples/32-khai-thac-phase3.png`)
+- Phase 3 là phase **đi ngược xu hướng** (xu hướng tăng: phase 3 hồi xuống → lệnh SELL; xu hướng giảm: phase 3 hồi lên → lệnh BUY). Đây là **ngoại lệ** của nguyên tắc "chỉ giao dịch thuận xu hướng".
+- **Cách vào lệnh tương tự** các cách đã học.
+- **TP kỳ vọng ngắn hơn:** **chốt lời khi giá chạm vào vùng POI có giá trị gần nhất** (xu hướng tăng: POI trong discount, có FVG hỗ trợ, gần nhất phía dưới).
+
+**Chưa chốt (phase 3):**
+- Điểm vào: đỉnh mới cuối phase 2 + nến xác nhận đỉnh, SELL ở 1/2 râu trên của nến có điểm cao nhất? Có cần POI (premium) hay quét thanh khoản tại đỉnh không? (Vào lệnh kiểu quét thanh khoản trước đây chỉ dùng khi thuận xu hướng.)
+- TP: chốt toàn bộ lệnh khi râu chạm mép gần nhất của POI đó?
+- Dừng lỗ: giống lệnh thường (nến đóng thân qua điểm cao nhất + SL cứng 3 pip/3 giá)? Có dời về điểm vào không?
 
 ## Stop loss cứng và khối lượng
 - Xem `04-quan-ly-von.md`: SL cứng 3 pip (cặp tiền) / 3 giá (vàng); khối lượng tính để lỗ đúng một số tiền cố định.
