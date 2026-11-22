@@ -13,8 +13,13 @@
 - **"Tạo đỉnh mới"** = nến xác nhận đỉnh (quy tắc mục 1) đóng cửa → chốt phần còn lại tại giá đóng cửa của nến đó (đã xác nhận).
 - **Sau khi chốt 1/2 → dời dừng lỗ về điểm vào lệnh** (hòa vốn) cho phần còn lại (đã xác nhận).
 
+## Dời dừng lỗ khi giá tạo đỉnh thấp hơn (người dùng đã giảng, chờ duyệt hình `examples/31-doi-sl-dinh-thap-hon.png`)
+- Sau khi vào lệnh BUY, nếu giá **tạo đỉnh THẤP HƠN đỉnh cũ** (chưa chạm đỉnh cũ) → **dời dừng lỗ về điểm vào lệnh**. SELL ngược lại: giá tạo đáy CAO HƠN đáy cũ → dời dừng lỗ về điểm vào.
+- Cách hiểu của Claude: "tạo đỉnh" = có nến xác nhận đỉnh theo quy tắc mục 1. Nếu sau đó giá vẫn lên chạm đỉnh cũ thì quản lý lệnh như bình thường (chốt 1/2, rồi chốt phần còn lại khi tạo đỉnh mới).
+
 **Chưa chốt:**
-- Dừng lỗ ở điểm vào sau khi dời: vẫn theo giá đóng cửa (nến đóng thân qua điểm vào), hay chạm là thoát?
+- Dừng lỗ ở điểm vào sau khi dời: vẫn theo giá đóng cửa (nến đóng thân qua điểm vào), hay giá chạm là thoát?
+- "Tạo đỉnh thấp hơn" xác nhận bằng quy tắc mục 1?
 
 ## Đã biết từ các bài trước (chi tiết trong `03-setup.md` mục 7)
 - **Vào lệnh:** đặt lệnh chờ tại 1/2 râu của nến có điểm thấp nhất (BUY) / cao nhất (SELL), sau khi có nến xác nhận đáy/đỉnh trong vùng POI.
