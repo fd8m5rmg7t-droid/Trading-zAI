@@ -172,6 +172,17 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 **Chưa chốt:**
 - "Râu dài hơn thân": chỉ so phần râu quét (râu dưới khi quét đáy, râu trên khi quét đỉnh) với thân? (Claude đang hiểu như vậy.)
 
+**Vào lệnh khi giá quét thanh khoản (người dùng đã giảng, chờ duyệt hình `examples/28-vao-lenh-quet-thanh-khoan.png`):**
+- **Chỉ khi THUẬN xu hướng:** BUY khi xu hướng tăng (quét thanh khoản ở dưới), SELL khi xu hướng giảm (quét thanh khoản ở trên). Ngược xu hướng → không vào lệnh kiểu này.
+- **Không cần đợi tạo đáy/đỉnh** tại điểm thanh khoản (khác với vào lệnh tại POI).
+- **Điểm vào lệnh:**
+  - Nếu **1/2 râu của nến quét** nằm **bên kia** giá thanh khoản (dưới giá thanh khoản khi BUY / trên khi SELL) → vào lệnh tại **1/2 râu**.
+  - Nếu 1/2 râu nằm **bên này** giá thanh khoản (trên giá thanh khoản khi BUY / dưới khi SELL) → vào lệnh tại **chính giá thanh khoản**.
+
+**Chưa chốt:**
+- Đặt lệnh chờ (limit) sau khi nến quét đóng cửa (vì cần giá đóng cửa để biết có phải quét không)?
+- Dừng lỗ cho kiểu vào lệnh này: khi có nến đóng thân qua điểm thấp nhất (râu) của nến quét?
+
 ## 7. POI (point of interest)
 
 **Định nghĩa (đã xác nhận, tách riêng với thanh khoản):** **vùng giá có khả năng phản ứng để vào lệnh**.
