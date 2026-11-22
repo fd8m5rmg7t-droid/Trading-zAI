@@ -185,8 +185,16 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Vùng POI = toàn bộ nến 1, tính cả râu** (từ high đến low).
 - Nhiều nến liên tiếp cùng đóng cửa trong vùng → **POI vẫn chỉ là nến 1**, không mở rộng.
 
+**Chọn POI để giao dịch (người dùng đã giảng, chờ duyệt hình `examples/24-poi-hop-le.png`):**
+- Trong một con sóng có rất nhiều POI. **Chỉ xét:**
+  - POI ở vùng **DISCOUNT** cho lệnh **BUY**.
+  - POI ở vùng **PREMIUM** cho lệnh **SELL**.
+- POI đó **cần có FVG hỗ trợ**.
+
 **Chưa chốt:**
-- POI nào được chọn để giao dịch; khi nào POI hết hiệu lực.
+- "FVG hỗ trợ" nghĩa là gì? Giả định của Claude: FVG cùng chiều lệnh, hình thành ngay sau POI (bộ 3 nến FVG bắt đầu trong vòng 2 nến sau nến POI).
+- POI "ở discount": cả nến POI phải nằm trong discount, hay chỉ cần một phần? (Claude đang lấy điểm giữa của nến POI.)
+- Khi nào POI hết hiệu lực.
 
 ### 7.1 FVG (Fair Value Gap)
 - **Định nghĩa (đã xác nhận, giống định nghĩa SMC phổ biến):** bộ 3 nến liên tiếp. FVG tăng: low nến 3 > high nến 1, vùng FVG = từ high nến 1 đến low nến 3. FVG giảm: high nến 3 < low nến 1, vùng = từ high nến 3 đến low nến 1. Râu nến 1 và 3 chồng nhau thì không có FVG.
