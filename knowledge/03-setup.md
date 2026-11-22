@@ -114,3 +114,19 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Phase 3 đã tạo đáy tạm thời nhưng giá không phá được đỉnh của phase 2** → quay lại **phase 1 (tích lũy)** của một order flow mới.
 - (Người dùng trả lời "có" cho cả 4 ý trên; Claude hiểu là xác nhận tất cả.)
 - Minh họa đủ 4 phase: `examples/14-order-flow-4-phase.png`
+
+## 5. PnD tool (Premium & Discount)
+
+**Định nghĩa (người dùng đã giảng):**
+- Công cụ xác định **vùng premium** và **vùng discount**.
+- Đo từ **đáy đến đỉnh của con sóng gần nhất**.
+- **Đường trung bình** (giữa đáy và đỉnh, 50%) chia vùng giá thành 2 vùng:
+  - **Premium:** từ đường trung bình lên đến đỉnh.
+  - **Discount:** từ đường trung bình xuống đến đáy.
+- Minh họa cách hiểu: `examples/15-pnd-tool.png`
+
+**Chưa chốt:**
+- "Con sóng gần nhất" có phải là sóng đẩy (phase 2): từ đáy tạo ra đỉnh gần nhất đến đỉnh gần nhất (xu hướng giảm thì ngược lại)?
+- Đo bằng râu nến (high/low)?
+- Khi nào đo lại (khi có đỉnh/đáy mới phá vỡ đỉnh/đáy cũ)?
+- Cách dùng: xu hướng tăng thì chờ giá hồi về discount để mua, xu hướng giảm thì chờ giá hồi lên premium để bán?
