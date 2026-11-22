@@ -81,3 +81,14 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
   - Minh họa: `examples/10-di-ngang-vs-dao-chieu.png`
 - **Thứ tự không quan trọng:** gặp đỉnh trước hay đáy trước đều được, miễn đủ 2 đỉnh + 2 đáy thỏa điều kiện (đã xác nhận, xem `examples/08-thu-tu-dinh-day.png`).
 - Minh họa: `examples/07-xac-dinh-xu-huong.png`
+
+## 4. Order flow
+
+**Định nghĩa:** order flow là cấu trúc của **một con sóng**, gồm **4 phase**.
+
+**Phase 1: TÍCH LŨY (range phase)** (chờ người dùng duyệt hình)
+- Giá dao động **bên trong đỉnh và đáy của con sóng trước**.
+- Cách hiểu của Claude: "con sóng trước" là nhịp từ **đáy tạo ra đỉnh** lên **đỉnh gần nhất** (xu hướng tăng), hoặc ngược lại với xu hướng giảm. Phase 1 trùng với trạng thái **đi ngang** ở mục 3.
+- Minh họa: `examples/11-order-flow-phase1.png`
+
+**Phase 2, 3, 4:** chưa học.
