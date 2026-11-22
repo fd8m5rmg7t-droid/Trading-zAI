@@ -107,4 +107,8 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Phase 3 kết thúc** khi giá tạo **đáy tạm thời** (xu hướng tăng) hoặc **đỉnh tạm thời** (xu hướng giảm).
 - **Đáy/đỉnh tạm thời** được xác nhận bằng **quy tắc mục 1–2** (nến có thân đóng cửa qua high/low của nến liền trước) (đã xác nhận).
 
-**Phase 4:** chưa học.
+**Phase 4: TIẾP DIỄN** (người dùng đã giảng)
+- Giá tiếp tục tăng (hoặc giảm), **phá vỡ đỉnh (hoặc đáy) cũ** để tiếp tục xu hướng.
+- Cách hiểu của Claude (chờ duyệt): phase 4 bắt đầu từ đáy/đỉnh tạm thời (cuối phase 3). "Đỉnh cũ" bị phá là đỉnh mới tạo ra ở cuối phase 2; phá bằng thân nến đóng cửa.
+- Minh họa đủ 4 phase: `examples/14-order-flow-4-phase.png`
+- Chưa chốt: sau phase 4 thì sao (chu kỳ lặp lại thành order flow mới?); phase 3 tạo đáy tạm thời mà giá không phá được đỉnh của phase 2 thì sao?
