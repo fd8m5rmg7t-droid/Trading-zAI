@@ -4,7 +4,10 @@
 - **Phong cách:** Scalping
 - **Cặp tiền (đã xác nhận):** các cặp tiền CHÍNH có USD (EURUSD, GBPUSD, AUDUSD, NZDUSD, USDJPY, USDCHF, USDCAD) và **vàng XAUUSD**.
 - Phiên giao dịch: tránh giờ giao phiên (xem bên dưới).
-- Khung thời gian (khung xác định xu hướng & order flow / khung vào lệnh): _người dùng nhờ Claude tư vấn, chưa chốt_.
+- **Khung thời gian (đã xác nhận, theo tư vấn của Claude):**
+  - **M15:** xác định xu hướng (2 đỉnh + 2 đáy), order flow (4 phase), PnD tool, thanh khoản, POI + FVG.
+  - **M1:** vào lệnh – chờ nến tạo đáy/đỉnh trong vùng POI M15 hoặc nến quét thanh khoản, tính 1/2 râu, dừng lỗ theo giá đóng cửa nến M1, SL cứng 3 pip / 3 giá.
+  - Lý do: SL cứng chỉ 3 pip nên cần nến vào lệnh nhỏ; POI M15 (1 nến) chứa ~15 nến M1 đủ để thấy đáy/đỉnh hình thành; order flow trên M15 kéo dài vài giờ, hợp scalping trong phiên. Chưa kiểm chứng bằng backtest.
 
 ## Thời điểm KHÔNG giao dịch (đã xác nhận)
 - **Không giao dịch 30 phút trước và 30 phút sau mỗi lần giao phiên.**
