@@ -20,15 +20,15 @@
 - "Tạo đỉnh thấp hơn" xác nhận bằng **quy tắc mục 1** (đã xác nhận).
 - **Dừng lỗ tại điểm vào (sau khi dời, ở cả trường hợp này và sau khi chốt 1/2): giá CHẠM điểm vào là thoát lệnh** (không chờ đóng cửa) (đã xác nhận).
 
-## Khai thác PHASE 3 – lệnh ngược xu hướng (người dùng đã giảng, chờ duyệt hình `examples/32-khai-thac-phase3.png`)
+## Khai thác PHASE 3 – lệnh ngược xu hướng (đã xác nhận, xem `examples/32-khai-thac-phase3.png`)
 - Phase 3 là phase **đi ngược xu hướng** (xu hướng tăng: phase 3 hồi xuống → lệnh SELL; xu hướng giảm: phase 3 hồi lên → lệnh BUY). Đây là **ngoại lệ** của nguyên tắc "chỉ giao dịch thuận xu hướng".
 - **Cách vào lệnh tương tự** các cách đã học.
 - **TP kỳ vọng ngắn hơn:** **chốt lời khi giá chạm vào vùng POI có giá trị gần nhất** (xu hướng tăng: POI trong discount, có FVG hỗ trợ, gần nhất phía dưới).
 
-**Chưa chốt (phase 3):**
-- Điểm vào: đỉnh mới cuối phase 2 + nến xác nhận đỉnh, SELL ở 1/2 râu trên của nến có điểm cao nhất? Có cần POI (premium) hay quét thanh khoản tại đỉnh không? (Vào lệnh kiểu quét thanh khoản trước đây chỉ dùng khi thuận xu hướng.)
-- TP: chốt toàn bộ lệnh khi râu chạm mép gần nhất của POI đó?
-- Dừng lỗ: giống lệnh thường (nến đóng thân qua điểm cao nhất + SL cứng 3 pip/3 giá)? Có dời về điểm vào không?
+- **Điểm vào (đã xác nhận):** cuối phase 2, giá tạo đỉnh mới + nến xác nhận đỉnh → SELL ở 1/2 râu trên của nến có điểm cao nhất (xu hướng giảm: ngược lại). Claude hiểu câu trả lời "điểm 1 đúng" là không cần thêm điều kiện POI/quét thanh khoản tại đỉnh.
+- **Chốt lời:** chốt **TOÀN BỘ** lệnh khi giá chạm POI có giá trị gần nhất (đã xác nhận).
+- **Dừng lỗ:** giống lệnh thường (nến đóng thân qua điểm cao nhất; SL cứng 3 pip/3 giá) (đã xác nhận).
+- **Dời dừng lỗ về điểm vào:** khi có **cây nến tạo đáy** (đáy được xác nhận theo quy tắc mục 2) mà giá **chưa chạm POI có giá trị** (đã xác nhận). Sau khi dời, giá chạm điểm vào là thoát (giống quy tắc chung).
 
 ## Stop loss cứng và khối lượng
 - Xem `04-quan-ly-von.md`: SL cứng 3 pip (cặp tiền) / 3 giá (vàng); khối lượng tính để lỗ đúng một số tiền cố định.
