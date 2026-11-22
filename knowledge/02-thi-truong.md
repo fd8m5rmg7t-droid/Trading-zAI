@@ -12,7 +12,7 @@
 
 **Chưa chốt:**
 - Các mốc giao phiên cụ thể (giờ Việt Nam?): ví dụ phiên Á → Âu, Âu → Mỹ; có tính lệch giờ mùa hè/mùa đông không?
-- "Tin tức mạnh" là loại nào (ví dụ tin đỏ trên lịch kinh tế: NFP, CPI, FOMC…)? Tránh bao lâu trước và sau tin? Lệnh đang mở trước tin thì xử lý thế nào?
+- **Thời gian tin tức: người dùng sẽ thông báo cho Claude** khi có tin. Khi được báo, Claude không đề xuất vào lệnh trong khoảng thời gian đó.
 
 ## Công cụ không dùng
 - **Không dùng BOS / CHoCH** (đã xác nhận).
