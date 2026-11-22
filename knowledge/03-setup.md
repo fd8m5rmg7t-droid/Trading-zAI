@@ -176,15 +176,18 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 
 **Định nghĩa (đã xác nhận, tách riêng với thanh khoản):** **vùng giá có khả năng phản ứng để vào lệnh**.
 
-**POI theo cách của người dùng (người dùng đã giảng, chờ duyệt hình `examples/22-poi-tranh-chap.png`):**
+**POI theo cách của người dùng (đã xác nhận, xem `examples/22-poi-tranh-chap.png`):**
 - POI là **vùng giá tranh chấp giữa bên mua và bên bán**, thể hiện qua hình thức nến.
-- Nếu **cây nến liền sau có giá đóng cửa KHÔNG thoát khỏi vùng từ giá cao nhất đến giá thấp nhất (high–low) của cây nến liền trước**, thì **cả cây nến liền trước** được coi là một vùng tranh chấp = **một POI**.
-- Cách hiểu của Claude: vùng POI = toàn bộ high–low của nến liền trước (tính cả râu); chỉ xét giá đóng cửa của nến liền sau (râu nến sau vượt ra ngoài vẫn được).
+- Điều kiện:
+  1. **Nến 1 (nến liền trước) phải có RÂU dài hơn THÂN.** Thân dài hơn râu → không phải POI.
+  2. **Nến liền sau** có giá đóng cửa **KHÔNG thoát** khỏi vùng high–low của nến 1. Chỉ xét giá đóng cửa; râu nến sau vượt ra ngoài vẫn được.
+  3. Giá đóng cửa **ĐÚNG BẰNG** high/low của nến 1 → chưa thoát → **vẫn là POI**.
+- **Vùng POI = toàn bộ nến 1, tính cả râu** (từ high đến low).
+- Nhiều nến liên tiếp cùng đóng cửa trong vùng → **POI vẫn chỉ là nến 1**, không mở rộng.
 
 **Chưa chốt:**
-- Giá đóng cửa ĐÚNG BẰNG high/low của nến liền trước: vẫn là POI?
-- Nhiều nến liên tiếp cùng đóng cửa trong vùng: POI vẫn là nến đầu tiên hay mở rộng?
-- POI nào hợp lệ để giao dịch; khi nào POI hết hiệu lực.
+- "Râu dài hơn thân": so râu nào (râu trên, râu dưới, một trong hai, hay tổng hai râu)?
+- POI nào được chọn để giao dịch; khi nào POI hết hiệu lực.
 
 ### 7.1 FVG (Fair Value Gap)
 - **Định nghĩa (đã xác nhận, giống định nghĩa SMC phổ biến):** bộ 3 nến liên tiếp. FVG tăng: low nến 3 > high nến 1, vùng FVG = từ high nến 1 đến low nến 3. FVG giảm: high nến 3 < low nến 1, vùng = từ high nến 3 đến low nến 1. Râu nến 1 và 3 chồng nhau thì không có FVG.
