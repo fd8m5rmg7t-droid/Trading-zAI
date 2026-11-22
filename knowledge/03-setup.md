@@ -176,3 +176,7 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 
 **Định nghĩa (đã xác nhận, tách riêng với thanh khoản):** **vùng giá có khả năng phản ứng để vào lệnh**.
 - Chưa học: các loại POI, cách vẽ, POI nào hợp lệ.
+
+### 7.1 FVG (Fair Value Gap)
+- **Cách Claude hiểu theo định nghĩa SMC phổ biến (CHƯA phải quy tắc người dùng, chờ duyệt):** bộ 3 nến liên tiếp. FVG tăng: low nến 3 > high nến 1, vùng FVG = từ high nến 1 đến low nến 3. FVG giảm: high nến 3 < low nến 1, vùng = từ high nến 3 đến low nến 1. Râu nến 1 và 3 chồng nhau thì không có FVG.
+- Minh họa: `examples/21-fvg.png`
