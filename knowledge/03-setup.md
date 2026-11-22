@@ -102,7 +102,7 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - Sau khi giá đã được đẩy lên một đoạn (phase 2), giá **hồi về một điểm nào đó**. Đó là phase 3.
 - **Phase 2 kết thúc** tại đỉnh mới (xu hướng tăng) / đáy mới (xu hướng giảm), và **phase 3 bắt đầu từ đó** (đã xác nhận).
 - Minh họa: `examples/13-order-flow-phase3.png`
-- **Hồi về đâu:** về **vùng có thanh khoản**. Sẽ thảo luận chi tiết sau (bài thanh khoản).
+- **Hồi về đâu:** về **POI có giá trị** (POI trong discount/premium, có FVG hỗ trợ – mục 7) (đã xác nhận; trước đây gọi chung là "vùng có thanh khoản" trước khi tách thanh khoản và POI).
 - **Hồi sâu quá đáy tạo ra đỉnh mới** (xu hướng tăng) / **quá đỉnh tạo ra đáy mới** (xu hướng giảm): lúc này **xu hướng có thể đã thay đổi**.
 - **Phase 3 kết thúc** khi giá tạo **đáy tạm thời** (xu hướng tăng) hoặc **đỉnh tạm thời** (xu hướng giảm).
 - **Đáy/đỉnh tạm thời** được xác nhận bằng **quy tắc mục 1–2** (nến có thân đóng cửa qua high/low của nến liền trước) (đã xác nhận).
@@ -170,7 +170,7 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Sau khi bị quét**, thanh khoản đó **không còn hiệu quả để khai thác lần 2** (đã xác nhận).
 
 **Chưa chốt:**
-- "Râu dài hơn thân": chỉ so phần râu quét (râu dưới khi quét đáy, râu trên khi quét đỉnh) với thân? (Claude đang hiểu như vậy.)
+- **"Râu dài hơn thân"** khi quét: chỉ so **phần râu quét** (râu dưới khi quét đáy, râu trên khi quét đỉnh) với thân (đã xác nhận).
 
 **Vào lệnh khi giá quét thanh khoản (đã xác nhận, xem `examples/28-vao-lenh-quet-thanh-khoan.png`):**
 - **Chỉ khi THUẬN xu hướng:** BUY khi xu hướng tăng (quét thanh khoản ở dưới), SELL khi xu hướng giảm (quét thanh khoản ở trên). Ngược xu hướng → không vào lệnh kiểu này.
