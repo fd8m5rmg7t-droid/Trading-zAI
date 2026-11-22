@@ -10,7 +10,7 @@
 - **Không giao dịch 30 phút trước và 30 phút sau mỗi lần giao phiên.**
 - **Không giao dịch khi thị trường có tin tức mạnh ảnh hưởng.**
 
-**Chưa chốt:**
+**Tin tức:**
 - **Thời gian tin tức: người dùng sẽ thông báo cho Claude** khi có tin. Khi được báo, Claude không đề xuất vào lệnh trong khoảng thời gian đó.
 
 **Mốc giao phiên (đã xác nhận: cả 3 mốc, theo giờ mở phiên FOREX, giờ Việt Nam):**
