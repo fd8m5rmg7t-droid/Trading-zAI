@@ -28,6 +28,7 @@ Repo này lưu phương pháp giao dịch do người dùng trực tiếp dạy 
 - **Đã xong thêm:** vào lệnh khi quét thanh khoản (`03-setup.md` mục 6); Bài 7 Quản lý lệnh: chỉ thuận xu hướng, chỉ khai thác phase 4, chốt 1/2 khi chạm đỉnh/đáy cũ, dời SL về điểm vào (cả khi giá tạo đỉnh thấp hơn đỉnh cũ), chốt phần còn lại khi tạo đỉnh/đáy mới; khai thác phase 3 ngược xu hướng với TP toàn bộ tại POI có giá trị gần nhất (`05-quan-ly-lenh.md`). Quản lý vốn: SL cứng 3 pip/3 giá, rủi ro cố định mỗi lệnh, công cụ `tools/tinh_khoi_luong.py` (`04-quan-ly-von.md`).
 - **Đã xong thêm:** thị trường (`02-thi-truong.md`): cặp, khung M15/M1, giờ giao phiên cấm giao dịch, tin tức do người dùng báo. KHÔNG dùng BOS/CHoCH.
 - **Người dùng sẽ quyết định sau:** số tiền rủi ro cố định, thông số hợp đồng vàng.
-- **Bước đề xuất tiếp theo:** backtest các quy tắc trên dữ liệu lịch sử M15/M1; viết code tự động nhận diện đỉnh/đáy, xu hướng, order flow, POI, thanh khoản.
+- **Đang làm: bộ máy tự động + backtest** (`tools/smc_engine.py`). Đã có phần 1: đọc CSV (MT5/TradingView), nhận diện đỉnh/đáy + xu hướng M15, vẽ chart; mới chạy thử trên dữ liệu giả lập (`examples/33-...`). Còn: order flow, PnD, POI/FVG, thanh khoản, vào lệnh M1, quản lý lệnh, backtest.
+- **Đang chờ người dùng:** file CSV nến M15 và M1 (xuất từ MT5) – Dukascopy chặn tải tự động (429), không vượt rào.
 - **Còn mở:** phân loại đỉnh/đáy lớn và nhỏ.
 - **Cách dạy người dùng ưa thích:** người dùng giảng, Claude vẽ hình minh họa cách mình hiểu (matplotlib, lưu vào `examples/`), người dùng duyệt rồi mới ghi là "đã xác nhận".
