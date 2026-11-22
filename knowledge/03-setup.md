@@ -100,4 +100,10 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - Chưa chốt:
   - Phase 2 kết thúc ở đâu (ở đỉnh mới?).
 
-**Phase 3, 4:** chưa học.
+**Phase 3: HỒI** (người dùng đã giảng)
+- Sau khi giá đã được đẩy lên một đoạn (phase 2), giá **hồi về một điểm nào đó**. Đó là phase 3.
+- Cách hiểu của Claude (chờ duyệt): phase 2 kết thúc tại đỉnh mới (xu hướng tăng) / đáy mới (xu hướng giảm), phase 3 bắt đầu từ đó.
+- Minh họa: `examples/13-order-flow-phase3.png`
+- Chưa chốt: giá hồi về điểm nào; giới hạn tối đa của nhịp hồi; khi nào phase 3 kết thúc.
+
+**Phase 4:** chưa học.
