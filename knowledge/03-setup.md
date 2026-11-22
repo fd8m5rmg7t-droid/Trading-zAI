@@ -98,15 +98,14 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **"Vượt qua"** = có nến có **thân đóng cửa ra ngoài vùng** tích lũy, giống quy tắc phá vỡ (đã chốt tạm thời).
 - **Phase 2 bắt đầu** từ **đáy THẤP NHẤT trong vùng tích lũy** (xu hướng tăng), hoặc **đỉnh CAO NHẤT trong vùng tích lũy** (xu hướng giảm). Không phải đáy/đỉnh cuối cùng trong vùng (đã chốt tạm thời).
 - Chưa chốt:
-  - Phase 2 kết thúc ở đâu (ở đỉnh mới?).
 
 **Phase 3: HỒI** (người dùng đã giảng)
 - Sau khi giá đã được đẩy lên một đoạn (phase 2), giá **hồi về một điểm nào đó**. Đó là phase 3.
-- Cách hiểu của Claude (chờ duyệt): phase 2 kết thúc tại đỉnh mới (xu hướng tăng) / đáy mới (xu hướng giảm), phase 3 bắt đầu từ đó.
+- **Phase 2 kết thúc** tại đỉnh mới (xu hướng tăng) / đáy mới (xu hướng giảm), và **phase 3 bắt đầu từ đó** (đã xác nhận).
 - Minh họa: `examples/13-order-flow-phase3.png`
 - **Hồi về đâu:** về **vùng có thanh khoản**. Sẽ thảo luận chi tiết sau (bài thanh khoản).
 - **Hồi sâu quá đáy tạo ra đỉnh mới** (xu hướng tăng) / **quá đỉnh tạo ra đáy mới** (xu hướng giảm): lúc này **xu hướng có thể đã thay đổi**.
 - **Phase 3 kết thúc** khi giá tạo **đáy tạm thời** (xu hướng tăng) hoặc **đỉnh tạm thời** (xu hướng giảm).
-- Chưa chốt: đáy/đỉnh tạm thời được xác nhận bằng quy tắc mục 1–2 (nến có thân đóng cửa qua high/low của nến liền trước)?
+- **Đáy/đỉnh tạm thời** được xác nhận bằng **quy tắc mục 1–2** (nến có thân đóng cửa qua high/low của nến liền trước) (đã xác nhận).
 
 **Phase 4:** chưa học.
