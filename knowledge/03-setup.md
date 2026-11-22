@@ -97,7 +97,6 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - Minh họa cách hiểu: `examples/12-order-flow-phase2.png`
 - **"Vượt qua"** = có nến có **thân đóng cửa ra ngoài vùng** tích lũy, giống quy tắc phá vỡ (đã chốt tạm thời).
 - **Phase 2 bắt đầu** từ **đáy THẤP NHẤT trong vùng tích lũy** (xu hướng tăng), hoặc **đỉnh CAO NHẤT trong vùng tích lũy** (xu hướng giảm). Không phải đáy/đỉnh cuối cùng trong vùng (đã chốt tạm thời).
-- Chưa chốt:
 
 **Phase 3: HỒI** (người dùng đã giảng)
 - Sau khi giá đã được đẩy lên một đoạn (phase 2), giá **hồi về một điểm nào đó**. Đó là phase 3.
