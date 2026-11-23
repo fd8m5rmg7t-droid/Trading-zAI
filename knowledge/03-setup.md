@@ -70,7 +70,8 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
   - **Xác nhận xu hướng giảm khi Đáy 2 được xác nhận** (không phải ngay lúc phá Đáy 1).
 - **Giá đi lên trước:** ngược lại (Đáy 1 = râu dưới nến đóng cửa ngày trước; Đỉnh 1 theo cách 1; phá Đỉnh 1 → Đỉnh 2; Đáy 2 = điểm thấp nhất giữa hai đỉnh; xác nhận tăng khi Đỉnh 2 được xác nhận).
 - **Đi xuống tạo Đáy 1, rồi quay lên vượt Đỉnh 1 mà chưa phá Đáy 1:** đợi **đỉnh mới cao hơn Đỉnh 1** và **đáy mới cao hơn Đáy 1** (cả hai tìm bằng **cách 1**) → xác nhận xu hướng tăng. (Đi lên trước thì ngược lại.)
-- Minh họa trên dữ liệu thật: `backtest/buoc-1-m15.png` (XAUUSD M15, 22/10/2026).
+- **Áp dụng chung (đã xác nhận):** khi giá quay ngược qua điểm bắt đầu mà chưa phá Đỉnh 1/Đáy 1, dùng quy tắc 2 đỉnh + 2 đáy gần nhất (cách 1) – cùng chiều nào thì xác nhận xu hướng chiều đó (có thể tăng hoặc giảm).
+- Minh họa trên dữ liệu thật: `backtest/buoc-1-m15.png` (22/10/2026), `backtest/buoc-1-m15-2026-09-08.png`, `-2026-09-10.png`, `-2026-08-11.png` (đã duyệt).
 
 **Định nghĩa xu hướng (đã xác nhận):**
 - **Xu hướng tăng:** đỉnh sau cao hơn đỉnh trước VÀ đáy sau cao hơn đáy trước.
