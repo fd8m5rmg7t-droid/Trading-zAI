@@ -76,3 +76,15 @@ cần kiểm tra lại trên dữ liệu khác (năm khác, cặp khác) trướ
 | M15/M1 | mỗi ngày | POI | 3 | 0/3/0 | −1.31R | −1.31R |
 | M15/M1 | liên tục | không cần POI | 90 | 4/86/0 | −31.14R | −32.87R |
 | M15/M1 | liên tục | POI | 6 | 0/6/0 | −3.34R | −3.34R |
+
+## Lần 6 – M1 vừa xác định xu hướng vừa vào lệnh (`--khung M1/M1`)
+| Xu hướng | Vùng | Lệnh | Thắng/Thua/Hòa | Tổng | TB/lệnh | Sụt giảm |
+|---|---|---|---|---|---|---|
+| mỗi ngày | không cần POI | 527 | 108/418/1 | **+33.23R** | +0.063R | −18.65R |
+| liên tục | không cần POI | 533 | 108/424/1 | +35.45R | +0.067R | −19.20R |
+| mỗi ngày | POI | 61 | 8/53/0 | −1.33R | −0.022R | −7.46R |
+| liên tục | POI | 59 | 8/51/0 | −0.81R | −0.014R | −7.37R |
+
+- Khoảng cách điểm vào → SL cứng trung bình chỉ 3.48 giá (SL cứng 3 giá chiếm phần lớn) → **rất nhạy với chi phí**:
+  spread 0.3 → +33.2R; spread 0.5 → +2.7R; spread 0.8 → −43.1R (cùng 527 lệnh). Hình: `xauusd-m1m1-equity.png`.
+- Tháng 9 âm ở mọi biến thể. ~150 lệnh/tháng (~7 lệnh/ngày) → trượt giá thực tế quan trọng.
