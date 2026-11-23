@@ -119,3 +119,8 @@ Khác biệt nhỏ: quy tắc mở đầu ngày chỉ ảnh hưởng tới vài 
 ## Lần 9 – PnD sau pha hồi không đủ đo từ đỉnh/đáy nông (quy tắc mới)
 - M15/M15 mỗi ngày, không cần POI: 42 lệnh, thắng 8 thua 30 hòa 4, **+5.52R** (trước: 33 lệnh, +3.05R).
 - M1/M1 mỗi ngày, không cần POI: 728 lệnh, thắng 155 thua 573, **+51.32R** (trước: 526 lệnh, +26.76R). Spread 0.3.
+
+## Lần 10 – huỷ lệnh chờ nếu giá tạo đáy (SELL) / đỉnh (BUY) theo cách 1 trước khi khớp
+- M15/M15 mỗi ngày, không cần POI: 34 lệnh, thắng 5 thua 26 hòa 3, **+2.03R**, sụt −8.47R (trước: 42 lệnh, +5.52R).
+- M1/M1: 543 lệnh, thắng 108 thua 435, **+11.15R**, sụt −16.39R (trước: 728 lệnh, +51.32R).
+- Lệnh 22/10 15:00 (+5.43R) vẫn giữ nguyên.

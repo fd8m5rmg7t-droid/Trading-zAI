@@ -247,6 +247,7 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 **Chưa chốt:**
 - **"1/2 râu"** = điểm giữa của **râu phía điểm thấp nhất** (từ mép thân xuống đến low) khi BUY; râu trên khi SELL (đã xác nhận).
 - Sau khi nến xác nhận đáy/đỉnh đóng cửa → **đặt lệnh chờ (limit)** tại mức 1/2 râu. Giá **không hồi về** chạm mức đó → **bỏ lệnh** (đã xác nhận).
+- **Huỷ lệnh chờ khi tạo đỉnh/đáy trước khi khớp (đã xác nhận):** trong lúc chờ giá hồi về 1/2 râu, nếu giá **tạo đáy theo cách 1** ngay sau đỉnh (lệnh SELL) / **tạo đỉnh theo cách 1** ngay sau đáy (lệnh BUY) trước khi chạm điểm vào → **bỏ lệnh**. (Nếu cùng một nến vừa chạm điểm vào vừa đóng cửa tạo đỉnh/đáy thì coi là đã khớp.)
 - **Điểm thấp nhất (đáy) KHÔNG bắt buộc nằm trong vùng POI**; râu xuyên xuống dưới POI vẫn được (đã xác nhận).
 
 **Stop loss (đã xác nhận, xem `examples/27-stoploss-poi.png`):**

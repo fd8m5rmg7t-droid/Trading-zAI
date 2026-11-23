@@ -124,7 +124,7 @@ def analyze_daily(bars, start_rule=None):
 
 
 # ----------------------------------------------------------------------------- backtest một chiều (BUY)
-def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=None, poi_mode="poi", strict_time=False):
+def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=None, poi_mode="poi", strict_time=False, huy_khi_tao_dinh=True):
     D = diag if diag is not None else {}
     inc = lambda key: D.__setitem__(key, D.get(key, 0) + 1)
     import bisect
@@ -230,6 +230,10 @@ def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=N
                     _manage(trade, m1, j, trades, log, first=True)
                     if trade["done"]:
                         trade = None; setup = None
+                    continue
+                # Chưa khớp mà giá đã tạo đỉnh (BUY) / đáy (SELL) theo cách 1 ngay sau đáy/đỉnh → bỏ lệnh
+                if huy_khi_tao_dinh and j > setup["conf_j"] and b.c < m1[j - 1].l:
+                    inc("x_huy_lenh_cho_tao_dinh_day_truoc_khi_khop"); setup = None; continue
         # ---- POI hết hiệu lực (nến M15 chạm lần đầu đóng cửa dưới low POI)
         if setup and setup["poi"] is not None and setup["state"] in ("bottom", "pending") and setup["touch_k"] == k + 1:
             if m15[k + 1].c < m15[setup["poi"]].l:
@@ -321,6 +325,8 @@ def main():
                     help="khung xác định xu hướng/POI / khung vào lệnh")
     ap.add_argument("--vung", default="poi", choices=["poi", "discount"],
                     help="poi: vào lệnh tại POI hợp lệ; discount: chỉ cần phase 3 chạm 50%% rồi tạo đáy/đỉnh")
+    ap.add_argument("--khong-huy-khi-tao-dinh", action="store_true",
+                    help="tắt quy tắc: lệnh chờ bị huỷ nếu giá tạo đỉnh/đáy (cách 1) trước khi khớp")
     ap.add_argument("--gio-cam-chat", action="store_true",
                     help="bỏ cả các thiết lập có nến xác nhận đáy/đỉnh nằm trong giờ cấm (mặc định chỉ cấm khớp lệnh)")
     ap.add_argument("--mo-dau", default="gia-dong-cua", choices=["gia-dong-cua", "2dinh-2day"],
@@ -347,7 +353,8 @@ def main():
     for side, A, Bm in (("BUY", m15, m1), ("SELL", neg(m15), neg(m1))):
         ctx = (analyze_daily(A, "prev_close" if a.mo_dau == "gia-dong-cua" else None) if a.xu_huong == "moi-ngay"
                else eng.analyze(A).ctx)
-        trades += run_long(A, Bm, ctx, side, a.spread, a.hard, a.be_tf, diag=diag, poi_mode=a.vung, strict_time=a.gio_cam_chat)
+        trades += run_long(A, Bm, ctx, side, a.spread, a.hard, a.be_tf, diag=diag, poi_mode=a.vung, strict_time=a.gio_cam_chat,
+                          huy_khi_tao_dinh=not a.khong_huy_khi_tao_dinh)
     print("Phễu lọc:", ", ".join(f"{k}={v}" for k, v in sorted(diag.items())))
     trades.sort(key=lambda t: t["t_in"])
     print(stats(trades))
