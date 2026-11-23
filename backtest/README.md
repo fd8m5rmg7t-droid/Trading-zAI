@@ -60,3 +60,19 @@ cần kiểm tra lại trên dữ liệu khác (năm khác, cặp khác) trướ
 - `--gio-cam-chat`: bỏ luôn các thiết lập có nến xác nhận đáy/đỉnh nằm trong giờ cấm.
   M15/M15 mỗi ngày, không cần POI: 29 lệnh, +7.15R, sụt giảm −6.25R (so với mặc định 32 lệnh, +9.42R, −7.4R).
 - Chưa lọc giờ tin tức (người dùng sẽ báo giờ tin).
+
+## Sửa lỗi bộ máy (phát hiện khi vẽ ngày 21/10/2026)
+- Lỗi: nến vừa XÁC NHẬN xu hướng đồng thời đóng cửa phá đáy (xu hướng giảm) / phá đỉnh (xu hướng tăng) thì bộ máy bỏ qua
+  việc phá vỡ đó (ngày 21/10 lúc 09:00: nến đóng 4108.91 < đáy 4111.80 nhưng không được tính). Đã sửa trong `tools/smc_engine.py`.
+- Chạy lại sau khi sửa:
+
+| Khung | Xu hướng | Vùng | Lệnh | Thắng/Thua/Hòa | Tổng | Sụt giảm |
+|---|---|---|---|---|---|---|
+| M15/M15 | mỗi ngày | không cần POI | 30 | 6/20/4 | **+5.48R** | −7.34R |
+| M15/M15 | mỗi ngày | POI | 2 | 0/2/0 | −1.12R | −1.12R |
+| M15/M15 | liên tục | không cần POI | 30 | 2/24/4 | −14.45R | −14.45R |
+| M15/M15 | liên tục | POI | 6 | 0/6/0 | −5.34R | −5.34R |
+| M15/M1 | mỗi ngày | không cần POI | 105 | 11/94/0 | +1.40R | −19.25R |
+| M15/M1 | mỗi ngày | POI | 3 | 0/3/0 | −1.31R | −1.31R |
+| M15/M1 | liên tục | không cần POI | 90 | 4/86/0 | −31.14R | −32.87R |
+| M15/M1 | liên tục | POI | 6 | 0/6/0 | −3.34R | −3.34R |

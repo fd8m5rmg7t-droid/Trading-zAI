@@ -113,8 +113,12 @@ def analyze(bars):
                 hist.append(add(Swing("B", j, L[j], i, "m12"))); look = "T"; start = j
                 conclude(i)
             res.state[i] = "UNCLEAR" if mode == "UNKNOWN" else mode
-            if mode != "UNKNOWN":
-                continue
+            # Nến vừa xác nhận xu hướng cũng có thể đồng thời đóng cửa vượt qua đỉnh (tăng) / đáy (giảm)
+            # gần nhất → bắt đầu quét đỉnh/đáy mới ngay từ nến này.
+            if mode == "UP" and T is not None and C[i] > T.price:
+                scan = i
+            elif mode == "DOWN" and B is not None and C[i] < B.price:
+                scan = i
             continue
 
         up = mode == "UP"
