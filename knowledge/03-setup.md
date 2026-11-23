@@ -72,6 +72,10 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Đi xuống tạo Đáy 1, rồi quay lên vượt Đỉnh 1 mà chưa phá Đáy 1:** đợi **đỉnh mới cao hơn Đỉnh 1** và **đáy mới cao hơn Đáy 1** (cả hai tìm bằng **cách 1**) → xác nhận xu hướng tăng. (Đi lên trước thì ngược lại.)
 - **Đi ngang / chưa rõ xu hướng đầu ngày (trường hợp 3 và 6, đã xác nhận):** phải đợi tạo thêm đỉnh và đáy. Xu hướng chỉ xác định khi **2 đỉnh liên tiếp VÀ 2 đáy liên tiếp cùng thấp dần (giảm) hoặc cùng cao dần (tăng)**. Đỉnh/đáy lúc này tìm theo **cách 2** (chỉ có đỉnh/đáy mới khi thân nến phá đỉnh/đáy gần nhất); các đỉnh/đáy nhỏ trong vùng đi ngang không tính.
   - **Ngoại lệ (đã xác nhận, trường hợp 3b):** đi ngang rồi phá LÊN Đỉnh 1 → tìm Đỉnh 2; **SAU khi có Đỉnh 2 mới tìm Đáy 2 theo cách 1**. Các đáy trong vùng đi ngang (trước Đỉnh 2) không có giá trị (không lấy "thấp nhất giữa Đỉnh 1 và Đỉnh 2" vì khoảng đó chứa chính Đáy 1). Đáy 2 > Đáy 1 → tăng. (Đi lên trước rồi phá XUỐNG: ngược lại.)
+  - **Xác nhận xu hướng khi đang chưa rõ / đi ngang (đã xác nhận qua ngày 16/09/2026, `backtest/sang-2026-09-16-sua.png`):**
+    - Chỉ dùng đỉnh/đáy **đã có nến xác nhận theo cách 1** (nến 07:00 ngày 16/09 đóng dưới Đáy 1 nhưng chưa có nến tạo đáy → không tính; đoạn từ Đỉnh 1 xuống đáy 4275.15 là đi ngang).
+    - **Xu hướng giảm chỉ xác nhận khi giá PHÁ ĐÁY GẦN NHẤT SAU KHI đã có đỉnh thấp hơn.**
+    - Xu hướng tăng (người dùng nói): phá đỉnh trước đó rồi tạo đáy cao hơn → tăng. CHƯA CHỐT dạng đối xứng – xem câu hỏi.
   - **Trường hợp 2 (đã xác nhận, xem `examples/37-truong-hop-2-rau-vuot-dinh-1.png`):** râu nến chọc qua Đỉnh 1 nhưng **thân chưa đóng cửa qua** → **chưa được coi là phá qua Đỉnh 1**. Giá phá Đáy 1 tạo Đáy 2 → vẫn **xác nhận xu hướng giảm** khi Đáy 2 xác nhận (không so râu Đỉnh 2 với Đỉnh 1). Đi lên trước: ngược lại.
   - **Trường hợp 3a (đã xác nhận):** đi ngang rồi phá XUỐNG Đáy 1 → Đáy 2 (phá vỡ); Đỉnh 2 = điểm cao nhất giữa Đáy 1 và Đáy 2 (cách 2) – hợp lệ vì khoảng đó nằm sau Đỉnh 1.
   - Minh họa: `examples/35-buoc1-tat-ca-truong-hop.png`, `examples/36-chua-ro-xu-huong-cach-2.png`.
