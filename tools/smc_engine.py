@@ -105,12 +105,12 @@ def analyze(bars):
             top_c = C[i] < L[i - 1]          # nến xác nhận đỉnh
             bot_c = C[i] > H[i - 1]          # nến xác nhận đáy
             if look in (None, "T") and top_c:
-                j = max(range(start, i + 1), key=lambda k: H[k])
-                hist.append(add(Swing("T", j, H[j], i, "m12"))); look = "B"; start = j
+                j = max(range(min(start, i), i + 1), key=lambda k: H[k])
+                hist.append(add(Swing("T", j, H[j], i, "m12"))); look = "B"; start = j + 1   # quét tiếp từ nến SAU đỉnh vừa tìm (1 nến không thể vừa là đỉnh vừa là đáy kế tiếp)
                 conclude(i)
             elif look in (None, "B") and bot_c:
-                j = min(range(start, i + 1), key=lambda k: L[k])
-                hist.append(add(Swing("B", j, L[j], i, "m12"))); look = "T"; start = j
+                j = min(range(min(start, i), i + 1), key=lambda k: L[k])
+                hist.append(add(Swing("B", j, L[j], i, "m12"))); look = "T"; start = j + 1   # quét tiếp từ nến SAU đáy vừa tìm
                 conclude(i)
             res.state[i] = "UNCLEAR" if mode == "UNKNOWN" else mode
             # Nến vừa xác nhận xu hướng cũng có thể đồng thời đóng cửa vượt qua đỉnh (tăng) / đáy (giảm)
