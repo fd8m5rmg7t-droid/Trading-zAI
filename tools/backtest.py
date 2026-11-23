@@ -72,6 +72,38 @@ def bull_fvg(B, k):
     return k + 2 < len(B) and B[k + 2].l > B[k].h
 
 
+# ----------------------------------------------------------------------------- tìm xu hướng lại mỗi ngày
+def day_starts(bars, gap_min=30):
+    """Chỉ số nến đầu tiên của mỗi ngày giao dịch (sau khoảng nghỉ cuối ngày ≥ gap_min phút)."""
+    out = [0]
+    for i in range(1, len(bars)):
+        t0 = dt.datetime.strptime(bars[i - 1].t, "%Y-%m-%d %H:%M"); t1 = dt.datetime.strptime(bars[i].t, "%Y-%m-%d %H:%M")
+        if (t1 - t0).total_seconds() / 60 >= gap_min:
+            out.append(i)
+    return out
+
+
+def analyze_daily(bars):
+    """Mỗi ngày giao dịch bắt đầu tìm xu hướng lại từ NẾN ĐÓNG CỬA CỦA NGÀY LIỀN TRƯỚC (nến cuối ngày hôm trước)."""
+    n = len(bars); ctx = [("UNKNOWN", None, None, None)] * n
+    starts = day_starts(bars) + [n]
+    for a, b in zip(starts, starts[1:]):
+        s = max(0, a - 1)                                   # nến cuối của ngày trước
+        r = eng.analyze(bars[s:b])
+        cache = {}
+        def sh(sw):
+            if sw is None:
+                return None
+            if id(sw) not in cache:
+                cache[id(sw)] = eng.Swing(sw.kind, sw.i + s, sw.price, sw.conf + s, sw.how)
+            return cache[id(sw)]
+        for k, c in enumerate(r.ctx):
+            if s + k >= a:
+                mode, T, B, scan = c
+                ctx[s + k] = (mode, sh(T), sh(B), None if scan is None else scan + s)
+    return ctx
+
+
 # ----------------------------------------------------------------------------- backtest một chiều (BUY)
 def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=None):
     D = diag if diag is not None else {}
@@ -250,12 +282,14 @@ def main():
     ap.add_argument("--hard", type=float, default=3.0, help="SL cứng cách điểm thấp/cao nhất (vàng: 3.0)")
     ap.add_argument("--be-tf", default="M15", choices=["M15", "M1", "none"], help="khung xét 'đỉnh thấp hơn' để dời SL")
     ap.add_argument("--csv", help="ghi danh sách lệnh ra file CSV")
+    ap.add_argument("--xu-huong", default="lien-tuc", choices=["lien-tuc", "moi-ngay"],
+                    help="moi-ngay: mỗi ngày tìm xu hướng lại từ giá đóng cửa ngày liền trước")
     a = ap.parse_args()
     m15 = eng.load_csv(a.m15); m1 = eng.load_csv(a.m1)
     m15 = [eng.Bar(b.t[:16], b.o, b.h, b.l, b.c) for b in m15]; m1 = [eng.Bar(b.t[:16], b.o, b.h, b.l, b.c) for b in m1]
     trades = []; diag = {}
     for side, A, Bm in (("BUY", m15, m1), ("SELL", neg(m15), neg(m1))):
-        ctx = eng.analyze(A).ctx
+        ctx = analyze_daily(A) if a.xu_huong == "moi-ngay" else eng.analyze(A).ctx
         trades += run_long(A, Bm, ctx, side, a.spread, a.hard, a.be_tf, diag=diag)
     print("Phễu lọc:", ", ".join(f"{k}={v}" for k, v in sorted(diag.items())))
     trades.sort(key=lambda t: t["t_in"])

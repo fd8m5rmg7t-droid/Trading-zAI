@@ -17,3 +17,9 @@ thanh khoản, khai thác phase 3, tránh tin tức. Spread trừ 0.30/lệnh. K
 - Cần người dùng quyết định trước khi chỉnh: xem câu hỏi trong cuộc trò chuyện.
 
 Hình từng lệnh: `xauusd-2026-08-11-lenh.png`. Danh sách lệnh: `xauusd-2026-08-11-lenh.csv`.
+
+## Lần 2 – tìm xu hướng lại mỗi ngày từ giá đóng cửa ngày liền trước (`--xu-huong moi-ngay`)
+- Ngày giao dịch tách theo khoảng nghỉ cuối ngày của vàng (nến cuối 04:45, mở lại 05:00/06:00 giờ VN).
+- Mỗi ngày bộ máy bắt đầu lại từ nến đóng cửa của ngày trước, chưa biết xu hướng cho tới khi đủ 2 đỉnh + 2 đáy.
+- Phễu: 289 sóng → 62 POI hợp lệ → 11 lần chạm → 10 lệnh chờ → **3 lệnh khớp, thua cả 3, tổng −1.31R**.
+- So với lần 1 (6 lệnh, −3.34R): ít lệnh hơn, lỗ ít hơn nhưng vẫn không có lệnh thắng; mẫu vẫn quá nhỏ.
