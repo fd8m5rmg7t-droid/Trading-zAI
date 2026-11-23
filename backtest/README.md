@@ -38,3 +38,17 @@ Hình từng lệnh: `xauusd-2026-08-11-lenh.png`. Danh sách lệnh: `xauusd-20
 - Giới hạn: trong một nến M15 không biết giá chạm điểm vào hay SL trước → mô phỏng giả định SL trước (thận trọng);
   2 lệnh "vào và dính SL trong cùng 1 nến" có thể bị đánh giá xấu hơn thực tế. Có thể dùng dữ liệu M1 để biết thứ tự chính xác.
 - Mẫu 3–6 lệnh: chưa đủ để kết luận. Hình 7 lệnh (gộp cả hai cách): `xauusd-m15m15-lenh.png`.
+
+## Lần 5 – chỉ khai thác PHASE 4, KHÔNG cần POI (`--vung discount`)
+Thay vì chờ giá về POI hợp lệ: chỉ cần phase 3 hợp lệ (giá hồi chạm đường 50% sóng đẩy, vào discount/premium),
+sau đó chờ tạo đáy/đỉnh trên khung vào lệnh rồi vào lệnh ở 1/2 râu như cũ. Tối đa 1 lệnh mỗi sóng.
+
+| Khung | Tìm xu hướng | Lệnh | Thắng/Thua/Hòa | Tổng | TB thắng / TB thua | Sụt giảm lớn nhất |
+|---|---|---|---|---|---|---|
+| M15/M15 | lại mỗi ngày | 32 | 7/21/4 | **+9.42R** | +3.38R / −0.67R | −7.4R |
+| M15/M15 | liên tục | 30 | 2/24/4 | −14.45R | +1.54R / −0.72R | −14.5R |
+| M15/M1 | lại mỗi ngày | 106 | 11/95/0 | +1.22R | +4.31R / −0.49R | −19.4R |
+| M15/M1 | liên tục | 90 | 4/86/0 | −31.29R | +3.37R / −0.52R | −33.0R |
+
+Đường lợi nhuận: `xauusd-phase4-equity.png`. Lưu ý: đã thử nhiều biến thể trên cùng 3,5 tháng dữ liệu → dễ "khớp dữ liệu";
+cần kiểm tra lại trên dữ liệu khác (năm khác, cặp khác) trước khi tin.

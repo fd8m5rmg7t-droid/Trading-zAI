@@ -124,7 +124,7 @@ def analyze_daily(bars):
 
 
 # ----------------------------------------------------------------------------- backtest một chiều (BUY)
-def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=None):
+def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=None, poi_mode="poi"):
     D = diag if diag is not None else {}
     inc = lambda key: D.__setitem__(key, D.get(key, 0) + 1)
     import bisect
@@ -155,7 +155,7 @@ def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=N
                 prev_wave = wave
                 inc("1_song"); D["2_poi_hop_le"] = D.get("2_poi_hop_le", 0) + len(pois)
                 wave = {"T": T, "start": start, "mid": mid, "pois": sorted(pois, key=lambda i: -m15[i].h),
-                        "mid_touched": False}
+                        "mid_touched": False, "traded": False}
                 if setup and setup["state"] != "open":
                     setup = None
         else:
@@ -183,8 +183,14 @@ def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=N
                 continue
             if not in_phase3:
                 continue
-            # --- chọn POI để theo dõi
-            if setup is None:
+            # --- chọn vùng để theo dõi
+            if setup is None and poi_mode == "discount":
+                # chỉ cần phase 3 hợp lệ: giá hồi về chạm đường 50% (vào discount), mỗi sóng tối đa 1 lệnh
+                if b.l <= wave["mid"] and not wave["traded"]:
+                    setup = {"state": "bottom", "poi": None, "touch_k": k + 1, "low_j": j, "T": wave["T"].price,
+                             "zone": eng.Bar(m15[wave["start"].i].t, 0, wave["mid"], wave["start"].price, 0)}
+                    inc("3_cham_50pct")
+            elif setup is None:
                 touched = [p for p in wave["pois"] if b.l <= m15[p].h]
                 if touched:
                     for p in touched:                    # POI bị chạm = đã dùng
@@ -214,15 +220,15 @@ def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=N
                         inc("x_huy_gio_cam"); setup = None; continue
                     inc("5_khop_lenh")
                     trade = {"k_in": k + 1, "side": side, "entry": setup["entry"], "low": setup["low"], "hard": setup["hard"],
-                             "T": setup["T"], "poi": m15[setup["poi"]], "t_in": b.t, "j_in": j, "size": 1.0,
+                             "T": setup["T"], "poi": setup.get("zone") or m15[setup["poi"]], "t_in": b.t, "j_in": j, "size": 1.0,
                              "be": False, "tp1": False, "pnl": 0.0, "done": False, "broke": False,
                              "maxh": b.h, "spread": spread, "be_tf": be_tf, "notes": []}
-                    setup["state"] = "open"
+                    setup["state"] = "open"; wave["traded"] = True
                     _manage(trade, m1, j, trades, log, first=True)
                     if trade["done"]:
                         trade = None; setup = None
         # ---- POI hết hiệu lực (nến M15 chạm lần đầu đóng cửa dưới low POI)
-        if setup and setup["state"] in ("bottom", "pending") and setup["touch_k"] == k + 1:
+        if setup and setup["poi"] is not None and setup["state"] in ("bottom", "pending") and setup["touch_k"] == k + 1:
             if m15[k + 1].c < m15[setup["poi"]].l:
                 inc("x_poi_bi_pha"); setup = None
         # ---- quản lý theo M15: đỉnh thấp hơn / phá T và xác nhận đỉnh mới
@@ -306,6 +312,8 @@ def main():
     ap.add_argument("--csv", help="ghi danh sách lệnh ra file CSV")
     ap.add_argument("--khung", default="M15/M1", choices=["M15/M1", "H4/M15", "H1/M5", "M15/M15"],
                     help="khung xác định xu hướng/POI / khung vào lệnh")
+    ap.add_argument("--vung", default="poi", choices=["poi", "discount"],
+                    help="poi: vào lệnh tại POI hợp lệ; discount: chỉ cần phase 3 chạm 50%% rồi tạo đáy/đỉnh")
     ap.add_argument("--xu-huong", default="lien-tuc", choices=["lien-tuc", "moi-ngay"],
                     help="moi-ngay: mỗi ngày tìm xu hướng lại từ giá đóng cửa ngày liền trước")
     a = ap.parse_args()
@@ -321,7 +329,7 @@ def main():
     trades = []; diag = {}
     for side, A, Bm in (("BUY", m15, m1), ("SELL", neg(m15), neg(m1))):
         ctx = analyze_daily(A) if a.xu_huong == "moi-ngay" else eng.analyze(A).ctx
-        trades += run_long(A, Bm, ctx, side, a.spread, a.hard, a.be_tf, diag=diag)
+        trades += run_long(A, Bm, ctx, side, a.spread, a.hard, a.be_tf, diag=diag, poi_mode=a.vung)
     print("Phễu lọc:", ", ".join(f"{k}={v}" for k, v in sorted(diag.items())))
     trades.sort(key=lambda t: t["t_in"])
     print(stats(trades))
