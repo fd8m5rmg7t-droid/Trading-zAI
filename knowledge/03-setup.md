@@ -102,9 +102,12 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 
 ## 4. Order flow
 
-**Rút gọn thành 2 PHA (người dùng đã giảng, chờ duyệt hình `examples/38-order-flow-2-pha.png`):**
+**Rút gọn thành 2 PHA (đã xác nhận, xem `examples/38-order-flow-2-pha.png`):**
 - **Pha đẩy:** pha đẩy giá **phá đỉnh (tăng) / phá đáy (giảm)**. Tương ứng **phase 2 và phase 4** cũ.
 - **Pha hồi:** sau khi giá phá đỉnh/đáy, giá **hồi về một vùng giá nào đó** rồi mới tiếp tục đẩy. Tương ứng **phase 1 và phase 3** cũ.
+- PnD đo trên **pha đẩy gần nhất**; **pha hồi hợp lệ khi chạm ít nhất 50%**; hồi không đủ mà đẩy tiếp luôn → **order flow thiếu** (đã xác nhận).
+- **Khai thác pha đẩy** (thuận xu hướng): vào lệnh ở **cuối pha hồi**. **Khai thác pha hồi** (ngược xu hướng): chốt lời toàn bộ khi giá chạm **POI có giá trị gần nhất** (đã xác nhận).
+- Minh họa trên dữ liệu thật: `backtest/pha-day-hoi-2026-10-22.png` (chờ duyệt).
 - Cách hiểu của Claude: pha đẩy bắt đầu từ điểm cực trị của pha hồi trước (đáy tạo ra đỉnh mới khi tăng) và kết thúc tại đỉnh/đáy mới; PnD đo trên pha đẩy gần nhất; các quy tắc phase 1–4 bên dưới vẫn áp dụng theo tương ứng.
 
 
