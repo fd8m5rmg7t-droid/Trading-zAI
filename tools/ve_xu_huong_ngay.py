@@ -34,6 +34,24 @@ for s in sorted(r.swings, key=lambda s: s.i):
         nb += 1; ax.scatter([s.i], [s.price], marker="^", s=90, color="#1565c0", zorder=6)
         ax.text(s.i, s.price - 1.2, f"Đáy {nb}{lab[s.how]}\n{s.price:.2f}", ha="center", va="top", fontsize=8.5, color="#0d47a1", fontweight="bold")
 ymin = min(x.l for x in seg); ymax = max(x.h for x in seg)
+# đường nét đứt nối các đỉnh/đáy theo thứ tự thời gian (dạng zigzag)
+sw = sorted(r.swings, key=lambda s: s.i)
+ax.plot([s.i for s in sw], [s.price for s in sw], color="#616161", lw=1.2, ls="--", zorder=5)
+# khi xác nhận xu hướng: nối 2 đỉnh và 2 đáy dùng để kết luận
+for i, t in r.events:
+    if not t.startswith("Xác nhận"):
+        continue
+    used = [s for s in sw if s.conf <= i]
+    tops = [s for s in used if s.kind == "T"][-2:]; bots = [s for s in used if s.kind == "B"][-2:]
+    if len(tops) == 2:
+        ax.plot([tops[0].i, tops[1].i], [tops[0].price, tops[1].price], color="#e65100", lw=2.6, ls=(0, (6, 3)), zorder=6)
+    if len(bots) == 2:
+        ax.plot([bots[0].i, bots[1].i], [bots[0].price, bots[1].price], color="#0d47a1", lw=2.6, ls=(0, (6, 3)), zorder=6)
+    xs = [s.i for s in tops + bots]
+    ax.text((min(xs) + max(xs)) / 2, (tops[-1].price + bots[-1].price) / 2 if tops and bots else ymax,
+            t.replace("Xác nhận ", "XÁC NHẬN\n") + "\n(2 đỉnh + 2 đáy)", ha="center", va="center", fontsize=10, fontweight="bold",
+            color="#c62828" if "GIẢM" in t else "#2e7d32",
+            bbox=dict(facecolor="white", alpha=.85, edgecolor="#999", boxstyle="round,pad=0.3"), zorder=7)
 for i, t in r.events:
     ax.axvline(i, color="#555", lw=.8, ls="--", zorder=1)
     ax.text(i + .15, ymax + 6, t, rotation=90, fontsize=8.5, va="top", color="#333")
@@ -49,7 +67,8 @@ from matplotlib.patches import Patch
 ax.legend(handles=[Patch(color=col[k], label=v) for k, v in [("UP", "tăng – đang phá đỉnh"), ("SIDE_UP", "tăng – đi ngang"),
           ("DOWN", "giảm – đang phá đáy"), ("SIDE_DOWN", "giảm – đi ngang"), ("UNCLEAR", "chưa rõ xu hướng")]],
           loc="upper right", fontsize=9, ncol=5)
-ax.set_title(f"XAUUSD M15 – ngày giao dịch {seg[1].t[:10]} (giờ VN): xu hướng tìm lại từ giá đóng cửa ngày liền trước",
+ax.set_title(f"XAUUSD M15 – ngày giao dịch {seg[1].t[:10]} (giờ VN): xu hướng tìm lại từ giá đóng cửa ngày liền trước"
+             "  (nét đứt xám: nối đỉnh/đáy; nét đứt đậm: 2 đỉnh & 2 đáy dùng để xác nhận)",
              loc="left", fontsize=13, fontweight="bold")
 plt.tight_layout(); plt.savefig(f"backtest/xauusd-m15-ngay-{DAY}.png", dpi=95)
 print(seg[1].t, "→", seg[-1].t, n, "nến;", len(r.swings), "đỉnh/đáy"); [print(seg[i].t, t) for i, t in r.events]
