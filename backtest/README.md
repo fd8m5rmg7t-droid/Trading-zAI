@@ -37,4 +37,4 @@ Hình từng lệnh: `xauusd-2026-08-11-lenh.png`. Danh sách lệnh: `xauusd-20
 - Tìm xu hướng lại mỗi ngày: 3 lệnh, thắng 1 (+4.0R, chốt TP2), thua 1 (−1.06R), hòa 1 → **+2.88R**.
 - Giới hạn: trong một nến M15 không biết giá chạm điểm vào hay SL trước → mô phỏng giả định SL trước (thận trọng);
   2 lệnh "vào và dính SL trong cùng 1 nến" có thể bị đánh giá xấu hơn thực tế. Có thể dùng dữ liệu M1 để biết thứ tự chính xác.
-- Mẫu 3–6 lệnh: chưa đủ để kết luận.
+- Mẫu 3–6 lệnh: chưa đủ để kết luận. Hình 7 lệnh (gộp cả hai cách): `xauusd-m15m15-lenh.png`.
