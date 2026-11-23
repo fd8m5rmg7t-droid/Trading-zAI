@@ -107,6 +107,7 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Pha hồi:** sau khi giá phá đỉnh/đáy, giá **hồi về một vùng giá nào đó** rồi mới tiếp tục đẩy. Tương ứng **phase 1 và phase 3** cũ.
 - PnD đo trên **pha đẩy gần nhất**; **pha hồi hợp lệ khi chạm ít nhất 50%**; hồi không đủ mà đẩy tiếp luôn → **order flow thiếu** (đã xác nhận).
 - **Khai thác pha đẩy** (thuận xu hướng): vào lệnh ở **cuối pha hồi**. **Khai thác pha hồi** (ngược xu hướng): chốt lời toàn bộ khi giá chạm **POI có giá trị gần nhất** (đã xác nhận).
+- **PnD sau pha hồi không đủ (đã xác nhận, THAY quy tắc cũ ở mục 5):** pha đẩy tiếp theo đo **từ đỉnh nông (giảm) / đáy nông (tăng)** của pha hồi không đủ, không giữ điểm bắt đầu cũ nữa.
 - **Pha hồi không đủ (đã xác nhận):** mục đích chủ yếu là **tìm vùng thanh khoản**. Xu hướng **giảm**: **đỉnh** của pha hồi không đủ là **thanh khoản**. Xu hướng **tăng**: **đáy** của pha hồi không đủ là thanh khoản. Đường giá đi qua cả đỉnh/đáy của pha hồi không đủ (đường đen do người dùng vẽ trên ngày 22/10).
 - Minh họa trên dữ liệu thật: `backtest/pha-day-hoi-2026-10-22.png`.
 - Cách hiểu của Claude: pha đẩy bắt đầu từ điểm cực trị của pha hồi trước (đáy tạo ra đỉnh mới khi tăng) và kết thúc tại đỉnh/đáy mới; PnD đo trên pha đẩy gần nhất; các quy tắc phase 1–4 bên dưới vẫn áp dụng theo tương ứng.
@@ -166,7 +167,7 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Đáy tạm chưa hồi đủ (đáy nông)** được coi là **một dạng thanh khoản**. **KHÔNG giao dịch ở đáy nông này**, chỉ giao dịch theo **cách quét thanh khoản** (người dùng sẽ dạy sau).
 - Minh họa: `examples/17-order-flow-thieu-khai-thac.png`
 
-- **PnD của order flow thiếu** đo từ **đáy bắt đầu phase 2** đến **đỉnh mới sau khi phá**, bỏ qua đáy nông (đã xác nhận).
+- ~~PnD của order flow thiếu đo từ đáy bắt đầu phase 2, bỏ qua đáy nông~~ → **ĐÃ THAY**: đo từ đáy nông (xem mục 4, order flow 2 pha).
 
 **Các trường hợp khai thác order flow thiếu (ví dụ xu hướng tăng; đã xác nhận, xem `examples/18-order-flow-thieu-3-truong-hop.png`):**
 1. **Đáy nông trùng đường trung bình** của PnD, hoặc **nằm trong vùng discount** → chỉ khai thác khi giá **quét thanh khoản đáy nông** (cách quét: học sau).

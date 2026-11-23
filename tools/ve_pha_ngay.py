@@ -64,9 +64,8 @@ for q in range(0, len(pts) - 1, 2):
         ax.scatter([h_i], [h_p], s=90, color="#1565c0" if up else "#f57f17", marker="^" if up else "v", zorder=6)
         ax.text(h_i, h_p + (-2 if up else 2), f"{h_p:.2f}\n{lab}", ha="center", va="top" if up else "bottom", fontsize=9, fontweight="bold", color=col)
         rows.append((nr, seg[a_i].t[11:], a_p, seg[b_i].t[11:], b_p, mid, seg[h_i].t[11:], h_p, touched))
-        if touched:
-            start_i, start_p = h_i, h_p
-        else:
+        start_i, start_p = h_i, h_p          # pha đẩy tiếp theo luôn đo từ đỉnh/đáy của pha hồi (kể cả pha hồi nông)
+        if not touched:
             liq.append((h_i, h_p))
     ax.scatter([b_i], [b_p], s=90, color="#f57f17" if up else "#1565c0", marker="v" if up else "^", zorder=6)
     ax.text(b_i, b_p + (2 if up else -2), f"{b_p:.2f}", ha="center", va="bottom" if up else "top", fontsize=9, fontweight="bold", color="#0d47a1")

@@ -140,8 +140,8 @@ def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=N
         if mode == "UP" and T is not None:
             if wave is None or wave["T"].i != T.i:
                 start = B
-                if wave is not None and wave["T"].i < T.i and not wave["mid_touched"] and wave["start"].i < T.i:
-                    start = wave["start"]           # order flow thiếu
+                # Order flow thiếu: theo quy tắc mới (người dùng chốt), pha đẩy tiếp theo vẫn đo từ đỉnh/đáy nông
+                # của pha hồi không đủ (= B) → không giữ điểm bắt đầu cũ nữa.
                 mid = (start.price + T.price) / 2
                 pois = []
                 for i in range(start.i, T.i + 1):

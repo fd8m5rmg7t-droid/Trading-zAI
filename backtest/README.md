@@ -115,3 +115,7 @@ Ngoài ra sửa lỗi: ở chế độ chưa rõ xu hướng, một nến không
 | M1/M1 | 526 lệnh, **+26.73R**, sụt −18.05R | 529 lệnh, +33.64R, sụt −16.14R |
 
 Khác biệt nhỏ: quy tắc mở đầu ngày chỉ ảnh hưởng tới vài giờ đầu mỗi ngày.
+
+## Lần 9 – PnD sau pha hồi không đủ đo từ đỉnh/đáy nông (quy tắc mới)
+- M15/M15 mỗi ngày, không cần POI: 42 lệnh, thắng 8 thua 30 hòa 4, **+5.52R** (trước: 33 lệnh, +3.05R).
+- M1/M1 mỗi ngày, không cần POI: 728 lệnh, thắng 155 thua 573, **+51.32R** (trước: 526 lệnh, +26.76R). Spread 0.3.
