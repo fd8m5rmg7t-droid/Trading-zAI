@@ -102,6 +102,12 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 
 ## 4. Order flow
 
+**Rút gọn thành 2 PHA (người dùng đã giảng, chờ duyệt hình `examples/38-order-flow-2-pha.png`):**
+- **Pha đẩy:** pha đẩy giá **phá đỉnh (tăng) / phá đáy (giảm)**. Tương ứng **phase 2 và phase 4** cũ.
+- **Pha hồi:** sau khi giá phá đỉnh/đáy, giá **hồi về một vùng giá nào đó** rồi mới tiếp tục đẩy. Tương ứng **phase 1 và phase 3** cũ.
+- Cách hiểu của Claude: pha đẩy bắt đầu từ điểm cực trị của pha hồi trước (đáy tạo ra đỉnh mới khi tăng) và kết thúc tại đỉnh/đáy mới; PnD đo trên pha đẩy gần nhất; các quy tắc phase 1–4 bên dưới vẫn áp dụng theo tương ứng.
+
+
 **Định nghĩa:** order flow là cấu trúc của **một con sóng**, gồm **4 phase**.
 
 **Phase 1: TÍCH LŨY (range phase)** (người dùng xem hình và chuyển sang phase 2, không sửa)
