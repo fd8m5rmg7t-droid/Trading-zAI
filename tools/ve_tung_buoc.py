@@ -7,7 +7,7 @@ plt.rcParams["font.family"] = "DejaVu Sans"
 DAY_T = "2026-10-22 15:00"
 m1 = [eng.Bar(b.t[:16], b.o, b.h, b.l, b.c) for b in eng.load_csv("data/XAUUSD_M15_VN.csv")]
 st = bt.day_starts(m1); k = max(i for i, x in enumerate(st) if m1[x].t <= DAY_T); s = st[k] - 1; e = st[k + 1]
-seg = m1[s:e]; r = eng.analyze(seg)
+seg = m1[s:e]; r = eng.analyze(seg, start_rule="prev_close")
 T = lambda hhmm: next(i for i, x in enumerate(seg) if x.t[11:] == hhmm)
 
 def candles(ax, a, b, hl=()):
@@ -28,31 +28,40 @@ def step1():
     candles(ax, a, b, hl=(0,))
     ax.annotate(f"ĐIỂM BẮT ĐẦU\nnến đóng cửa phiên ngày trước\n(nến {seg[0].t[11:]} sáng {seg[0].t[8:10]}/{seg[0].t[5:7]} giờ VN, đóng {seg[0].c:.2f})", xy=(0, seg[0].c), xytext=(3.5, seg[0].c + 2),
                 fontsize=10, fontweight="bold", arrowprops=dict(arrowstyle="->"))
-    sw = sorted([w for w in r.swings if w.conf <= CONF], key=lambda w: w.i)
+    _seen = set(); sw = []
+    for w in sorted([w for w in r.swings if w.conf <= CONF], key=lambda w: w.i):
+        if (w.kind, w.i) not in _seen:
+            _seen.add((w.kind, w.i)); sw.append(w)
     nt = nb = 0
     for w in sw:
         if w.kind == "T":
             nt += 1; ax.scatter([w.i], [w.price], marker="v", s=110, color="#f57f17", zorder=6)
-            ax.text(w.i, w.price + 1.2, f"Đỉnh {nt}\n{w.price:.2f}", ha="center", va="bottom", fontsize=10, color="#e65100", fontweight="bold")
+            ax.text(w.i, w.price + 1.2, f"Đỉnh {nt}" + {"open": " (điểm bắt đầu)", "m12": " (cách 1)", "between": " (cách 2)", "break": " (phá vỡ)"}[w.how] + f"\n{w.price:.2f}", ha="center", va="bottom", fontsize=10, color="#e65100", fontweight="bold")
         else:
             nb += 1; ax.scatter([w.i], [w.price], marker="^", s=110, color="#1565c0", zorder=6)
-            ax.text(w.i, w.price - 1.2, f"Đáy {nb}\n{w.price:.2f}", ha="center", va="top", fontsize=10, color="#0d47a1", fontweight="bold")
+            ax.text(w.i, w.price - 1.2, f"Đáy {nb}" + {"open": " (điểm bắt đầu)", "m12": " (cách 1)", "between": " (cách 2)", "break": " (phá vỡ)"}[w.how] + f"\n{w.price:.2f}", ha="center", va="top", fontsize=10, color="#0d47a1", fontweight="bold")
         ax.plot([w.conf, w.conf], [seg[w.conf].c, seg[w.conf].c], marker="o", ms=7, mfc="none", mec="#555", zorder=7)
     ax.plot([w.i for w in sw], [w.price for w in sw], color="#616161", lw=1.2, ls="--", zorder=5)
     tops = [w for w in sw if w.kind == "T"][-2:]; bots = [w for w in sw if w.kind == "B"][-2:]
     ax.plot([w.i for w in tops], [w.price for w in tops], color="#e65100", lw=2.8, ls=(0, (6, 3)), zorder=6)
     ax.plot([w.i for w in bots], [w.price for w in bots], color="#0d47a1", lw=2.8, ls=(0, (6, 3)), zorder=6)
     c = CONF
+    b1 = [w for w in sw if w.kind == "B"][0]
+    brk = next(i for i in range(b1.conf + 1, CONF + 1) if seg[i].c < b1.price)
+    ax.plot([b1.i, brk], [b1.price, b1.price], color="#1565c0", ls=":", lw=1.6, zorder=5)
+    ax.annotate(f"{seg[brk].t[11:]}: thân nến đóng cửa PHÁ Đáy 1\n→ quét tìm Đáy 2 từ nến này", xy=(brk, seg[brk].c),
+                xytext=(brk + 1.5, b1.price + 9), fontsize=10, fontweight="bold", color="#1565c0",
+                arrowprops=dict(arrowstyle="->", color="#1565c0"))
     ax.axvline(c, color="#c62828", lw=1.2, ls="--")
     nT = {id(w): n + 1 for n, w in enumerate([w for w in sw if w.kind == "T"])}; nB = {id(w): n + 1 for n, w in enumerate([w for w in sw if w.kind == "B"])}
     ax.text(c + .3, max(x.h for x in seg[a:b]) + 1.5, f"{HH} XÁC NHẬN XU HƯỚNG GIẢM\n(Đỉnh {nT[id(tops[1])]} < Đỉnh {nT[id(tops[0])]}, Đáy {nB[id(bots[1])]} < Đáy {nB[id(bots[0])]})", fontsize=10.5,
             fontweight="bold", color="#c62828", va="top")
-    ax.text(.01, -.06, "Vòng tròn rỗng = nến xác nhận của từng đỉnh/đáy (quy tắc mục 1–2: thân đóng cửa qua low/high của nến liền trước).\n"
-                       "Nét đứt xám: nối các đỉnh/đáy theo thời gian. Nét đứt đậm: 2 đỉnh gần nhất (cam) và 2 đáy gần nhất (xanh) dùng để kết luận.",
+    ax.text(.01, -.06, "Đỉnh 1 = râu cao nhất từ nến đóng cửa ngày trước đến nến đầu tiên đóng cửa dưới low nến trước. Đáy 1 theo cách 1. Thân nến phá Đáy 1 → Đáy 2 (quét từ nến phá vỡ),\n"
+                       "Đỉnh 2 = điểm cao nhất giữa Đáy 1 và Đáy 2 (cách 2). Xu hướng xác nhận khi Đáy 2 được xác nhận. Vòng tròn rỗng = nến xác nhận.",
             transform=ax.transAxes, va="top", fontsize=10)
     ticks = list(range(a, b, 2)); ax.set_xticks(ticks); ax.set_xticklabels([seg[i].t[11:] for i in ticks], fontsize=8.5)
     ax.set_xlim(a - 1, b + 1); ax.set_ylim(min(x.l for x in seg[a:b]) - 9, max(x.h for x in seg[a:b]) + 6)
-    ax.set_title(f"BƯỚC 1 – XAUUSD M15, ngày {seg[1].t[8:10]}/{seg[1].t[5:7]}/{seg[1].t[:4]}: bắt đầu từ giá đóng cửa ngày trước, tìm 2 đỉnh + 2 đáy để xác định xu hướng",
+    ax.set_title(f"BƯỚC 1 – XAUUSD M15, ngày {seg[1].t[8:10]}/{seg[1].t[5:7]}/{seg[1].t[:4]}: xác định xu hướng từ nến đóng cửa ngày trước (giá đi xuống trước → nến đó là Đỉnh 1)",
                  loc="left", fontsize=13, fontweight="bold")
     plt.tight_layout(); plt.savefig("/home/user/Trading-zAI/backtest/buoc-1-m15.png", dpi=95)
     for w in sw: print(w.kind, seg[w.i].t[11:], w.price, "conf", seg[w.conf].t[11:])

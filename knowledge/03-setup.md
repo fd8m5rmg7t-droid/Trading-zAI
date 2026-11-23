@@ -60,6 +60,18 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
   - Xu hướng tăng: đỉnh theo dõi bằng quy tắc phá vỡ. Đáy = điểm thấp nhất giữa hai đỉnh.
   - Xu hướng giảm: đáy theo dõi bằng quy tắc phá vỡ. Đỉnh = điểm cao nhất giữa hai đáy.
 
+**Xác định xu hướng ĐẦU NGÀY từ nến đóng cửa ngày hôm trước (đã xác nhận, xem `examples/34-xac-dinh-xu-huong-tu-gia-dong-cua.png`):**
+- Mỗi ngày giao dịch, bắt đầu tìm xu hướng lại từ **nến đóng cửa của ngày hôm trước**.
+- **Giá đi xuống hay đi lên trước:** cây nến xác nhận đầu tiên sau nến đóng cửa ngày trước là nến đóng cửa dưới low nến trước → **đi xuống**; đóng cửa trên high nến trước → **đi lên**.
+- **Giá đi xuống trước:**
+  - **Đỉnh 1** = nến đóng cửa ngày trước, **lấy râu** (cách code: râu cao nhất từ nến đó đến nến xác nhận đầu tiên).
+  - **Đáy 1** theo **cách 1** (thân nến đóng cửa trên high nến liền trước).
+  - Có nến có **thân đóng cửa phá Đáy 1** → quét từ nến phá vỡ tìm **Đáy 2**; **Đỉnh 2** = điểm cao nhất giữa Đáy 1 và Đáy 2 (**cách 2**).
+  - **Xác nhận xu hướng giảm khi Đáy 2 được xác nhận** (không phải ngay lúc phá Đáy 1).
+- **Giá đi lên trước:** ngược lại (Đáy 1 = râu dưới nến đóng cửa ngày trước; Đỉnh 1 theo cách 1; phá Đỉnh 1 → Đỉnh 2; Đáy 2 = điểm thấp nhất giữa hai đỉnh; xác nhận tăng khi Đỉnh 2 được xác nhận).
+- **Đi xuống tạo Đáy 1, rồi quay lên vượt Đỉnh 1 mà chưa phá Đáy 1:** đợi **đỉnh mới cao hơn Đỉnh 1** và **đáy mới cao hơn Đáy 1** (cả hai tìm bằng **cách 1**) → xác nhận xu hướng tăng. (Đi lên trước thì ngược lại.)
+- Minh họa trên dữ liệu thật: `backtest/buoc-1-m15.png` (XAUUSD M15, 22/10/2026).
+
 **Định nghĩa xu hướng (đã xác nhận):**
 - **Xu hướng tăng:** đỉnh sau cao hơn đỉnh trước VÀ đáy sau cao hơn đáy trước.
 - **Xu hướng giảm:** đỉnh sau thấp hơn đỉnh trước VÀ đáy sau thấp hơn đáy trước.

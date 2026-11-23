@@ -102,13 +102,13 @@ def day_starts(bars, gap_min=30):
     return out
 
 
-def analyze_daily(bars):
+def analyze_daily(bars, start_rule=None):
     """Mỗi ngày giao dịch bắt đầu tìm xu hướng lại từ NẾN ĐÓNG CỬA CỦA NGÀY LIỀN TRƯỚC (nến cuối ngày hôm trước)."""
     n = len(bars); ctx = [("UNKNOWN", None, None, None)] * n
     starts = day_starts(bars) + [n]
     for a, b in zip(starts, starts[1:]):
         s = max(0, a - 1)                                   # nến cuối của ngày trước
-        r = eng.analyze(bars[s:b])
+        r = eng.analyze(bars[s:b], start_rule=start_rule)
         cache = {}
         def sh(sw):
             if sw is None:
@@ -323,6 +323,8 @@ def main():
                     help="poi: vào lệnh tại POI hợp lệ; discount: chỉ cần phase 3 chạm 50%% rồi tạo đáy/đỉnh")
     ap.add_argument("--gio-cam-chat", action="store_true",
                     help="bỏ cả các thiết lập có nến xác nhận đáy/đỉnh nằm trong giờ cấm (mặc định chỉ cấm khớp lệnh)")
+    ap.add_argument("--mo-dau", default="gia-dong-cua", choices=["gia-dong-cua", "2dinh-2day"],
+                    help="cách xác định xu hướng đầu ngày (khi --xu-huong moi-ngay): gia-dong-cua = coi nến đóng cửa ngày trước là Đỉnh/Đáy 1")
     ap.add_argument("--xu-huong", default="lien-tuc", choices=["lien-tuc", "moi-ngay"],
                     help="moi-ngay: mỗi ngày tìm xu hướng lại từ giá đóng cửa ngày liền trước")
     a = ap.parse_args()
@@ -343,7 +345,8 @@ def main():
     print(f"Khung: {a.khung}  ({len(m15)} nến khung lớn, {len(m1)} nến khung vào lệnh)")
     trades = []; diag = {}
     for side, A, Bm in (("BUY", m15, m1), ("SELL", neg(m15), neg(m1))):
-        ctx = analyze_daily(A) if a.xu_huong == "moi-ngay" else eng.analyze(A).ctx
+        ctx = (analyze_daily(A, "prev_close" if a.mo_dau == "gia-dong-cua" else None) if a.xu_huong == "moi-ngay"
+               else eng.analyze(A).ctx)
         trades += run_long(A, Bm, ctx, side, a.spread, a.hard, a.be_tf, diag=diag, poi_mode=a.vung, strict_time=a.gio_cam_chat)
     print("Phễu lọc:", ", ".join(f"{k}={v}" for k, v in sorted(diag.items())))
     trades.sort(key=lambda t: t["t_in"])

@@ -102,3 +102,16 @@ cần kiểm tra lại trên dữ liệu khác (năm khác, cặp khác) trướ
 | M5/M1 | liên tục | POI | 17 | 1/16/0 | −4.23R | −5.05R |
 
 - M5/M5 mỗi ngày không cần POI: âm cả 4 tháng; spread 0.5 → −21.7R, 0.8 → −29.5R.
+
+## Lần 8 – xác định xu hướng đầu ngày theo quy tắc mới (`--xu-huong moi-ngay --mo-dau gia-dong-cua`)
+Nến đóng cửa ngày trước = Đỉnh 1 (đi xuống trước) / Đáy 1 (đi lên trước); xác nhận khi Đáy 2 / Đỉnh 2 xác nhận.
+Ngoài ra sửa lỗi: ở chế độ chưa rõ xu hướng, một nến không thể vừa là đỉnh vừa là đáy kế tiếp. "Không cần POI", spread 0.3.
+
+| Khung | Quy tắc mới (giá đóng cửa) | Quy tắc cũ (2 đỉnh + 2 đáy) |
+|---|---|---|
+| M15/M15 | 30 lệnh, **+3.91R**, sụt −7.29R | 30 lệnh, +4.83R, sụt −7.34R |
+| M15/M1 | 101 lệnh, **+2.69R**, sụt −18.19R | 109 lệnh, +2.46R, sụt −18.82R |
+| M5/M5 | 101 lệnh, **−21.05R** | 102 lệnh, −17.71R |
+| M1/M1 | 526 lệnh, **+26.73R**, sụt −18.05R | 529 lệnh, +33.64R, sụt −16.14R |
+
+Khác biệt nhỏ: quy tắc mở đầu ngày chỉ ảnh hưởng tới vài giờ đầu mỗi ngày.

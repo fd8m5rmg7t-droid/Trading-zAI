@@ -51,7 +51,7 @@ class Swing:
     i: int         # chỉ số nến tạo đỉnh/đáy (râu cao/thấp nhất)
     price: float
     conf: int      # chỉ số nến xác nhận (hoặc nến mà tại đó đỉnh/đáy được ghi nhận)
-    how: str       # "m12" (quy tắc mục 1–2) | "break" (phá vỡ) | "between" (cực trị giữa hai đỉnh/đáy)
+    how: str       # "m12" (quy tắc mục 1–2) | "break" (phá vỡ) | "between" (cực trị giữa hai đỉnh/đáy) | "open" (nến đóng cửa ngày trước)
 
 
 @dataclass
@@ -63,7 +63,9 @@ class Result:
 
 
 # ----------------------------------------------------------------------------- lõi
-def analyze(bars):
+def analyze(bars, start_rule=None):
+    """start_rule="prev_close": nến đầu tiên (bars[0]) là nến đóng cửa ngày hôm trước và được coi là
+    Đỉnh 1 (giá đi xuống trước) hoặc Đáy 1 (giá đi lên trước) – xem knowledge/03-setup.md mục 3."""
     n = len(bars)
     H = [b.h for b in bars]; L = [b.l for b in bars]; C = [b.c for b in bars]
     res = Result(state=["UNCLEAR"] * n)
@@ -99,8 +101,59 @@ def analyze(bars):
         scan = None
 
     res.ctx = [None] * n
+    if start_rule == "prev_close":
+        mode = "OPEN"
+    op = {"stage": "dir"}       # trạng thái giai đoạn mở đầu ngày
     for i in range(1, n):
         _snap(res, i - 1, mode, T, B, scan)
+        if mode == "OPEN":
+            res.state[i] = "UNCLEAR"
+            st = op["stage"]
+            if st == "dir":                                   # giá đi xuống hay đi lên trước?
+                if C[i] < L[i - 1]:
+                    j = max(range(0, i + 1), key=lambda k: H[k])
+                    op.update(stage="first", d="DOWN", P1=add(Swing("T", j, H[j], i, "open")))
+                elif C[i] > H[i - 1]:
+                    j = min(range(0, i + 1), key=lambda k: L[k])
+                    op.update(stage="first", d="UP", P1=add(Swing("B", j, L[j], i, "open")))
+                continue
+            dn = op["d"] == "DOWN"; P1 = op["P1"]
+            if st == "first":                                 # Đáy 1 (giảm) / Đỉnh 1 (tăng) theo cách 1
+                if (dn and C[i] > H[i - 1]) or (not dn and C[i] < L[i - 1]):
+                    rng = range(min(P1.i + 1, i), i + 1)
+                    j = min(rng, key=lambda k: L[k]) if dn else max(rng, key=lambda k: H[k])
+                    op.update(stage="wait", Q1=add(Swing("B" if dn else "T", j, L[j] if dn else H[j], i, "m12")))
+                continue
+            Q1 = op["Q1"]
+            if st == "wait":
+                if (dn and C[i] < Q1.price) or (not dn and C[i] > Q1.price):
+                    op.update(stage="scan2", b=i)             # thân nến phá Đáy 1 / Đỉnh 1
+                elif (dn and C[i] > P1.price) or (not dn and C[i] < P1.price):
+                    # quay ngược vượt Đỉnh 1 / Đáy 1 mà chưa phá Q1 → chờ 2 đỉnh + 2 đáy theo cách 1
+                    mode = "UNKNOWN"; hist = [P1, Q1]; look = "T" if dn else "B"; start = Q1.i + 1
+                    res.events.append((i, "Vượt điểm bắt đầu khi chưa phá " + ("Đáy 1" if dn else "Đỉnh 1") + " → chờ 2 đỉnh + 2 đáy"))
+                continue
+            if st == "scan2":                                 # chờ xác nhận Đáy 2 / Đỉnh 2
+                if (dn and C[i] > H[i - 1]) or (not dn and C[i] < L[i - 1]):
+                    rng = range(op["b"], i + 1)
+                    j = min(rng, key=lambda k: L[k]) if dn else max(rng, key=lambda k: H[k])
+                    Q2 = add(Swing("B" if dn else "T", j, L[j] if dn else H[j], i, "break"))
+                    mid = range(Q1.i, j + 1)
+                    k = max(mid, key=lambda q: H[q]) if dn else min(mid, key=lambda q: L[q])
+                    P2 = add(Swing("T" if dn else "B", k, H[k] if dn else L[k], i, "between"))
+                    ok = P2.price < P1.price if dn else P2.price > P1.price
+                    if ok:
+                        mode = "DOWN" if dn else "UP"
+                        if dn:
+                            B, T = Q2, P2
+                        else:
+                            T, B = Q2, P2
+                        scan = None
+                        res.events.append((i, "Xác nhận XU HƯỚNG " + ("GIẢM" if dn else "TĂNG")))
+                        res.state[i] = mode
+                    else:
+                        mode = "UNKNOWN"; hist = [P1, Q1, P2, Q2]; look = "T" if dn else "B"; start = j + 1
+                continue
         if mode == "UNKNOWN":
             top_c = C[i] < L[i - 1]          # nến xác nhận đỉnh
             bot_c = C[i] > H[i - 1]          # nến xác nhận đáy
