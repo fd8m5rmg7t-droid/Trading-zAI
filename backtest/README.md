@@ -52,3 +52,11 @@ sau đó chờ tạo đáy/đỉnh trên khung vào lệnh rồi vào lệnh ở
 
 Đường lợi nhuận: `xauusd-phase4-equity.png`. Lưu ý: đã thử nhiều biến thể trên cùng 3,5 tháng dữ liệu → dễ "khớp dữ liệu";
 cần kiểm tra lại trên dữ liệu khác (năm khác, cặp khác) trước khi tin.
+
+## Giờ giao phiên trong backtest
+- Hàm `blocked()` cấm ±30 phút quanh giờ mở phiên Á (07:00), Âu (14:00 hè / 15:00 đông) và Mỹ (19:00 hè / 20:00 đông) giờ VN,
+  có tính các tuần lệch giờ giữa châu Âu và Mỹ (đã kiểm tra bằng tay).
+- Mặc định: chỉ cấm **khớp lệnh** trong giờ cấm (lệnh chờ bị huỷ nếu giá chạm điểm vào trong giờ cấm). Lệnh đang mở vẫn được quản lý bình thường.
+- `--gio-cam-chat`: bỏ luôn các thiết lập có nến xác nhận đáy/đỉnh nằm trong giờ cấm.
+  M15/M15 mỗi ngày, không cần POI: 29 lệnh, +7.15R, sụt giảm −6.25R (so với mặc định 32 lệnh, +9.42R, −7.4R).
+- Chưa lọc giờ tin tức (người dùng sẽ báo giờ tin).

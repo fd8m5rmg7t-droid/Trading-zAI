@@ -124,7 +124,7 @@ def analyze_daily(bars):
 
 
 # ----------------------------------------------------------------------------- backtest một chiều (BUY)
-def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=None, poi_mode="poi"):
+def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=None, poi_mode="poi", strict_time=False):
     D = diag if diag is not None else {}
     inc = lambda key: D.__setitem__(key, D.get(key, 0) + 1)
     import bisect
@@ -208,6 +208,8 @@ def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=N
                 if j > 0 and b.c > m1[j - 1].h and j >= setup["low_j"]:
                     lo = m1[setup["low_j"]]
                     entry = (min(lo.o, lo.c) + lo.l) / 2
+                    if strict_time and blocked(b.t):
+                        inc("x_bo_qua_day_hinh_thanh_trong_gio_cam"); setup = None; continue
                     if entry > lo.l:
                         setup.update(state="pending", entry=entry, low=lo.l, hard=lo.l - hard_buf, conf_j=j)
                         inc("4_dat_lenh_cho")
@@ -314,6 +316,8 @@ def main():
                     help="khung xác định xu hướng/POI / khung vào lệnh")
     ap.add_argument("--vung", default="poi", choices=["poi", "discount"],
                     help="poi: vào lệnh tại POI hợp lệ; discount: chỉ cần phase 3 chạm 50%% rồi tạo đáy/đỉnh")
+    ap.add_argument("--gio-cam-chat", action="store_true",
+                    help="bỏ cả các thiết lập có nến xác nhận đáy/đỉnh nằm trong giờ cấm (mặc định chỉ cấm khớp lệnh)")
     ap.add_argument("--xu-huong", default="lien-tuc", choices=["lien-tuc", "moi-ngay"],
                     help="moi-ngay: mỗi ngày tìm xu hướng lại từ giá đóng cửa ngày liền trước")
     a = ap.parse_args()
@@ -329,7 +333,7 @@ def main():
     trades = []; diag = {}
     for side, A, Bm in (("BUY", m15, m1), ("SELL", neg(m15), neg(m1))):
         ctx = analyze_daily(A) if a.xu_huong == "moi-ngay" else eng.analyze(A).ctx
-        trades += run_long(A, Bm, ctx, side, a.spread, a.hard, a.be_tf, diag=diag, poi_mode=a.vung)
+        trades += run_long(A, Bm, ctx, side, a.spread, a.hard, a.be_tf, diag=diag, poi_mode=a.vung, strict_time=a.gio_cam_chat)
     print("Phễu lọc:", ", ".join(f"{k}={v}" for k, v in sorted(diag.items())))
     trades.sort(key=lambda t: t["t_in"])
     print(stats(trades))
