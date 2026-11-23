@@ -72,6 +72,25 @@ def bull_fvg(B, k):
     return k + 2 < len(B) and B[k + 2].l > B[k].h
 
 
+# ----------------------------------------------------------------------------- gộp nến khung lớn
+def resample(bars, minutes, anchor="ny17"):
+    """Gộp nến. anchor="ny17": mốc ngày = 17:00 New York (giờ máy chủ MT5 phổ biến GMT+2/+3),
+    tức 04:00 VN khi Mỹ giờ mùa hè, 05:00 VN mùa đông. Nến H4 bắt đầu tại mốc ngày + bội số 4 giờ."""
+    out = []; key = None
+    for b in bars:
+        t = dt.datetime.strptime(b.t, "%Y-%m-%d %H:%M")
+        us_summer = _nth_sunday(t.year, 3, 2) <= t.date() < _nth_sunday(t.year, 11, 1)
+        off = 4 if us_summer else 5
+        m = ((t.hour - off) % 24) * 60 + t.minute
+        start = t - dt.timedelta(minutes=m % minutes)
+        k = start.strftime("%Y-%m-%d %H:%M")
+        if k != key:
+            out.append(eng.Bar(k, b.o, b.h, b.l, b.c)); key = k
+        else:
+            o = out[-1]; out[-1] = eng.Bar(o.t, o.o, max(o.h, b.h), min(o.l, b.l), b.c)
+    return out
+
+
 # ----------------------------------------------------------------------------- tìm xu hướng lại mỗi ngày
 def day_starts(bars, gap_min=30):
     """Chỉ số nến đầu tiên của mỗi ngày giao dịch (sau khoảng nghỉ cuối ngày ≥ gap_min phút)."""
@@ -108,7 +127,8 @@ def analyze_daily(bars):
 def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=None):
     D = diag if diag is not None else {}
     inc = lambda key: D.__setitem__(key, D.get(key, 0) + 1)
-    idx1 = {b.t: i for i, b in enumerate(m1)}
+    import bisect
+    t1 = [b.t for b in m1]
     trades = []
     wave = None          # dict: T, start (Swing), mid, pois, mid_touched
     prev_wave = None
@@ -144,10 +164,12 @@ def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=N
             if mode != "UP":
                 wave = None
         # ---- duyệt các nến M1 trong nến M15 tiếp theo (k+1)
-        j0 = idx1.get(m15[k + 1].t)
+        j0 = bisect.bisect_left(t1, m15[k + 1].t)
         if j0 is None:
             continue
-        j1 = idx1.get(m15[k + 2].t, len(m1)) if k + 2 < len(m15) else len(m1)
+        j1 = bisect.bisect_left(t1, m15[k + 2].t) if k + 2 < len(m15) else len(m1)
+        if j0 >= j1:
+            continue
         in_phase3 = wave is not None and mode == "UP" and scan is None
         for j in range(j0, j1):
             b = m1[j]
@@ -282,11 +304,18 @@ def main():
     ap.add_argument("--hard", type=float, default=3.0, help="SL cứng cách điểm thấp/cao nhất (vàng: 3.0)")
     ap.add_argument("--be-tf", default="M15", choices=["M15", "M1", "none"], help="khung xét 'đỉnh thấp hơn' để dời SL")
     ap.add_argument("--csv", help="ghi danh sách lệnh ra file CSV")
+    ap.add_argument("--khung", default="M15/M1", choices=["M15/M1", "H4/M15", "H1/M5"],
+                    help="khung xác định xu hướng/POI / khung vào lệnh")
     ap.add_argument("--xu-huong", default="lien-tuc", choices=["lien-tuc", "moi-ngay"],
                     help="moi-ngay: mỗi ngày tìm xu hướng lại từ giá đóng cửa ngày liền trước")
     a = ap.parse_args()
     m15 = eng.load_csv(a.m15); m1 = eng.load_csv(a.m1)
     m15 = [eng.Bar(b.t[:16], b.o, b.h, b.l, b.c) for b in m15]; m1 = [eng.Bar(b.t[:16], b.o, b.h, b.l, b.c) for b in m1]
+    if a.khung == "H4/M15":
+        m15, m1 = resample(m15, 240), m15
+    elif a.khung == "H1/M5":
+        m15, m1 = resample(m15, 60), resample(m1, 5)
+    print(f"Khung: {a.khung}  ({len(m15)} nến khung lớn, {len(m1)} nến khung vào lệnh)")
     trades = []; diag = {}
     for side, A, Bm in (("BUY", m15, m1), ("SELL", neg(m15), neg(m1))):
         ctx = analyze_daily(A) if a.xu_huong == "moi-ngay" else eng.analyze(A).ctx
@@ -294,7 +323,7 @@ def main():
     print("Phễu lọc:", ", ".join(f"{k}={v}" for k, v in sorted(diag.items())))
     trades.sort(key=lambda t: t["t_in"])
     print(stats(trades))
-    if a.csv:
+    if a.csv and trades:
         import csv
         with open(a.csv, "w", newline="") as f:
             w = csv.DictWriter(f, fieldnames=list(trades[0].keys())); w.writeheader(); w.writerows(trades)

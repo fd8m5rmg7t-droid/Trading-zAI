@@ -23,3 +23,11 @@ Hình từng lệnh: `xauusd-2026-08-11-lenh.png`. Danh sách lệnh: `xauusd-20
 - Mỗi ngày bộ máy bắt đầu lại từ nến đóng cửa của ngày trước, chưa biết xu hướng cho tới khi đủ 2 đỉnh + 2 đáy.
 - Phễu: 289 sóng → 62 POI hợp lệ → 11 lần chạm → 10 lệnh chờ → **3 lệnh khớp, thua cả 3, tổng −1.31R**.
 - So với lần 1 (6 lệnh, −3.34R): ít lệnh hơn, lỗ ít hơn nhưng vẫn không có lệnh thắng; mẫu vẫn quá nhỏ.
+
+## Lần 3 – xu hướng/POI trên H4, vào lệnh trên M15 (`--khung H4/M15`)
+- H4 gộp từ M15, mốc ngày 17:00 New York (04:00 VN mùa hè / 05:00 mùa đông) như máy chủ MT5 phổ biến.
+- Phễu: 18 sóng → 6 POI hợp lệ → **0 lần giá chạm POI trong phase 3 → 0 lệnh**.
+- Tìm xu hướng lại mỗi ngày trên H4 (chỉ ~6 nến/ngày) → không đủ 2 đỉnh + 2 đáy → 0 lệnh.
+- Tham khảo H1/M5: 52 sóng → 9 POI → 2 lệnh, thua cả 2 (SL cứng), −2.13R.
+- Kết luận: 3,5 tháng dữ liệu quá ít cho khung H4; cần dữ liệu nhiều năm.
+- Hình đỉnh/đáy/xu hướng H4: `xauusd-h4-xu-huong.png`.
