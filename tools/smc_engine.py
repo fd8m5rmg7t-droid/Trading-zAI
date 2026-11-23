@@ -59,6 +59,7 @@ class Result:
     swings: list = field(default_factory=list)
     state: list = field(default_factory=list)   # trạng thái theo từng nến: UP / DOWN / SIDE_UP / SIDE_DOWN / UNCLEAR
     events: list = field(default_factory=list)  # (i, text)
+    ctx: list = field(default_factory=list)     # (mode, T, B, scan) sau khi nến i đóng cửa
 
 
 # ----------------------------------------------------------------------------- lõi
@@ -97,7 +98,9 @@ def analyze(bars):
             res.events.append((i, "Xác nhận XU HƯỚNG GIẢM"))
         scan = None
 
+    res.ctx = [None] * n
     for i in range(1, n):
+        _snap(res, i - 1, mode, T, B, scan)
         if mode == "UNKNOWN":
             top_c = C[i] < L[i - 1]          # nến xác nhận đỉnh
             bot_c = C[i] > H[i - 1]          # nến xác nhận đáy
@@ -154,7 +157,13 @@ def analyze(bars):
             continue
         if scan is None:
             res.state[i] = "SIDE_" + mode
+    _snap(res, n - 1, mode, T, B, scan)
     return res
+
+
+def _snap(res, i, mode, T, B, scan):
+    # trạng thái TRƯỚC khi xử lý nến i+1, tức là sau khi nến i đóng cửa
+    res.ctx[i] = (mode, T, B, scan)
 
 
 # ----------------------------------------------------------------------------- vẽ
