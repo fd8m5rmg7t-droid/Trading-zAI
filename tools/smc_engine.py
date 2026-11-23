@@ -141,7 +141,9 @@ def analyze(bars, start_rule=None):
                     mid = range(Q1.i, j + 1)
                     k = max(mid, key=lambda q: H[q]) if dn else min(mid, key=lambda q: L[q])
                     P2 = add(Swing("T" if dn else "B", k, H[k] if dn else L[k], i, "between"))
-                    ok = P2.price < P1.price if dn else P2.price > P1.price
+                    # Đỉnh 2 chỉ bằng râu vượt Đỉnh 1 (thân chưa đóng qua) vẫn chưa tính là phá qua → vẫn xác nhận
+                    # (các lần thân nến đóng cửa vượt Đỉnh 1 đã được xử lý ở giai đoạn "wait").
+                    ok = not any((C[q] > P1.price) if dn else (C[q] < P1.price) for q in range(Q1.i, i + 1))
                     if ok:
                         mode = "DOWN" if dn else "UP"
                         if dn:
