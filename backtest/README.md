@@ -124,3 +124,8 @@ Khác biệt nhỏ: quy tắc mở đầu ngày chỉ ảnh hưởng tới vài 
 - M15/M15 mỗi ngày, không cần POI: 34 lệnh, thắng 5 thua 26 hòa 3, **+2.03R**, sụt −8.47R (trước: 42 lệnh, +5.52R).
 - M1/M1: 543 lệnh, thắng 108 thua 435, **+11.15R**, sụt −16.39R (trước: 728 lệnh, +51.32R).
 - Lệnh 22/10 15:00 (+5.43R) vẫn giữ nguyên.
+
+## Lần 11 – quy tắc xác nhận xu hướng mới khi chưa rõ / đi ngang (người dùng chốt qua ngày 16/09)
+- GIẢM: có đỉnh thấp hơn → phá đáy gần nhất → đáy thấp hơn được xác nhận. TĂNG: phá đỉnh trước đó → đáy cao hơn được xác nhận.
+- Khi tăng được xác nhận bằng "phá đỉnh rồi đáy cao hơn", pha hồi của pha đẩy đó đã xong → không vào lệnh trên sóng này.
+- M15/M15 mỗi ngày, không cần POI: 20 lệnh, thắng 2 thua 18, **+1.51R**. M1/M1: 342 lệnh, thắng 69 thua 273, **+15.79R**.

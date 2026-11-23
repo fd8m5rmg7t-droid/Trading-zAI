@@ -52,6 +52,7 @@ class Swing:
     price: float
     conf: int      # chỉ số nến xác nhận (hoặc nến mà tại đó đỉnh/đáy được ghi nhận)
     how: str       # "m12" (quy tắc mục 1–2) | "break" (phá vỡ) | "between" (cực trị giữa hai đỉnh/đáy) | "open" (nến đóng cửa ngày trước)
+    src: object = None  # điểm bắt đầu pha đẩy tạo ra đỉnh/đáy này (xác nhận kiểu "phá đỉnh rồi đáy cao hơn")
 
 
 @dataclass
@@ -63,7 +64,7 @@ class Result:
 
 
 # ----------------------------------------------------------------------------- lõi
-def analyze(bars, start_rule=None):
+def analyze(bars, start_rule=None, inverted=False, trend_rule="user"):
     """start_rule="prev_close": nến đầu tiên (bars[0]) là nến đóng cửa ngày hôm trước và được coi là
     Đỉnh 1 (giá đi xuống trước) hoặc Đáy 1 (giá đi lên trước) – xem knowledge/03-setup.md mục 3."""
     n = len(bars)
@@ -83,22 +84,83 @@ def analyze(bars, start_rule=None):
 
     def conclude(i):
         nonlocal mode, T, B, scan
+        if trend_rule == "2x2":
+            return conclude_2x2(i)
+        # Quy tắc người dùng (đã xác nhận 16/09/2026), tính theo giá THẬT (inverted = dữ liệu đã đảo dấu):
+        #  - GIẢM thật: đã có đỉnh thấp hơn, sau đó phá đáy gần nhất, và đáy mới (thấp hơn) được xác nhận.
+        #  - TĂNG thật: phá đỉnh trước đó, sau đó tạo đáy cao hơn (được xác nhận).
+        real_up = "UP" if not inverted else "DOWN"; real_dn = "DOWN" if not inverted else "UP"
+        for dirn, how in ((real_dn, "ctb"), (real_up, "btc")):
+            sg = 1 if dirn == "UP" else -1
+            KE, KC = ("T", "B") if dirn == "UP" else ("B", "T")
+            v = lambda x: sg * x
+            last = hist[-1]
+            if how == "ctb":        # counter (đỉnh thấp hơn) rồi break (phá đáy), xác nhận khi cực trị mới được xác nhận
+                if last.kind != KE:
+                    continue
+                Es = [w for w in hist if w.kind == KE]
+                if len(Es) < 2:
+                    continue
+                En, Ep = Es[-1], Es[-2]
+                Ck = [w for w in hist if w.kind == KC and Ep.i < w.i < En.i]
+                Cp = [w for w in hist if w.kind == KC and w.i < Ep.i]
+                if not Ck or not Cp:
+                    continue
+                if v(En.price) > v(Ep.price) and v(Ck[-1].price) < v(Cp[-1].price):
+                    rng = range(Ep.i, En.i + 1)
+                    k = max(rng, key=lambda q: H[q]) if KC == "T" else min(rng, key=lambda q: L[q])
+                    other = add(Swing(KC, k, H[k] if KC == "T" else L[k], i, "between"))
+                    return set_trend(i, dirn, En, other)
+            else:                    # break (phá đỉnh) rồi counter (đáy cao hơn)
+                if last.kind != KC:
+                    continue
+                Cs = [w for w in hist if w.kind == KC]
+                if len(Cs) < 2:
+                    continue
+                Cn, Cp = Cs[-1], Cs[-2]
+                Eref = [w for w in hist if w.kind == KE and w.i < Cp.i]
+                if not Eref or not v(Cn.price) > v(Cp.price):
+                    continue
+                lvl = v(Eref[-1].price)
+                if any(v(C[q]) > lvl for q in range(Cp.i + 1, Cn.i + 1)):
+                    rng = range(Cp.i, Cn.i + 1)
+                    k = max(rng, key=lambda q: H[q]) if KE == "T" else min(rng, key=lambda q: L[q])
+                    ext = add(Swing(KE, k, H[k] if KE == "T" else L[k], i, "between"))
+                    # điểm bắt đầu pha đẩy = cực trị ngược chiều thấp/cao nhất giữa đỉnh/đáy bị phá (Eref) và đỉnh/đáy mới
+                    E0 = Eref[-1]
+                    for w in reversed([w for w in hist if w.kind == KE and w.i < k]):
+                        if v(w.price) < v(H[k] if KE == "T" else L[k]):
+                            E0 = w
+                        else:
+                            break
+                    rr = range(E0.i, k + 1)
+                    z = min(rr, key=lambda q: L[q]) if KC == "B" else max(rr, key=lambda q: H[q])
+                    ext.src = Swing(KC, z, L[z] if KC == "B" else H[z], i, "between")
+                    return set_trend(i, dirn, ext, Cn)
+
+    def set_trend(i, dirn, ext, other):
+        nonlocal mode, T, B, scan
+        mode = dirn
+        if dirn == "UP":
+            T, B = ext, other
+        else:
+            B, T = ext, other
+        scan = None
+        real = "TĂNG" if (dirn == "UP") != inverted else "GIẢM"
+        res.events.append((i, "Xác nhận XU HƯỚNG " + real))
+
+    def conclude_2x2(i):
+        nonlocal mode, T, B, scan
         tops = [s for s in hist if s.kind == "T"][-2:]
         bots = [s for s in hist if s.kind == "B"][-2:]
         if len(tops) < 2 or len(bots) < 2:
             return
         if tops[1].price > tops[0].price and bots[1].price > bots[0].price:
-            mode = "UP"; T = tops[1]
-            # đáy tạo ra đỉnh gần nhất = đáy (mục 1–2) gần nhất nằm TRƯỚC đỉnh đó
-            prev = [s for s in hist if s.kind == "B" and s.i < T.i]
-            B = prev[-1] if prev else bots[1]
-            res.events.append((i, "Xác nhận XU HƯỚNG TĂNG"))
+            prev = [s for s in hist if s.kind == "B" and s.i < tops[1].i]
+            set_trend(i, "UP", tops[1], prev[-1] if prev else bots[1])
         elif tops[1].price < tops[0].price and bots[1].price < bots[0].price:
-            mode = "DOWN"; B = bots[1]
-            prev = [s for s in hist if s.kind == "T" and s.i < B.i]
-            T = prev[-1] if prev else tops[1]
-            res.events.append((i, "Xác nhận XU HƯỚNG GIẢM"))
-        scan = None
+            prev = [s for s in hist if s.kind == "T" and s.i < bots[1].i]
+            set_trend(i, "DOWN", bots[1], prev[-1] if prev else tops[1])
 
     res.ctx = [None] * n
     if start_rule == "prev_close":
@@ -151,7 +213,7 @@ def analyze(bars, start_rule=None):
                         else:
                             T, B = Q2, P2
                         scan = None
-                        res.events.append((i, "Xác nhận XU HƯỚNG " + ("GIẢM" if dn else "TĂNG")))
+                        res.events.append((i, "Xác nhận XU HƯỚNG " + (("GIẢM" if dn else "TĂNG") if not inverted else ("TĂNG" if dn else "GIẢM"))))
                         res.state[i] = mode
                     else:
                         mode = "UNKNOWN"; hist = [P1, Q1, P2, Q2]; look = "T" if dn else "B"; start = j + 1

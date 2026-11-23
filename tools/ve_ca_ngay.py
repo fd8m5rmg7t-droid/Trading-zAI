@@ -36,11 +36,18 @@ for sg in segs:
     up = sg["mode"] == "UP"; a, b = sg["a"], sg["b"]
     _, T, B, _ = r.ctx[a]
     pts = [(B.i, B.price), (T.i, T.price)] if up else [(T.i, T.price), (B.i, B.price)]
+    # xác nhận kiểu "phá đỉnh rồi đáy cao hơn": pha hồi (B sau T) đã xong → thêm pha đẩy trước đó
+    ext, cnt = (T, B) if up else (B, T)
+    if cnt.i > ext.i and getattr(ext, "src", None) is not None:
+        pv = ext.src
+        pts = [(pv.i, pv.price), (ext.i, ext.price), (cnt.i, cnt.price)]
     for i in range(a + 1, b + 1):
         _, T2, B2, _ = r.ctx[i]
         p, q = ((B2, T2) if up else (T2, B2))
-        if q.i != pts[-1][0]:
-            pts.append((p.i, p.price)); pts.append((q.i, q.price))
+        if q.i != pts[-1][0] and q.i not in [x[0] for x in pts]:
+            if p.i != pts[-1][0]:
+                pts.append((p.i, p.price))
+            pts.append((q.i, q.price))
     endi = min(n - 1, b + 1)
     rng = range(pts[-1][0] + 1, endi + 1)
     sc = r.ctx[b][3]

@@ -75,7 +75,9 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
   - **Xác nhận xu hướng khi đang chưa rõ / đi ngang (đã xác nhận qua ngày 16/09/2026, `backtest/sang-2026-09-16-sua.png`):**
     - Chỉ dùng đỉnh/đáy **đã có nến xác nhận theo cách 1** (nến 07:00 ngày 16/09 đóng dưới Đáy 1 nhưng chưa có nến tạo đáy → không tính; đoạn từ Đỉnh 1 xuống đáy 4275.15 là đi ngang).
     - **Xu hướng giảm chỉ xác nhận khi giá PHÁ ĐÁY GẦN NHẤT SAU KHI đã có đỉnh thấp hơn.**
-    - Xu hướng tăng (người dùng nói): phá đỉnh trước đó rồi tạo đáy cao hơn → tăng. CHƯA CHỐT dạng đối xứng – xem câu hỏi.
+    - **Xu hướng GIẢM:** đã có **đỉnh thấp hơn**, sau đó giá **phá đáy gần nhất**, và phải **đợi tạo đáy thấp hơn** (đáy mới được xác nhận theo cách 1) mới xác nhận giảm (đã xác nhận).
+    - **Xu hướng TĂNG (cách B, đã xác nhận):** giá **phá đỉnh trước đó**, sau đó **tạo đáy cao hơn** (được xác nhận theo cách 1) → xác nhận tăng. Người dùng chấp nhận hai chiều KHÔNG đối xứng.
+    - Ví dụ 16/09: đỉnh 4293.28 thấp hơn nhưng chưa phá đáy 4275.15 → chưa giảm; 10:30 phá đỉnh, đáy 4320.30 > 4275.15 xác nhận lúc 13:15 → TĂNG.
   - **Trường hợp 2 (đã xác nhận, xem `examples/37-truong-hop-2-rau-vuot-dinh-1.png`):** râu nến chọc qua Đỉnh 1 nhưng **thân chưa đóng cửa qua** → **chưa được coi là phá qua Đỉnh 1**. Giá phá Đáy 1 tạo Đáy 2 → vẫn **xác nhận xu hướng giảm** khi Đáy 2 xác nhận (không so râu Đỉnh 2 với Đỉnh 1). Đi lên trước: ngược lại.
   - **Trường hợp 3a (đã xác nhận):** đi ngang rồi phá XUỐNG Đáy 1 → Đáy 2 (phá vỡ); Đỉnh 2 = điểm cao nhất giữa Đáy 1 và Đáy 2 (cách 2) – hợp lệ vì khoảng đó nằm sau Đỉnh 1.
   - Minh họa: `examples/35-buoc1-tat-ca-truong-hop.png`, `examples/36-chua-ro-xu-huong-cach-2.png`.

@@ -102,13 +102,13 @@ def day_starts(bars, gap_min=30):
     return out
 
 
-def analyze_daily(bars, start_rule=None):
+def analyze_daily(bars, start_rule=None, inverted=False):
     """Mỗi ngày giao dịch bắt đầu tìm xu hướng lại từ NẾN ĐÓNG CỬA CỦA NGÀY LIỀN TRƯỚC (nến cuối ngày hôm trước)."""
     n = len(bars); ctx = [("UNKNOWN", None, None, None)] * n
     starts = day_starts(bars) + [n]
     for a, b in zip(starts, starts[1:]):
         s = max(0, a - 1)                                   # nến cuối của ngày trước
-        r = eng.analyze(bars[s:b], start_rule=start_rule)
+        r = eng.analyze(bars[s:b], start_rule=start_rule, inverted=inverted)
         cache = {}
         def sh(sw):
             if sw is None:
@@ -155,7 +155,9 @@ def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=N
                 prev_wave = wave
                 inc("1_song"); D["2_poi_hop_le"] = D.get("2_poi_hop_le", 0) + len(pois)
                 wave = {"T": T, "start": start, "mid": mid, "pois": sorted(pois, key=lambda i: -m15[i].h),
-                        "mid_touched": False, "traded": False}
+                        "mid_touched": False, "traded": B.i > T.i}
+                # B nằm SAU T: xu hướng được xác nhận bằng "phá đỉnh rồi tạo đáy cao hơn" → pha hồi của pha đẩy này đã xong,
+                # không vào lệnh trên sóng này (chờ pha đẩy tiếp theo).
                 if setup and setup["state"] != "open":
                     setup = None
         else:
@@ -351,8 +353,9 @@ def main():
     print(f"Khung: {a.khung}  ({len(m15)} nến khung lớn, {len(m1)} nến khung vào lệnh)")
     trades = []; diag = {}
     for side, A, Bm in (("BUY", m15, m1), ("SELL", neg(m15), neg(m1))):
-        ctx = (analyze_daily(A, "prev_close" if a.mo_dau == "gia-dong-cua" else None) if a.xu_huong == "moi-ngay"
-               else eng.analyze(A).ctx)
+        inv = side == "SELL"
+        ctx = (analyze_daily(A, "prev_close" if a.mo_dau == "gia-dong-cua" else None, inverted=inv) if a.xu_huong == "moi-ngay"
+               else eng.analyze(A, inverted=inv).ctx)
         trades += run_long(A, Bm, ctx, side, a.spread, a.hard, a.be_tf, diag=diag, poi_mode=a.vung, strict_time=a.gio_cam_chat,
                           huy_khi_tao_dinh=not a.khong_huy_khi_tao_dinh)
     print("Phễu lọc:", ", ".join(f"{k}={v}" for k, v in sorted(diag.items())))
