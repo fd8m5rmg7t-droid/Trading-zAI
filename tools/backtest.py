@@ -304,7 +304,7 @@ def main():
     ap.add_argument("--hard", type=float, default=3.0, help="SL cứng cách điểm thấp/cao nhất (vàng: 3.0)")
     ap.add_argument("--be-tf", default="M15", choices=["M15", "M1", "none"], help="khung xét 'đỉnh thấp hơn' để dời SL")
     ap.add_argument("--csv", help="ghi danh sách lệnh ra file CSV")
-    ap.add_argument("--khung", default="M15/M1", choices=["M15/M1", "H4/M15", "H1/M5"],
+    ap.add_argument("--khung", default="M15/M1", choices=["M15/M1", "H4/M15", "H1/M5", "M15/M15"],
                     help="khung xác định xu hướng/POI / khung vào lệnh")
     ap.add_argument("--xu-huong", default="lien-tuc", choices=["lien-tuc", "moi-ngay"],
                     help="moi-ngay: mỗi ngày tìm xu hướng lại từ giá đóng cửa ngày liền trước")
@@ -313,6 +313,8 @@ def main():
     m15 = [eng.Bar(b.t[:16], b.o, b.h, b.l, b.c) for b in m15]; m1 = [eng.Bar(b.t[:16], b.o, b.h, b.l, b.c) for b in m1]
     if a.khung == "H4/M15":
         m15, m1 = resample(m15, 240), m15
+    elif a.khung == "M15/M15":
+        m1 = m15
     elif a.khung == "H1/M5":
         m15, m1 = resample(m15, 60), resample(m1, 5)
     print(f"Khung: {a.khung}  ({len(m15)} nến khung lớn, {len(m1)} nến khung vào lệnh)")

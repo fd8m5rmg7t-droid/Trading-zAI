@@ -31,3 +31,10 @@ Hình từng lệnh: `xauusd-2026-08-11-lenh.png`. Danh sách lệnh: `xauusd-20
 - Tham khảo H1/M5: 52 sóng → 9 POI → 2 lệnh, thua cả 2 (SL cứng), −2.13R.
 - Kết luận: 3,5 tháng dữ liệu quá ít cho khung H4; cần dữ liệu nhiều năm.
 - Hình đỉnh/đáy/xu hướng H4: `xauusd-h4-xu-huong.png`.
+
+## Lần 4 – chỉ dùng M15 cho cả xác định xu hướng/POI lẫn vào lệnh (`--khung M15/M15`)
+- Tìm xu hướng liên tục: 6 lệnh, thắng 0, **−5.34R** (5 lệnh dính SL cứng, 1 hòa vốn).
+- Tìm xu hướng lại mỗi ngày: 3 lệnh, thắng 1 (+4.0R, chốt TP2), thua 1 (−1.06R), hòa 1 → **+2.88R**.
+- Giới hạn: trong một nến M15 không biết giá chạm điểm vào hay SL trước → mô phỏng giả định SL trước (thận trọng);
+  2 lệnh "vào và dính SL trong cùng 1 nến" có thể bị đánh giá xấu hơn thực tế. Có thể dùng dữ liệu M1 để biết thứ tự chính xác.
+- Mẫu 3–6 lệnh: chưa đủ để kết luận.
