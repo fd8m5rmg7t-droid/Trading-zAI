@@ -70,6 +70,9 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
   - **Xác nhận xu hướng giảm khi Đáy 2 được xác nhận** (không phải ngay lúc phá Đáy 1).
 - **Giá đi lên trước:** ngược lại (Đáy 1 = râu dưới nến đóng cửa ngày trước; Đỉnh 1 theo cách 1; phá Đỉnh 1 → Đỉnh 2; Đáy 2 = điểm thấp nhất giữa hai đỉnh; xác nhận tăng khi Đỉnh 2 được xác nhận).
 - **Đi xuống tạo Đáy 1, rồi quay lên vượt Đỉnh 1 mà chưa phá Đáy 1:** đợi **đỉnh mới cao hơn Đỉnh 1** và **đáy mới cao hơn Đáy 1** (cả hai tìm bằng **cách 1**) → xác nhận xu hướng tăng. (Đi lên trước thì ngược lại.)
+- **Đi ngang / chưa rõ xu hướng đầu ngày (trường hợp 3 và 6, đã xác nhận):** phải đợi tạo thêm đỉnh và đáy. Xu hướng chỉ xác định khi **2 đỉnh liên tiếp VÀ 2 đáy liên tiếp cùng thấp dần (giảm) hoặc cùng cao dần (tăng)**. Đỉnh/đáy lúc này tìm theo **cách 2** (chỉ có đỉnh/đáy mới khi thân nến phá đỉnh/đáy gần nhất); các đỉnh/đáy nhỏ trong vùng đi ngang không tính.
+  - **Ngoại lệ (đã xác nhận, trường hợp 3b):** đi ngang rồi phá LÊN Đỉnh 1 → tìm Đỉnh 2; **SAU khi có Đỉnh 2 mới tìm Đáy 2 theo cách 1**. Các đáy trong vùng đi ngang (trước Đỉnh 2) không có giá trị (không lấy "thấp nhất giữa Đỉnh 1 và Đỉnh 2" vì khoảng đó chứa chính Đáy 1). Đáy 2 > Đáy 1 → tăng. (Đi lên trước rồi phá XUỐNG: ngược lại.)
+  - Minh họa: `examples/35-buoc1-tat-ca-truong-hop.png`, `examples/36-chua-ro-xu-huong-cach-2.png`.
 - **Áp dụng chung (đã xác nhận):** khi giá quay ngược qua điểm bắt đầu mà chưa phá Đỉnh 1/Đáy 1, dùng quy tắc 2 đỉnh + 2 đáy gần nhất (cách 1) – cùng chiều nào thì xác nhận xu hướng chiều đó (có thể tăng hoặc giảm).
 - Minh họa trên dữ liệu thật: `backtest/buoc-1-m15.png` (22/10/2026), `backtest/buoc-1-m15-2026-09-08.png`, `-2026-09-10.png`, `-2026-08-11.png` (đã duyệt).
 
