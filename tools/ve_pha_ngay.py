@@ -40,7 +40,7 @@ for i, x in enumerate(seg):
 ax.axvspan(-.5, CONF - .5, color="#eeeeee", zorder=0)
 ax.text(CONF / 2, max(x.h for x in seg) + 4, "Chưa rõ xu hướng (bước 1)", ha="center", fontsize=11, fontweight="bold", color="#777")
 start_i, start_p = pts[0]
-rows = []
+rows = []; liq = []
 for q in range(0, len(pts) - 1, 2):
     a_i, a_p = (start_i, start_p)
     b_i, b_p = pts[q + 1]
@@ -66,20 +66,27 @@ for q in range(0, len(pts) - 1, 2):
         rows.append((nr, seg[a_i].t[11:], a_p, seg[b_i].t[11:], b_p, mid, seg[h_i].t[11:], h_p, touched))
         if touched:
             start_i, start_p = h_i, h_p
+        else:
+            liq.append((h_i, h_p))
     ax.scatter([b_i], [b_p], s=90, color="#f57f17" if up else "#1565c0", marker="v" if up else "^", zorder=6)
     ax.text(b_i, b_p + (2 if up else -2), f"{b_p:.2f}", ha="center", va="bottom" if up else "top", fontsize=9, fontweight="bold", color="#0d47a1")
 ax.scatter([pts[0][0]], [pts[0][1]], s=110, color="#6a1b9a", zorder=6)
+# đường zigzag nối tất cả đỉnh/đáy (kể cả đỉnh/đáy của pha hồi không đủ)
+ax.plot([p[0] for p in pts], [p[1] for p in pts], color="#111", lw=2.6, zorder=5, alpha=.85)
+for h_i, h_p in liq:
+    ax.plot([h_i, n + .5], [h_p, h_p], color="#ef6c00", lw=2, ls="--", zorder=5)
+    ax.text(n + .6, h_p, f"THANH KHOẢN {h_p:.2f}\n({'đỉnh' if not up else 'đáy'} của pha hồi không đủ)", fontsize=9, fontweight="bold", color="#ef6c00", va="center")
 if tail_push:
     j, sc = tail_push
     ax.axvspan(j, n - .5, color="#e8f5e9", alpha=.8, zorder=0)
     ax.text((j + n) / 2, max(x.h for x in seg) + 1, "PHA ĐẨY tiếp theo\n(đã phá đáy, chưa xác nhận đáy mới)", ha="center", fontsize=10, fontweight="bold", color="#2e7d32", va="bottom")
     ax.annotate("thân nến phá đáy", xy=(sc, seg[sc].c), xytext=(sc + 2, seg[sc].c - 6), fontsize=9, color="#c62828", fontweight="bold", arrowprops=dict(arrowstyle="->", color="#c62828"))
 ticks = list(range(0, n, 4)); ax.set_xticks(ticks); ax.set_xticklabels([seg[i].t[11:] for i in ticks], fontsize=8.5)
-ax.set_xlim(-1, n + 6); ax.set_ylim(min(x.l for x in seg) - 10, max(x.h for x in seg) + 12)
+ax.set_xlim(-1, n + 14); ax.set_ylim(min(x.l for x in seg) - 10, max(x.h for x in seg) + 12)
 ax.set_title(f"XAUUSD M15 – ngày {seg[1].t[8:10]}/{seg[1].t[5:7]}/{seg[1].t[:4]}: xu hướng {'TĂNG' if up else 'GIẢM'} (xác nhận {seg[CONF].t[11:]}) – PHA ĐẨY (xanh lá) / PHA HỒI (xanh dương), "
              "PnD đo trên pha đẩy gần nhất", loc="left", fontsize=12.5, fontweight="bold")
-ax.text(.01, -.05, "Mũi tên tím: pha đẩy (từ điểm bắt đầu đến đáy/đỉnh mới). Nét đứt tím: 50% của pha đẩy. Pha hồi hợp lệ khi chạm 50%; "
-        "nếu không chạm (order flow thiếu) thì pha đẩy tiếp theo đo từ điểm bắt đầu cũ.", transform=ax.transAxes, va="top", fontsize=10)
+ax.text(.01, -.05, "Đường đen: đường đi của giá qua các đỉnh/đáy. Mũi tên tím: pha đẩy dùng để đo PnD. Nét đứt tím: 50%. Pha hồi hợp lệ khi chạm 50%; "
+        "pha hồi không đủ (order flow thiếu): đỉnh của nó (xu hướng giảm) / đáy của nó (xu hướng tăng) là THANH KHOẢN (nét đứt cam).", transform=ax.transAxes, va="top", fontsize=10)
 plt.tight_layout(); out = f"backtest/pha-day-hoi-{DAY}.png"; plt.savefig(out, dpi=85)
 print(out)
 for row in rows: print(row)
