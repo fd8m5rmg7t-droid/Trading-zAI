@@ -188,6 +188,7 @@ def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=N
                 # chỉ cần phase 3 hợp lệ: giá hồi về chạm đường 50% (vào discount), mỗi sóng tối đa 1 lệnh
                 if b.l <= wave["mid"] and not wave["traded"]:
                     setup = {"state": "bottom", "poi": None, "touch_k": k + 1, "low_j": j, "T": wave["T"].price,
+                             "wstart": wave["start"], "wT": wave["T"], "mid": wave["mid"],
                              "zone": eng.Bar(m15[wave["start"].i].t, 0, wave["mid"], wave["start"].price, 0)}
                     inc("3_cham_50pct")
             elif setup is None:
@@ -221,7 +222,7 @@ def run_long(m15, m1, ctx, side, spread, hard_buf, be_tf="M15", log=None, diag=N
                     if blocked(b.t):
                         inc("x_huy_gio_cam"); setup = None; continue
                     inc("5_khop_lenh")
-                    trade = {"k_in": k + 1, "side": side, "entry": setup["entry"], "low": setup["low"], "hard": setup["hard"],
+                    trade = {"wstart": setup.get("wstart"), "wT": setup.get("wT"), "mid": setup.get("mid"), "k_in": k + 1, "side": side, "entry": setup["entry"], "low": setup["low"], "hard": setup["hard"],
                              "T": setup["T"], "poi": setup.get("zone") or m15[setup["poi"]], "t_in": b.t, "j_in": j, "size": 1.0,
                              "be": False, "tp1": False, "pnl": 0.0, "done": False, "broke": False,
                              "maxh": b.h, "spread": spread, "be_tf": be_tf, "notes": []}
@@ -274,7 +275,11 @@ def _close(tr, price, t, why, trades, log):
            "T": sgn * tr["T"], "risk": risk, "R": r, "R_gross": tr["pnl"] / risk, "exit": why, "tp1": tr["tp1"],
            "notes": "; ".join(tr["notes"]), "low": sgn * tr["low"],
            "poi_h": sgn * (tr["poi"].h if sgn > 0 else tr["poi"].l), "poi_l": sgn * (tr["poi"].l if sgn > 0 else tr["poi"].h),
-           "poi_t": tr["poi"].t}
+           "poi_t": tr["poi"].t,
+           "song_bat_dau_t": tr["wstart"].t if tr.get("wstart") is not None and hasattr(tr["wstart"], "t") else "",
+           "song_bat_dau": sgn * tr["wstart"].price if tr.get("wstart") is not None else "",
+           "dinh_cu_i": tr["wT"].i if tr.get("wT") is not None else "", "song_bat_dau_i": tr["wstart"].i if tr.get("wstart") is not None else "",
+           "mid": sgn * tr["mid"] if tr.get("mid") is not None else ""}
     trades.append(rec); tr["done"] = True
     if log:
         log.append(rec)
