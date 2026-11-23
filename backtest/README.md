@@ -88,3 +88,17 @@ cần kiểm tra lại trên dữ liệu khác (năm khác, cặp khác) trướ
 - Khoảng cách điểm vào → SL cứng trung bình chỉ 3.48 giá (SL cứng 3 giá chiếm phần lớn) → **rất nhạy với chi phí**:
   spread 0.3 → +33.2R; spread 0.5 → +2.7R; spread 0.8 → −43.1R (cùng 527 lệnh). Hình: `xauusd-m1m1-equity.png`.
 - Tháng 9 âm ở mọi biến thể. ~150 lệnh/tháng (~7 lệnh/ngày) → trượt giá thực tế quan trọng.
+
+## Lần 7 – khung M5 (`--khung M5/M5` và `M5/M1`), M5 gộp từ M1
+| Khung | Xu hướng | Vùng | Lệnh | Thắng/Thua/Hòa | Tổng | Sụt giảm |
+|---|---|---|---|---|---|---|
+| M5/M5 | mỗi ngày | không cần POI | 101 | 13/87/1 | −16.56R | −22.35R |
+| M5/M5 | liên tục | không cần POI | 99 | 14/84/1 | −13.28R | −19.07R |
+| M5/M5 | mỗi ngày | POI | 11 | 0/11/0 | −8.59R | −8.59R |
+| M5/M5 | liên tục | POI | 12 | 0/12/0 | −7.68R | −7.68R |
+| M5/M1 | mỗi ngày | không cần POI | 251 | 30/221/0 | +0.97R | −38.44R |
+| M5/M1 | liên tục | không cần POI | 232 | 28/204/0 | −3.82R | −39.94R |
+| M5/M1 | mỗi ngày | POI | 22 | 2/20/0 | −3.78R | −5.95R |
+| M5/M1 | liên tục | POI | 17 | 1/16/0 | −4.23R | −5.05R |
+
+- M5/M5 mỗi ngày không cần POI: âm cả 4 tháng; spread 0.5 → −21.7R, 0.8 → −29.5R.

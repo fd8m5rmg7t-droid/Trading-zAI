@@ -312,7 +312,7 @@ def main():
     ap.add_argument("--hard", type=float, default=3.0, help="SL cứng cách điểm thấp/cao nhất (vàng: 3.0)")
     ap.add_argument("--be-tf", default="M15", choices=["M15", "M1", "none"], help="khung xét 'đỉnh thấp hơn' để dời SL")
     ap.add_argument("--csv", help="ghi danh sách lệnh ra file CSV")
-    ap.add_argument("--khung", default="M15/M1", choices=["M15/M1", "H4/M15", "H1/M5", "M15/M15", "M1/M1"],
+    ap.add_argument("--khung", default="M15/M1", choices=["M15/M1", "H4/M15", "H1/M5", "M15/M15", "M1/M1", "M5/M5", "M5/M1"],
                     help="khung xác định xu hướng/POI / khung vào lệnh")
     ap.add_argument("--vung", default="poi", choices=["poi", "discount"],
                     help="poi: vào lệnh tại POI hợp lệ; discount: chỉ cần phase 3 chạm 50%% rồi tạo đáy/đỉnh")
@@ -329,6 +329,10 @@ def main():
         m1 = m15
     elif a.khung == "M1/M1":
         m15 = m1
+    elif a.khung == "M5/M5":
+        m15 = m1 = resample(m1, 5)
+    elif a.khung == "M5/M1":
+        m15 = resample(m1, 5)
     elif a.khung == "H1/M5":
         m15, m1 = resample(m15, 60), resample(m1, 5)
     print(f"Khung: {a.khung}  ({len(m15)} nến khung lớn, {len(m1)} nến khung vào lệnh)")
