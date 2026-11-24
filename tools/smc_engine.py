@@ -107,7 +107,9 @@ def analyze(bars, start_rule=None, inverted=False, trend_rule="user"):
                 Cp = [w for w in hist if w.kind == KC and w.i < Ep.i]
                 if not Ck or not Cp:
                     continue
-                if v(En.price) > v(Ep.price) and v(Ck[-1].price) > v(Cp[-1].price):
+                # phải có THÂN nến đóng cửa qua đáy gần nhất (Ep) sau khi có đỉnh thấp hơn (người dùng xác nhận 24/11/2026)
+                broke = any(v(C[q]) > v(Ep.price) for q in range(Ck[-1].i + 1, i + 1))
+                if v(En.price) > v(Ep.price) and v(Ck[-1].price) > v(Cp[-1].price) and broke:
                     rng = range(Ep.i, En.i + 1)
                     k = max(rng, key=lambda q: H[q]) if KC == "T" else min(rng, key=lambda q: L[q])
                     other = add(Swing(KC, k, H[k] if KC == "T" else L[k], i, "between"))

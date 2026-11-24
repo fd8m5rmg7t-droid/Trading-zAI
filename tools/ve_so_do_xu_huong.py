@@ -105,6 +105,8 @@ path(ax, [(0, 112), (3, 100), (6, 107), (9, 93), (10, 96.5)])
 pt(ax, 0, 112, "Đỉnh A"); pt(ax, 3, 100, "Đáy A", up=False); pt(ax, 6, 107, "Đỉnh B\n(thấp hơn)"); pt(ax, 9, 93, "Đáy B\n(thấp hơn)", up=False)
 level(ax, 100, 3, 13, "Đáy A"); pnd(ax, 100, 112, 0, 4)
 note(ax, 10, 96.5, "nến xác nhận Đáy B (cách 1)", dx=.8, dy=-6, col=RD)
+candle(ax, 7.6, 101.5, 98.0, 102, 97.5)
+note(ax, 7.6, 98.0, "THÂN nến đóng\ndưới Đáy A", dx=-6.5, dy=-6, col=PU)
 note(ax, 6, 107, "Đỉnh B hồi chạm 50%\n→ là MỐC CẤU TRÚC", dx=2.5, dy=6, col=PU)
 result(ax, "Xác nhận GIẢM khi Đáy B được xác nhận", RD)
 
@@ -144,16 +146,14 @@ ax = axs.flat[5]; ax.axis("off")
 ax.text(0, .95, "Ghi chú nhóm B", fontsize=13, fontweight="bold", va="top")
 ax.text(0, .85, "• Đỉnh/đáy luôn tìm theo CÁCH 1 (nến có thân đóng\n   qua low/high của nến liền trước), đỉnh – đáy xen kẽ.\n"
         "• Hai chiều KHÔNG đối xứng (bạn đã chọn):\n"
-        "   – GIẢM: đỉnh thấp hơn, rồi đáy thấp hơn được xác nhận.\n"
+        "   – GIẢM: đỉnh thấp hơn, thân phá đáy, rồi đáy thấp hơn được xác nhận.\n"
         "   – TĂNG: thân phá đỉnh trước, rồi đáy cao hơn được xác nhận.\n"
         "• Khi xác nhận xu hướng, kiểm tra pha hồi:\n"
         "   hồi chạm 50% → điểm đó là MỐC CẤU TRÚC;\n"
         "   không chạm 50% → điểm đó chỉ là THANH KHOẢN.\n"
         "• Chưa thỏa B1–B4 → vẫn CHƯA RÕ, không vào lệnh.\n\n"
-        "(?) Câu hỏi: ở B1, Đáy B chỉ cần THẤP HƠN Đáy A\n"
-        "   (tính theo râu). Bộ máy KHÔNG đòi thân nến đóng\n"
-        "   dưới Đáy A. Còn chiều tăng (B3) thì đòi thân đóng\n"
-        "   trên Đỉnh A. Có đúng ý bạn không?",
+        "• \"Phá\" luôn là THÂN nến đóng qua (râu không tính),\n"
+        "   cả chiều tăng lẫn chiều giảm (xác nhận 24/11).",
         fontsize=11, va="top", linespacing=1.5)
 save(fig, "examples/43b-xu-huong-chua-ro.png", "B. KHI CHƯA RÕ XU HƯỚNG (sau A4, sau dấu hiệu đảo chiều, hoặc đang đi ngang)")
 
