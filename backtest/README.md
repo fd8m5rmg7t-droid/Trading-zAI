@@ -144,3 +144,11 @@ Khác biệt nhỏ: quy tắc mở đầu ngày chỉ ảnh hưởng tới vài 
 
 - Khoảng điểm vào → SL cứng trung vị ~3.2–3.4 giá → kết quả rất nhạy với chi phí.
 - 2025 âm 8/12 tháng; 2026 dương 8/11 tháng. Đường lợi nhuận: `xauusd-m1m1-2025-2026-equity.png`.
+
+## Lần 14 – mốc cấu trúc = đỉnh/đáy pha hồi ĐỦ; PnD đo từ mốc cấu trúc (đáy/đỉnh nông chỉ là thanh khoản)
+Vào lệnh vẫn theo cách cũ (không cần POI: hồi chạm 50% → tạo đáy/đỉnh → 1/2 râu). Chưa có thứ tự ưu tiên thanh khoản/POI/FVG.
+| Dữ liệu | Lệnh | Thắng/Thua | Tổng | Sụt giảm |
+|---|---|---|---|---|
+| M1/M1 2025 | 807 | 95/710 | −22.4R | −27.1R |
+| M1/M1 2026 (đến 14/11) | 677 | 74/600 | +85.2R | −24.2R |
+| M15/M15 08–11/2026 | 21 | 2/18 | −3.7R | |

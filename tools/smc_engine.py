@@ -61,6 +61,7 @@ class Result:
     state: list = field(default_factory=list)   # trạng thái theo từng nến: UP / DOWN / SIDE_UP / SIDE_DOWN / UNCLEAR
     events: list = field(default_factory=list)  # (i, text)
     ctx: list = field(default_factory=list)     # (mode, T, B, scan) sau khi nến i đóng cửa
+    liq: list = field(default_factory=list)     # đáy/đỉnh nông của pha hồi không đủ (thanh khoản)
 
 
 # ----------------------------------------------------------------------------- lõi
@@ -110,6 +111,10 @@ def analyze(bars, start_rule=None, inverted=False, trend_rule="user"):
                     rng = range(Ep.i, En.i + 1)
                     k = max(rng, key=lambda q: H[q]) if KC == "T" else min(rng, key=lambda q: L[q])
                     other = add(Swing(KC, k, H[k] if KC == "T" else L[k], i, "between"))
+                    # pha hồi (Ep → other) không đủ so với sóng Cp → Ep → other chỉ là thanh khoản, mốc cấu trúc = Cp
+                    half = (Cp[-1].price + Ep.price) / 2
+                    if not (v(other.price) <= v(half)):
+                        other.liq = True; (other not in res.liq) and res.liq.append(other); other = Cp[-1]
                     return set_trend(i, dirn, En, other)
             else:                    # break (phá đỉnh) rồi counter (đáy cao hơn)
                 if last.kind != KC:
@@ -136,6 +141,10 @@ def analyze(bars, start_rule=None, inverted=False, trend_rule="user"):
                     rr = range(E0.i, k + 1)
                     z = min(rr, key=lambda q: L[q]) if KC == "B" else max(rr, key=lambda q: H[q])
                     ext.src = Swing(KC, z, L[z] if KC == "B" else H[z], i, "between")
+                    half = (ext.src.price + ext.price) / 2
+                    if not (v(Cn.price) <= v(half)):      # pha hồi về Cn không đủ → Cn là thanh khoản
+                        Cn.liq = True; (Cn not in res.liq) and res.liq.append(Cn)
+                        return set_trend(i, dirn, ext, add(ext.src))
                     return set_trend(i, dirn, ext, Cn)
 
     def set_trend(i, dirn, ext, other):
@@ -250,10 +259,19 @@ def analyze(bars, start_rule=None, inverted=False, trend_rule="user"):
                 mid = range(old.i, j + 1)
                 k = min(mid, key=lambda q: L[q]) if up else max(mid, key=lambda q: H[q])
                 other = add(Swing("B" if up else "T", k, L[k] if up else H[k], i, "between"))
-                if up:
-                    T, B = new, other
+                # Pha hồi đủ? (đo trên sóng từ mốc cấu trúc đến đỉnh/đáy cũ). Hồi KHÔNG đủ → đáy/đỉnh nông chỉ là
+                # THANH KHOẢN, mốc cấu trúc (dùng để xét đảo chiều và đo PnD) giữ nguyên (đã xác nhận 24/11/2026).
+                S = B if up else T
+                half = (S.price + old.price) / 2
+                enough = other.price <= half if up else other.price >= half
+                if enough:
+                    S = other
                 else:
-                    B, T = new, other
+                    other.liq = True; (other not in res.liq) and res.liq.append(other)
+                if up:
+                    T, B = new, S
+                else:
+                    B, T = new, S
                 scan = None
                 res.events.append((i, ("Đỉnh mới " if up else "Đáy mới ") + f"{new.price}"))
             res.state[i] = mode
