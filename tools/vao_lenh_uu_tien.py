@@ -21,6 +21,8 @@ Chỉ dùng một khung (M1/M1 hoặc M15/M15). Ví dụ xu hướng tăng (SELL
         có điểm thấp nhất. POI/FVG: nến chạm lần đầu đóng cửa dưới đáy vùng → vùng hết hiệu lực.
       - Huỷ lệnh chờ: giá chạm đỉnh T trước khi khớp; nến đóng cửa dưới điểm thấp nhất; khớp trong giờ cấm.
         (KHÔNG huỷ khi giá tạo đỉnh cách 1 trước khi khớp – đã bỏ 24/11.)
+  * Pha hồi từ đỉnh đã tạo đáy (cách 1) mà chưa chạm 50% (đáy nông = thanh khoản, trường hợp B4/C2) → sóng đó
+    KHÔNG BUY, phải đợi thân nến phá đỉnh (sóng mới) – người dùng xác nhận 24/11.
   * Mỗi vùng dùng một lần. Lệnh ở vùng trên bị DỪNG LỖ → được vào tiếp ở vùng dưới; lệnh hòa vốn / chốt lời → hết sóng.
   * Quản lý lệnh giống trước (SL theo đóng cửa + SL cứng, TP1 tại T, dời SL về điểm vào, TP2 khi tạo đỉnh mới).
 """
@@ -131,10 +133,22 @@ def run(bars, side, spread=0.3, hard_buf=3.0, diag=None):
         if mode == "UP" and T is not None and B is not None and B.i < T.i:
             if wave is None or wave["T"].i != T.i or wave["B"].i != B.i:
                 mid = (B.price + T.price) / 2
-                wave = {"T": T, "B": B, "mid": mid, "zones": build_zones(B, T, mid, bars, k, liqs), "done": False}
+                wave = {"T": T, "B": B, "mid": mid, "zones": build_zones(B, T, mid, bars, k, liqs), "done": False,
+                        "lo": float("inf"), "q": T.i + 1, "khoa": False}
                 inc("1_song")
                 if setup is not None:
                     setup = None
+            # Pha hồi từ đỉnh T đã TẠO ĐÁY (cách 1) mà chưa chạm 50% → đáy nông = thanh khoản; sóng này KHÔNG được BUY,
+            # phải đợi thân nến phá đỉnh (sóng mới). Áp dụng cho B4 và C2 (người dùng xác nhận 24/11/2026).
+            while wave["q"] <= j and not wave["khoa"]:
+                q = wave["q"]; wave["lo"] = min(wave["lo"], bars[q].l)
+                if q > T.i and bars[q].c > bars[q - 1].h and wave["lo"] > wave["mid"] and setup is None:
+                    wave["khoa"] = True
+                    if not wave["done"]:
+                        inc("x_khoa_song_day_nong")
+                wave["q"] += 1
+            if wave["khoa"] and trade is None:
+                wave["done"] = True
         elif trade is None:
             wave = None; setup = None
         # ---- quản lý lệnh đang mở

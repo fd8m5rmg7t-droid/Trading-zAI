@@ -185,7 +185,7 @@ Còn lại 3 điều kiện huỷ: giá chạm đỉnh cũ T trước khi khớp
 - M15 vẫn dương cả hai năm kể cả khi chi phí 1.0 và khi bỏ 3 lệnh lãi lớn nhất (2026 chỉ còn +1.3R).
 - M1 vẫn rất nhạy với chi phí (âm khi chi phí 1.0) → tiếp tục ưu tiên M15.
 
-### Vẽ toàn bộ lệnh M15 để duyệt (đã cập nhật theo Lần 18)
+### Vẽ toàn bộ lệnh M15 để duyệt (đã cập nhật theo Lần 19)
 `backtest/lenh-m15/2025/` (73 lệnh) và `backtest/lenh-m15/2026/` (71 lệnh): mỗi ảnh 6 lệnh đánh số, `danh-sach.md` liệt kê từng lệnh.
 Vẽ bằng `python3 tools/ve_lenh_m15.py nen_M1.csv ket_qua_M15.csv thu_muc_ra NHAN`.
 
@@ -200,3 +200,15 @@ Trước đây chỉ cần đáy mới thấp hơn (tính theo râu). Sơ đồ 
 | M15 | 2026 | 69 | 10/48/11 | **+13.3R** | −6.4R | −10.0R | +4.3R | +26.3R |
 
 - Quy tắc chặt hơn làm kết quả giảm, rõ nhất ở 2026. M15 2025 vẫn vững; M15 2026 còn dương nhưng phụ thuộc 3 lệnh lớn.
+
+## Lần 19 – đáy nông (B4/C2) → sóng đó không BUY, phải đợi thân nến phá đỉnh (người dùng xác nhận 24/11)
+Khi pha hồi từ đỉnh đã tạo đáy (cách 1) mà chưa chạm 50% → khoá sóng. Sơ đồ: `examples/44-*.png`, `examples/45-*.png`.
+
+| Khung | Năm | Lệnh | Thắng/Thua/Hòa | Tổng (0.3) | Sụt giảm | Bỏ 3 lệnh lãi lớn nhất | Chi phí 1.0 | Lần 18 |
+|---|---|---|---|---|---|---|---|---|
+| M1 | 2025 | 326 | 56/269/1 | +50.2R | −7.8R | +16.7R | −18.5R | +83.3R |
+| M1 | 2026 | 231 | 31/197/3 | +9.1R | −12.3R | −13.0R | −35.8R | +72.0R |
+| M15 | 2025 | 47 | 16/31/0 | **+54.0R** | −4.1R | +30.2R | +45.9R | +62.2R |
+| M15 | 2026 | 47 | 8/33/6 | **+15.4R** | −8.8R | −6.5R | +9.0R | +13.3R |
+
+- Số lệnh giảm khoảng 1/3 (M15) và hơn 1/2 (M1). M15: tổng R mỗi lệnh tăng (2025: +1.15R/lệnh), 2026 nhỉnh hơn Lần 18.
