@@ -5,3 +5,7 @@
 3. `truong-hop-3.png`: hồi đủ, quét qua thanh khoản xuống POI trong discount → vào lệnh theo khai thác POI.
 4. `truong-hop-4.png`: hồi xuyên qua thanh khoản, POI, phá Đáy 1 → có thể đảo chiều xu hướng.
 5. `truong-hop-5.png`: phá Đáy 1 (có thể đảo chiều) → Đáy 3 → Đỉnh 3 (hồi đủ) → Đáy 4 xác nhận xu hướng giảm.
+6. `truong-hop-6.png`: phá Đáy 1 (có thể đảo chiều) → Đáy 3 → Đỉnh 3; giá không phá Đỉnh 2 và Đáy 3 → đi sideway (hộp tím: vùng từ Đỉnh 2 đến Đáy 3, có đường 50%).
+7. `truong-hop-7.png`: Đỉnh 3 hồi không đủ (dưới 50% của Đỉnh 2→Đáy 3) → thanh khoản; Đáy 4 xác nhận xu hướng giảm; khai thác theo kiểu thanh khoản tại Đỉnh 3.
+8. `truong-hop-8.png`: Đỉnh 3 hồi đủ; Đáy 4 xác nhận giảm; sau đó Đỉnh 3 bị phá → có thể thay đổi xu hướng.
+9. `truong-hop-9.png`: Đỉnh 3 hồi không đủ; Đáy 4 xác nhận giảm; sau đó Đỉnh 2 bị phá → có thể thay đổi xu hướng.
