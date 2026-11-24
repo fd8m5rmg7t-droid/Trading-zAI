@@ -45,7 +45,9 @@ for sg in segs:
         _, T2, B2, _ = r.ctx[i]
         p, q = ((B2, T2) if up else (T2, B2))
         if q.i != pts[-1][0] and q.i not in [x[0] for x in pts]:
-            if p.i != pts[-1][0]:
+            if len(pts) % 2 == 1:            # điểm cuối đang là đáy/đỉnh của pha hồi → thay bằng điểm cực trị mới của pha hồi
+                pts[-1] = (p.i, p.price)
+            elif p.i != pts[-1][0]:
                 pts.append((p.i, p.price))
             pts.append((q.i, q.price))
     endi = min(n - 1, b + 1)
