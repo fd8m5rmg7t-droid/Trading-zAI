@@ -184,3 +184,7 @@ Còn lại 3 điều kiện huỷ: giá chạm đỉnh cũ T trước khi khớp
 - Số lệnh M15 gần gấp đôi; các lệnh mới thêm có tổng dương (2025: 31 lệnh +38.1R; 2026: 34 lệnh +13.2R).
 - M15 vẫn dương cả hai năm kể cả khi chi phí 1.0 và khi bỏ 3 lệnh lãi lớn nhất (2026 chỉ còn +1.3R).
 - M1 vẫn rất nhạy với chi phí (âm khi chi phí 1.0) → tiếp tục ưu tiên M15.
+
+### Vẽ toàn bộ lệnh M15 (Lần 17) để duyệt
+`backtest/lenh-m15/2025/` (73 lệnh) và `backtest/lenh-m15/2026/` (71 lệnh): mỗi ảnh 6 lệnh đánh số, `danh-sach.md` liệt kê từng lệnh.
+Vẽ bằng `python3 tools/ve_lenh_m15.py nen_M1.csv ket_qua_M15.csv thu_muc_ra NHAN`.
