@@ -135,3 +135,12 @@ Khác biệt nhỏ: quy tắc mở đầu ngày chỉ ảnh hưởng tới vài 
 - M15/M15 mỗi ngày, không cần POI: 25 lệnh, thắng 3 thua 19 hòa 3, **−1.37R**, sụt −5.43R.
 - M1/M1: 444 lệnh, thắng 103 thua 341, **+44.94R**, sụt −10.16R.
 - Hình cả ngày: `ca-ngay-2026-11-06.png`, `ca-ngay-2026-09-04.png`, `ca-ngay-2026-09-16.png`.
+
+## Lần 13 – M1/M1, không cần POI, dữ liệu 01/2025 → 14/11/2026 (quy tắc mới nhất)
+| Năm | Lệnh | Thắng/Thua | Tổng (spread 0.3) | spread 0.2 | spread 0.5 | Sụt giảm |
+|---|---|---|---|---|---|---|
+| 2025 | 1383 | 256/1122 | **−36.0R** | +6.1R | −120.3R | −36.0R |
+| 2026 (đến 14/11) | 1324 | 266/1057 | **+101.6R** | +139.4R | +26.0R | −27.3R |
+
+- Khoảng điểm vào → SL cứng trung vị ~3.2–3.4 giá → kết quả rất nhạy với chi phí.
+- 2025 âm 8/12 tháng; 2026 dương 8/11 tháng. Đường lợi nhuận: `xauusd-m1m1-2025-2026-equity.png`.
