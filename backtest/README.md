@@ -170,3 +170,17 @@ Vào lệnh vẫn theo cách cũ (không cần POI: hồi chạm 50% → tạo �
 | M15 | 2026 | 38 | 6/26/6 | **+12.0R** | −6.5R | −9.9R | +7.3R |
 - M15 dương cả hai năm và ít nhạy với chi phí (khoảng rủi ro trung vị 4–6 giá); nhưng chỉ ~40 lệnh/năm → mẫu nhỏ.
 - M1 vẫn phụ thuộc vài lệnh rất lớn và chi phí. Đường lợi nhuận: `uu-tien-2025-2026-equity.png`.
+
+## Lần 17 – bỏ quy tắc "huỷ lệnh chờ khi giá tạo đỉnh (cách 1) trước khi khớp" (người dùng yêu cầu 24/11)
+Còn lại 3 điều kiện huỷ: giá chạm đỉnh cũ T trước khi khớp, nến đóng thân qua điểm thấp/cao nhất, khớp trong giờ cấm.
+
+| Khung | Năm | Lệnh | Thắng/Thua/Hòa | Tổng (0.3) | Sụt giảm | Bỏ 3 lệnh lãi lớn nhất | Chi phí 1.0 | So với Lần 16 |
+|---|---|---|---|---|---|---|---|---|
+| M1 | 2025 | 847 | 110/734/3 | +87.4R | −15.9R | +46.2R | −90.3R | −10.9R |
+| M1 | 2026 | 686 | 76/599/11 | +121.3R | −34.0R | +43.3R | −10.1R | +64.7R |
+| M15 | 2025 | 73 | 21/51/1 | **+67.1R** | −5.3R | +41.9R | +54.8R | +28.0R |
+| M15 | 2026 | 71 | 12/48/11 | **+26.3R** | −6.4R | +1.3R | +17.0R | +12.0R |
+
+- Số lệnh M15 gần gấp đôi; các lệnh mới thêm có tổng dương (2025: 31 lệnh +38.1R; 2026: 34 lệnh +13.2R).
+- M15 vẫn dương cả hai năm kể cả khi chi phí 1.0 và khi bỏ 3 lệnh lãi lớn nhất (2026 chỉ còn +1.3R).
+- M1 vẫn rất nhạy với chi phí (âm khi chi phí 1.0) → tiếp tục ưu tiên M15.

@@ -19,8 +19,8 @@ Chỉ dùng một khung (M1/M1 hoặc M15/M15). Ví dụ xu hướng tăng (SELL
         nếu thanh khoản đứng một mình (đã ở discount) → khai thác bình thường (chờ tạo đáy).
       - Kiểu POI/FVG/bình thường: chạm vùng → chờ nến xác nhận đáy (cách 1) → lệnh chờ tại 1/2 râu dưới của nến
         có điểm thấp nhất. POI/FVG: nến chạm lần đầu đóng cửa dưới đáy vùng → vùng hết hiệu lực.
-      - Huỷ lệnh chờ: giá chạm đỉnh T trước khi khớp; nến đóng cửa dưới điểm thấp nhất; giá tạo đỉnh (cách 1) trước khi
-        khớp; khớp trong giờ cấm.
+      - Huỷ lệnh chờ: giá chạm đỉnh T trước khi khớp; nến đóng cửa dưới điểm thấp nhất; khớp trong giờ cấm.
+        (KHÔNG huỷ khi giá tạo đỉnh cách 1 trước khi khớp – đã bỏ 24/11.)
   * Mỗi vùng dùng một lần. Lệnh ở vùng trên bị DỪNG LỖ → được vào tiếp ở vùng dưới; lệnh hòa vốn / chốt lời → hết sóng.
   * Quản lý lệnh giống trước (SL theo đóng cửa + SL cứng, TP1 tại T, dời SL về điểm vào, TP2 khi tạo đỉnh mới).
 """
@@ -230,8 +230,7 @@ def run(bars, side, spread=0.3, hard_buf=3.0, diag=None):
                     trade = None
                 setup = None
                 continue
-            if j > setup["conf_j"] and b.c < bars[j - 1].l:
-                inc("x_huy_tao_dinh_truoc_khi_khop"); setup = None
+            # (Đã bỏ theo yêu cầu người dùng 24/11: KHÔNG huỷ lệnh chờ khi giá tạo đỉnh cách 1 trước khi khớp.)
     return trades
 
 
