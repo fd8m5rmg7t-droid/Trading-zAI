@@ -62,8 +62,16 @@ for sg in segs:
         ax.annotate("", xy=(bi, bp), xytext=(ai, ap), arrowprops=dict(arrowstyle="-|>", color="#6a1b9a", lw=1.8), zorder=6)
         nxt = pts[q + 2] if q + 2 < len(pts) else None
         xe = nxt[0] if nxt else n
-        ax.plot([bi, xe], [mid, mid], color="#6a1b9a", ls="--", lw=1.2, zorder=5)
-        ax.text(bi + .2, mid, f"50% {mid:.1f}", fontsize=8, color="#6a1b9a", va="bottom" if up else "top", fontweight="bold")
+        # PnD: vẽ từ đỉnh tới đáy của pha đẩy, kéo dài suốt pha hồi
+        hi_, lo_ = max(ap, bp), min(ap, bp); x0 = min(ai, bi) - .4
+        ax.add_patch(plt.Rectangle((x0, mid), xe - x0, hi_ - mid, color="#ffcdd2", alpha=.45, zorder=1, lw=0))
+        ax.add_patch(plt.Rectangle((x0, lo_), xe - x0, mid - lo_, color="#c8e6c9", alpha=.5, zorder=1, lw=0))
+        for yy in (hi_, lo_):
+            ax.plot([x0, xe], [yy, yy], color="#555", lw=.9, zorder=2)
+        ax.plot([x0, xe], [mid, mid], color="#6a1b9a", ls="--", lw=1.3, zorder=5)
+        ax.text(xe, mid, f" 50% {mid:.1f}", fontsize=8, color="#6a1b9a", va="center", fontweight="bold")
+        ax.text(xe, (hi_ + mid) / 2, " premium", fontsize=8, color="#c62828", va="center", fontweight="bold")
+        ax.text(xe, (lo_ + mid) / 2, " discount", fontsize=8, color="#2e7d32", va="center", fontweight="bold")
         # POI hợp lệ trong pha đẩy
         A = seg if up else bt.neg(seg); sgn = 1 if up else -1
         for i in range(min(ai, bi), max(ai, bi) + 1):
@@ -105,9 +113,9 @@ for i, x in enumerate(seg):
     if bt.blocked(x.t):
         ax.add_patch(plt.Rectangle((i - .5, LO - RG * .1), 1, RG * .025, color="#757575", zorder=2))
 ticks = list(range(0, n, 4)); ax.set_xticks(ticks); ax.set_xticklabels([seg[i].t[11:] for i in ticks], fontsize=8.5)
-ax.set_xlim(-1, n + 2); ax.set_ylim(LO - RG * .13, HI + RG * .15)
+ax.set_xlim(-1, n + 6); ax.set_ylim(LO - RG * .13, HI + RG * .15)
 ax.set_title(f"XAUUSD M15 – cả ngày {seg[1].t[8:10]}/{seg[1].t[5:7]}/{seg[1].t[:4]}: xu hướng (nền xanh tăng / đỏ giảm / xám chưa rõ), "
-             "đường giá (đen), pha đẩy (tím), 50%, POI hợp lệ (tím nhạt), thanh khoản (cam), lệnh (xanh dương)", loc="left", fontsize=12, fontweight="bold")
+             "đường giá (đen), pha đẩy (tím) + PnD (hồng: premium, xanh: discount), POI (tím nhạt), thanh khoản (cam), lệnh (xanh dương)", loc="left", fontsize=12, fontweight="bold")
 ax.text(.01, -.05, "Nền đậm: đang phá đỉnh/đáy; nền nhạt: đi ngang trong xu hướng. Vạch xám dưới đáy: giờ cấm giao dịch. Nét chấm tím ngang theo lệnh: SL cứng.",
         transform=ax.transAxes, va="top", fontsize=10)
 plt.tight_layout(); out = f"backtest/ca-ngay-{DAY}.png"; plt.savefig(out, dpi=80); print(out)
