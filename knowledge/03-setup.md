@@ -113,6 +113,7 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Pha hồi:** sau khi giá phá đỉnh/đáy, giá **hồi về một vùng giá nào đó** rồi mới tiếp tục đẩy. Tương ứng **phase 1 và phase 3** cũ.
 - PnD đo trên **pha đẩy gần nhất**; **pha hồi hợp lệ khi chạm ít nhất 50%**; hồi không đủ mà đẩy tiếp luôn → **order flow thiếu** (đã xác nhận).
 - **Khai thác pha đẩy** (thuận xu hướng): vào lệnh ở **cuối pha hồi**. **Khai thác pha hồi** (ngược xu hướng): chốt lời toàn bộ khi giá chạm **POI có giá trị gần nhất** (đã xác nhận).
+- **Mốc đảo chiều (đã xác nhận, xem `examples/nguoi-dung-ve/`):** mốc để xét **dấu hiệu đảo chiều** luôn là đỉnh/đáy của **pha hồi ĐỦ gần nhất** (hoặc đỉnh/đáy gốc). Đỉnh/đáy của **pha hồi KHÔNG đủ** chỉ là **thanh khoản**: giá đi qua nó là quét thanh khoản (cơ hội vào lệnh), KHÔNG phải đảo chiều. Ví dụ: xu hướng tăng, Đáy 2 hồi không đủ → phải phá Đáy 1 mới có dấu hiệu đảo chiều.
 - **PnD sau pha hồi không đủ (đã xác nhận, THAY quy tắc cũ ở mục 5):** pha đẩy tiếp theo đo **từ đỉnh nông (giảm) / đáy nông (tăng)** của pha hồi không đủ, không giữ điểm bắt đầu cũ nữa.
 - **Pha hồi không đủ (đã xác nhận):** mục đích chủ yếu là **tìm vùng thanh khoản**. Xu hướng **giảm**: **đỉnh** của pha hồi không đủ là **thanh khoản**. Xu hướng **tăng**: **đáy** của pha hồi không đủ là thanh khoản. Đường giá đi qua cả đỉnh/đáy của pha hồi không đủ (đường đen do người dùng vẽ trên ngày 22/10).
 - Minh họa trên dữ liệu thật: `backtest/pha-day-hoi-2026-10-22.png`.
