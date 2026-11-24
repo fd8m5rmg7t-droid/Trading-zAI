@@ -212,3 +212,10 @@ Khi pha hồi từ đỉnh đã tạo đáy (cách 1) mà chưa chạm 50% → k
 | M15 | 2026 | 47 | 8/33/6 | **+15.4R** | −8.8R | −6.5R | +9.0R | +13.3R |
 
 - Số lệnh giảm khoảng 1/3 (M15) và hơn 1/2 (M1). M15: tổng R mỗi lệnh tăng (2025: +1.15R/lệnh), 2026 nhỉnh hơn Lần 18.
+
+### Sóng bị khoá (quy tắc B4/C2) – M15
+`backtest/song-khoa-m15/2025/` và `/2026/`, vẽ bằng `python3 tools/ve_song_khoa.py nen_M1.csv thu_muc_ra NHAN`.
+| Năm | Sóng bị khoá | A. về discount trước khi phá đỉnh (bỏ lỡ, đã vẽ) | B. phá đỉnh luôn | D. hết ngày |
+|---|---|---|---|---|
+| 2025 | 377 | 102 | 209 | 66 |
+| 2026 | 311 | 77 | 179 | 55 |

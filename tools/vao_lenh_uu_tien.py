@@ -120,7 +120,7 @@ def _info(rec, tr):
         rec["vung_tren"] = rec["vung_duoi"] = ""
 
 
-def run(bars, side, spread=0.3, hard_buf=3.0, diag=None):
+def run(bars, side, spread=0.3, hard_buf=3.0, diag=None, khoa=None):
     D = diag if diag is not None else {}
     inc = lambda key: D.__setitem__(key, D.get(key, 0) + 1)
     ctx, liqs = analyze_daily_full(bars, inverted=(side == "SELL"))
@@ -141,11 +141,16 @@ def run(bars, side, spread=0.3, hard_buf=3.0, diag=None):
             # Pha hồi từ đỉnh T đã TẠO ĐÁY (cách 1) mà chưa chạm 50% → đáy nông = thanh khoản; sóng này KHÔNG được BUY,
             # phải đợi thân nến phá đỉnh (sóng mới). Áp dụng cho B4 và C2 (người dùng xác nhận 24/11/2026).
             while wave["q"] <= j and not wave["khoa"]:
-                q = wave["q"]; wave["lo"] = min(wave["lo"], bars[q].l)
+                q = wave["q"]
+                if bars[q].l < wave["lo"]:
+                    wave["lo"], wave["lo_i"] = bars[q].l, q
                 if q > T.i and bars[q].c > bars[q - 1].h and wave["lo"] > wave["mid"] and setup is None:
                     wave["khoa"] = True
                     if not wave["done"]:
                         inc("x_khoa_song_day_nong")
+                        if khoa is not None:
+                            khoa.append({"side": side, "Bi": B.i, "Bp": B.price, "Ti": T.i, "Tp": T.price, "mid": wave["mid"],
+                                         "lo_i": wave["lo_i"], "lo": wave["lo"], "j": q})
                 wave["q"] += 1
             if wave["khoa"] and trade is None:
                 wave["done"] = True
