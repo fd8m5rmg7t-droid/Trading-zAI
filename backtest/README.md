@@ -129,3 +129,9 @@ Khác biệt nhỏ: quy tắc mở đầu ngày chỉ ảnh hưởng tới vài 
 - GIẢM: có đỉnh thấp hơn → phá đáy gần nhất → đáy thấp hơn được xác nhận. TĂNG: phá đỉnh trước đó → đáy cao hơn được xác nhận.
 - Khi tăng được xác nhận bằng "phá đỉnh rồi đáy cao hơn", pha hồi của pha đẩy đó đã xong → không vào lệnh trên sóng này.
 - M15/M15 mỗi ngày, không cần POI: 20 lệnh, thắng 2 thua 18, **+1.51R**. M1/M1: 342 lệnh, thắng 69 thua 273, **+15.79R**.
+
+## Lần 12 – sửa lỗi so sánh "đỉnh thấp hơn" (quy tắc giảm) + lỗi vẽ điểm cuối pha hồi
+- Lỗi: quy tắc giảm đang kiểm tra ngược (đỉnh CAO hơn thay vì THẤP hơn) → ngày 06/11 bị xác nhận giảm sai lúc 14:45; nay xác nhận lúc 19:15.
+- M15/M15 mỗi ngày, không cần POI: 25 lệnh, thắng 3 thua 19 hòa 3, **−1.37R**, sụt −5.43R.
+- M1/M1: 444 lệnh, thắng 103 thua 341, **+44.94R**, sụt −10.16R.
+- Hình cả ngày: `ca-ngay-2026-11-06.png`, `ca-ngay-2026-09-04.png`, `ca-ngay-2026-09-16.png`.

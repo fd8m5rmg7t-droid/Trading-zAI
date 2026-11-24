@@ -53,7 +53,7 @@ for sg in segs:
     sc = r.ctx[b][3]
     if sc is not None:
         rng = range(pts[-1][0] + 1, sc)
-    if len(rng):
+    if len(rng) and len(pts) % 2 == 0:          # chỉ thêm điểm cuối pha hồi khi đang kết thúc ở một đỉnh/đáy của pha đẩy
         j = min(rng, key=lambda q: seg[q].l) if up else max(rng, key=lambda q: seg[q].h)
         pts.append((j, seg[j].l if up else seg[j].h))
     ax.plot([p[0] for p in pts], [p[1] for p in pts], color="#111", lw=2.4, zorder=5, alpha=.85)

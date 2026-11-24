@@ -95,7 +95,7 @@ def analyze(bars, start_rule=None, inverted=False, trend_rule="user"):
             KE, KC = ("T", "B") if dirn == "UP" else ("B", "T")
             v = lambda x: sg * x
             last = hist[-1]
-            if how == "ctb":        # counter (đỉnh thấp hơn) rồi break (phá đáy), xác nhận khi cực trị mới được xác nhận
+            if how == "ctb":        # counter (đỉnh thấp hơn: v lớn hơn khi sg=-1) rồi break (phá đáy), xác nhận khi cực trị mới được xác nhận
                 if last.kind != KE:
                     continue
                 Es = [w for w in hist if w.kind == KE]
@@ -106,7 +106,7 @@ def analyze(bars, start_rule=None, inverted=False, trend_rule="user"):
                 Cp = [w for w in hist if w.kind == KC and w.i < Ep.i]
                 if not Ck or not Cp:
                     continue
-                if v(En.price) > v(Ep.price) and v(Ck[-1].price) < v(Cp[-1].price):
+                if v(En.price) > v(Ep.price) and v(Ck[-1].price) > v(Cp[-1].price):
                     rng = range(Ep.i, En.i + 1)
                     k = max(rng, key=lambda q: H[q]) if KC == "T" else min(rng, key=lambda q: L[q])
                     other = add(Swing(KC, k, H[k] if KC == "T" else L[k], i, "between"))
