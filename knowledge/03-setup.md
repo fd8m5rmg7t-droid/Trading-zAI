@@ -117,10 +117,11 @@ Ví dụ chart thật: `examples/01-dinh-day-xauusd-h4.jpg`
 - **Mốc đảo chiều (đã xác nhận, xem `examples/nguoi-dung-ve/`):** mốc để xét **dấu hiệu đảo chiều** luôn là đỉnh/đáy của **pha hồi ĐỦ gần nhất** (hoặc đỉnh/đáy gốc). Đỉnh/đáy của **pha hồi KHÔNG đủ** chỉ là **thanh khoản**: giá đi qua nó là quét thanh khoản (cơ hội vào lệnh), KHÔNG phải đảo chiều. Ví dụ: xu hướng tăng, Đáy 2 hồi không đủ → phải phá Đáy 1 mới có dấu hiệu đảo chiều.
 - ~~PnD sau pha hồi không đủ đo từ đáy/đỉnh nông~~ → **ĐÃ THAY (24/11):** PnD (cả đường 50% xét hồi đủ lẫn vùng chọn POI) đo trên sóng **từ mốc cấu trúc** (đáy/đỉnh của pha hồi đủ gần nhất) đến đỉnh/đáy mới – ví dụ **Đáy 1 → Đỉnh 2**. Đáy/đỉnh nông chỉ là thanh khoản.
 - **Thân nến đóng cửa dưới Đáy 2 (đã xác nhận, `examples/41-than-dong-duoi-day-2.png`):** Đáy 2 nằm trong discount của PnD Đáy 1 → Đỉnh 2 → khai thác bình thường ngay tại đó (chờ nến tạo đáy theo cách 1, vào lệnh ở 1/2 râu); Đáy 2 nằm trong premium → chờ giá về POI trong discount.
-- **Thứ tự ưu tiên vùng vào lệnh (người dùng vẽ 24/11, `examples/nguoi-dung-ve/uu-tien-*.png`, CHỜ chốt chi tiết):**
+- **Thứ tự ưu tiên vùng vào lệnh (đã xác nhận 24/11, `examples/nguoi-dung-ve/uu-tien-*.png`; code: `tools/vao_lenh_uu_tien.py`):**
   1. Thanh khoản nằm ngay TRÊN POI (cả hai trong discount) → khai thác khi giá **quét thanh khoản VÀ râu nến chạm vào POI**.
   2. POI nằm TRÊN thanh khoản → khai thác khi giá **quét thanh khoản** (bỏ qua POI).
   3. FVG nằm TRÊN POI → FVG **có thể khai thác độc lập** với POI.
+  - Chi tiết đã chốt: (1) quét thanh khoản mà râu CHƯA chạm POI → không vào; điểm vào/SL theo quy tắc quét. (2) FVG vào lệnh giống POI, phải nằm trong discount, dùng một lần. (3) Không có vùng nào → vẫn khai thác bình thường khi chạm 50%. (4) Nhiều vùng → vùng giá chạm trước ưu tiên; lệnh vùng trên bị dừng lỗ → ĐƯỢC vào tiếp ở vùng dưới.
 - **Khi giá về thanh khoản (đáy nông Đáy 2):** có nến QUÉT → vào lệnh kiểu thanh khoản (TH2). Thân nến đóng cửa dưới Đáy 2 → bỏ kiểu thanh khoản, chờ POI (TH3). Người dùng thêm: nếu Đáy 2 nằm trong discount của PnD Đáy 1 → Đỉnh 2 thì vẫn "khai thác bình thường" (chờ duyệt cách hiểu – xem `examples/41-than-dong-duoi-day-2.png`).
 - **Pha hồi không đủ (đã xác nhận):** mục đích chủ yếu là **tìm vùng thanh khoản**. Xu hướng **giảm**: **đỉnh** của pha hồi không đủ là **thanh khoản**. Xu hướng **tăng**: **đáy** của pha hồi không đủ là thanh khoản. Đường giá đi qua cả đỉnh/đáy của pha hồi không đủ (đường đen do người dùng vẽ trên ngày 22/10).
 - Minh họa trên dữ liệu thật: `backtest/pha-day-hoi-2026-10-22.png`.

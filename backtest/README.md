@@ -152,3 +152,11 @@ Vào lệnh vẫn theo cách cũ (không cần POI: hồi chạm 50% → tạo �
 | M1/M1 2025 | 807 | 95/710 | −22.4R | −27.1R |
 | M1/M1 2026 (đến 14/11) | 677 | 74/600 | +85.2R | −24.2R |
 | M15/M15 08–11/2026 | 21 | 2/18 | −3.7R | |
+
+## Lần 15 – thứ tự ưu tiên vùng vào lệnh (thanh khoản / POI / FVG / bình thường), M1/M1 (`tools/vao_lenh_uu_tien.py`)
+| Năm | Lệnh | Thắng/Thua | Tổng (0.3) | 0.2 | 0.5 | Sụt giảm | Bỏ 5 lệnh lãi lớn nhất |
+|---|---|---|---|---|---|---|---|
+| 2025 | 388 | 39/347 | **−10.9R** | +0.7R | −34.1R | −23.5R | −36.8R |
+| 2026 (đến 14/11) | 320 | 34/283 | **+64.7R** | +73.5R | +47.0R | −30.0R | −24.2R |
+- Theo kiểu: 2025 – FVG 174 lệnh −6.3R, bình thường 126 −0.9R, POI 35 +3.2R, quét TK 49 −5.9R. 2026 – FVG 164 +71.4R, bình thường 88 +9.4R, POI 38 −12.6R, quét TK 28 −3.1R.
+- Kết quả phụ thuộc vài lệnh rất lớn (30/01/2026 +43.9R); bỏ 5 lệnh lớn nhất thì cả hai năm đều âm.
