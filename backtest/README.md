@@ -160,3 +160,13 @@ Vào lệnh vẫn theo cách cũ (không cần POI: hồi chạm 50% → tạo �
 | 2026 (đến 14/11) | 320 | 34/283 | **+64.7R** | +73.5R | +47.0R | −30.0R | −24.2R |
 - Theo kiểu: 2025 – FVG 174 lệnh −6.3R, bình thường 126 −0.9R, POI 35 +3.2R, quét TK 49 −5.9R. 2026 – FVG 164 +71.4R, bình thường 88 +9.4R, POI 38 −12.6R, quét TK 28 −3.1R.
 - Kết quả phụ thuộc vài lệnh rất lớn (30/01/2026 +43.9R); bỏ 5 lệnh lớn nhất thì cả hai năm đều âm.
+
+## Lần 16 – thứ tự ưu tiên vùng (đã duyệt 9 trường hợp, `examples/42-...`), cả năm, M1/M1 và M15/M15
+| Khung | Năm | Lệnh | Thắng/Thua/Hòa | Tổng (0.3) | Sụt giảm | Bỏ 3 lệnh lãi lớn nhất | Chi phí 1.0 |
+|---|---|---|---|---|---|---|---|
+| M1 | 2025 | 388 | 39/347/2 | −10.9R | −23.5R | −29.4R | |
+| M1 | 2026 | 320 | 34/283/3 | +64.7R | −30.0R | −2.7R | |
+| M15 | 2025 | 43 | 12/30/1 | **+28.0R** | −6.1R | +5.2R | +20.7R |
+| M15 | 2026 | 38 | 6/26/6 | **+12.0R** | −6.5R | −9.9R | +7.3R |
+- M15 dương cả hai năm và ít nhạy với chi phí (khoảng rủi ro trung vị 4–6 giá); nhưng chỉ ~40 lệnh/năm → mẫu nhỏ.
+- M1 vẫn phụ thuộc vài lệnh rất lớn và chi phí. Đường lợi nhuận: `uu-tien-2025-2026-equity.png`.
