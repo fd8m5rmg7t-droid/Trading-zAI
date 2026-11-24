@@ -58,6 +58,8 @@ class Zone:
     def __init__(self, kind, top, bot, liq=None, poi=None, t=""):
         self.kind, self.top, self.bot, self.liq, self.poi, self.t = kind, top, bot, liq, poi, t
         self.used = False
+        self.poi_hi = top if kind in ("poi", "fvg") else None
+        self.poi_lo = bot if kind in ("poi", "fvg") else None
 
 
 def build_zones(B, T, mid, bars, k, liqs):
@@ -87,7 +89,8 @@ def build_zones(B, T, mid, bars, k, liqs):
         below = [x for x in lq if x < bars[p].l]
         if above:
             x = min(above); used_liq.add(x)
-            zones.append(Zone("liq+poi", x, bars[p].l, liq=x, poi=p, t=bars[p].t))
+            zz = Zone("liq+poi", x, bars[p].l, liq=x, poi=p, t=bars[p].t); zz.poi_hi, zz.poi_lo = H(p), bars[p].l
+            zones.append(zz)
         elif below:
             skip_poi.add(p)                        # POI nằm trên thanh khoản → bỏ POI
         else:
@@ -101,6 +104,18 @@ def build_zones(B, T, mid, bars, k, liqs):
         zones.append(Zone("normal", mid, B.price))
     zones.sort(key=lambda z: -z.top)
     return zones
+
+
+def _info(rec, tr):
+    """Ghi thêm mức thanh khoản và khung POI/FVG (giá thật) vào bản ghi lệnh."""
+    sg = 1 if tr["side"] == "BUY" else -1
+    z = tr["zone"]
+    rec["tk"] = sg * z.liq if z.liq is not None else ""
+    if z.kind in ("poi", "liq+poi", "fvg"):
+        hi, lo = z.poi_hi, z.poi_lo
+        rec["vung_tren"], rec["vung_duoi"] = (sg * hi, sg * lo) if sg > 0 else (sg * lo, sg * hi)
+    else:
+        rec["vung_tren"] = rec["vung_duoi"] = ""
 
 
 def run(bars, side, spread=0.3, hard_buf=3.0, diag=None):
@@ -134,6 +149,7 @@ def run(bars, side, spread=0.3, hard_buf=3.0, diag=None):
                     trade["be"] = True; trade["notes"].append(f"{b.t} đỉnh thấp hơn → SL về điểm vào")
             if trade["done"]:
                 trades[-1]["kieu"] = trade["kind"]
+                _info(trades[-1], trade)
                 if wave is not None and not trades[-1]["exit"].startswith("SL"):
                     wave["done"] = True
                 trade = None; setup = None
@@ -204,10 +220,11 @@ def run(bars, side, spread=0.3, hard_buf=3.0, diag=None):
                          "low": setup["low"], "hard": setup["hard"], "T": wave["T"].price,
                          "poi": eng.Bar(zz.t or b.t, 0, zz.top, zz.bot, 0), "t_in": b.t, "j_in": j, "size": 1.0, "be": False,
                          "tp1": False, "pnl": 0.0, "done": False, "broke": False, "maxh": b.h, "spread": spread, "be_tf": "M15",
-                         "notes": [], "kind": setup["kind"]}
+                         "notes": [], "kind": setup["kind"], "zone": zz}
                 bt._manage(trade, bars, j, trades, None, first=True)
                 if trade["done"]:
                     trades[-1]["kieu"] = trade["kind"]
+                    _info(trades[-1], trade)
                     if not trades[-1]["exit"].startswith("SL"):
                         wave["done"] = True
                     trade = None
