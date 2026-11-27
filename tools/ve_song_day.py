@@ -42,8 +42,8 @@ def ve(bars, so, r, q_end, path, nhan):
         ax.text(b + .3, y, f"{lab}" if "50%" in lab else f"{lab}  {y:.2f}", color=c, fontsize=9, va="center", fontweight="bold")
     ax.axvline(r["j"], color="#ef6c00", ls=":", lw=1.2); ax.text(r["j"], hi_all + rg * .02, "khoá", color="#ef6c00", fontsize=9, ha="center", fontweight="bold")
     ax.axvline(q_end, color="#333", ls=":", lw=1.2); ax.text(q_end, hi_all + rg * .02, "chạm 50%", color="#333", fontsize=9, ha="center", fontweight="bold")
-    step = max(1, (b - a) // 12); ticks = list(range(a, b, step))
-    ax.set_xticks(ticks); ax.set_xticklabels([bars[i].t[5:] for i in ticks], fontsize=8)
+    step = max(2, (b - a) // 12); ticks = list(range(a, b, step))
+    ax.set_xticks(ticks); ax.set_xticklabels([bars[i].t[5:].replace(" ", "\n") for i in ticks], fontsize=8)
     ax.set_ylim(lo_all - rg * .12, hi_all + rg * .07); ax.set_xlim(a - 1, b + 6)
     ax.grid(axis="y", alpha=.25)
     ax.set_title(f"{nhan} #{so} – {r['side']} – sóng đẩy {bars[r['Bi']].t} → {bars[r['Ti']].t}   "
